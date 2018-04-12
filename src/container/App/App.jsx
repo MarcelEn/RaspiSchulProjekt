@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Login from '../../components/Login/Login.jsx';
+import Registration from '../../components/Registration/Registration.jsx';
 import UIWrapper from '../../components/UIWrapper/UIWrapper.jsx';
 import { Route } from 'react-router-dom';
 
@@ -15,11 +16,16 @@ class App extends Component {
                     {
                         value: 'Login',
                         path: '/login'
+                    },
+                    {
+                        value: 'Registrieren',
+                        path: '/registration'
                     }
                 ]}
 
             >
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/registration" component={Registration} />
             </UIWrapper>
         );
     }
