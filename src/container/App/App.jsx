@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import WelcomeToReact from '../../components/welcometoreact/WelcomeToReact.jsx';
+import Login from '../../components/Login/Login.jsx';
+import UIWrapper from '../../components/UIWrapper/UIWrapper.jsx';
+import { Route } from 'react-router-dom';
 
-import {actions} from '../../actions';
+import { actions } from '../../actions';
 
 class App extends Component {
-  render() {
-    return (
-        <WelcomeToReact 
-            message={this.props.ui.message}
-            fetchServerSideTime={this.props.fetchServerSideTime}
-            serverSideTime={this.props.data.serverSideTime}
-        />
-    );
-  }
+    render() {
+        return (
+            <UIWrapper
+                links={[
+                    {
+                        value: 'Login',
+                        path: '/login'
+                    }
+                ]}
+
+            >
+                <Route exact path="/login" component={Login} />
+            </UIWrapper>
+        );
+    }
 }
 
 function mapStateToProps(state) {
@@ -23,7 +31,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchServerSideTime: () => {dispatch(actions.fetchServerSideTime())}
+        fetchServerSideTime: () => { dispatch(actions.fetchServerSideTime()) }
     }
 }
 
