@@ -59,24 +59,33 @@ const Registratino = props => (
                     onChange={props.handleUserinput}
                 />
             </FormGroup>
-            <FormGroup>
+            <FormGroup validationState={props.displayPasswordError ? 'error' : null}>
                 <FormControl
                     type="password"
                     value={props.password}
                     placeholder="Passwort*"
                     name="password"
                     onChange={props.handleUserinput}
+                    onBlur={props.handlePasswordRepeateLeave}
                 />
             </FormGroup>
-            <FormGroup>
+            <FormGroup validationState={props.displayPasswordError ? 'error' : null}>
                 <FormControl
                     type="password"
                     value={props.repeatPassword}
                     placeholder="Passwort wiederholen*"
                     name="repeatPassword"
                     onChange={props.handleUserinput}
+                    onBlur={props.handlePasswordRepeateLeave}
                 />
             </FormGroup>
+            <Collapse in={props.displayPasswordError}>
+                <FormGroup>
+                    <Alert bsStyle="danger">
+                        Die eingegebenen Passwörter sind nicht identisch.
+                    </Alert>
+                </FormGroup>
+            </Collapse>
             <FormGroup>
                 <HelpBlock>* - Pflichtfelder</HelpBlock>
             </FormGroup>
@@ -85,6 +94,7 @@ const Registratino = props => (
                 className={style.large} 
                 bsStyle="success"
                 disabled={props.disableSubmitButton}
+                onClick={props.handleSubmit}
                 >
                     Registrieren
                 </Button>

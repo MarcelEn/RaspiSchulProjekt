@@ -8,7 +8,7 @@ import { proxyToValue, proxyToName } from '../../globalFunctions';
 
 //TODO: Connect Registration to middleware and implement error features in the dumb Component
 class Registration extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             username: '',
@@ -16,36 +16,54 @@ class Registration extends Component {
             lastname: '',
             email: '',
             password: '',
-            repeatPassword: ''
+            repeatPassword: '',
+            displayPasswordError: false
         }
         this.handleUserinput = this.handleUserinput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePasswordRepeateLeave = this.handlePasswordRepeateLeave.bind(this);
         this.shouldDisableSubmitButton = this.shouldDisableSubmitButton.bind(this);
     }
 
     handleUserinput(proxy) {
-        this.setState({ [proxyToName(proxy)]: proxyToValue(proxy) })
+        const name = proxyToName(proxy);
+        if (name === 'password' || name === 'repeatPassword') {
+            this.setState({ [name]: proxyToValue(proxy), displayPasswordError: false })
+        } else {
+            this.setState({ [name]: proxyToValue(proxy) })
+        }
     }
 
-    handleSubmit(){
+    handleSubmit() {
         console.log(this.state);
     }
-    shouldDisableSubmitButton(){
-        const oneIsMissing = Object.keys(this.state).find( key => this.state[key]==='');
-        if(oneIsMissing || this.state.password !== this.state.repeatPassword){
+    shouldDisableSubmitButton() {
+        const oneIsMissing = Object.keys(this.state).find(key => this.state[key] === '');
+        if (oneIsMissing || this.state.password !== this.state.repeatPassword) {
             return true;
         }
         return false;
     }
+
+    handlePasswordRepeateLeave() {
+        if (this.state.password !== this.state.repeatPassword && this.state.repeatPassword !== '') {
+            this.setState({ displayPasswordError: true })
+        } else {
+            this.setState({ displayPasswordError: false })
+        }
+    }
+
     render() {
         return (
             <RegistrationDumb
                 {...this.state}
-                
+
                 disableSubmitButton={this.shouldDisableSubmitButton()}
 
                 handleSubmit={this.handleSubmit}
                 handleUserinput={this.handleUserinput}
+                displayPasswordError={this.state.displayPasswordError}
+                handlePasswordRepeateLeave={this.handlePasswordRepeateLeave}
             />
         );
     }
