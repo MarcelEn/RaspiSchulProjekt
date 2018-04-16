@@ -23,7 +23,7 @@ class Login extends Component {
     }
 
     handleSubmit() {
-        console.log(this.state)
+        this.props.sendLoginData(this.state);
     }
     handleUserinput(proxy) {
         this.setState({ [proxyToName(proxy)]: proxyToValue(proxy) })
@@ -48,12 +48,12 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-    return state;
+    return state.data.login;
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchServerSideTime: () => { dispatch(actions.fetchServerSideTime()) }
+        sendLoginData: loginData => { dispatch(actions.sendLoginData(loginData)) }
     }
 }
 

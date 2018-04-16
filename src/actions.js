@@ -1,14 +1,26 @@
 export const actionNames = {
-    APPLY_SERVER_SIDE_TIME: 'APPLY_SERVER_SIDE_TIME',
-    FETCH_SERVER_SIDE_TIME: 'FETCH_SERVER_SIDE_TIME',
+    SEND_LOGIN_DATA: 'SEND_LOGIN_DATA',
+    SET_LOGIN_LOADING: 'SET_LOGIN_LOADING',
+    SET_LOGIN_ERROR: 'SET_LOGIN_ERROR'
 }
 
 export const actions = {
-    applyServerSideTime: time => ({
-        type: actionNames.APPLY_SERVER_SIDE_TIME,
-        payload: time
-    }),
-    fetchServerSideTime: () => ({
-        type: actionNames.FETCH_SERVER_SIDE_TIME
-    })
+    sendLoginData: loginData => (
+        {
+            type: actionNames.SEND_LOGIN_DATA,
+            payload: loginData
+        }
+    ),
+    setLoginError: status => (
+        {
+            type: actionNames.SET_LOGIN_ERROR,
+            payload: status
+        }
+    ),
+    setLoginLoading: status => (
+        {
+            type: actionNames.SET_LOGIN_LOADING,
+            payload: status
+        }
+    )
 }

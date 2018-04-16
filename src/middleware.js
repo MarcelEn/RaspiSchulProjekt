@@ -1,30 +1,15 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
-import axios from 'axios';
-import {actions, actionNames} from './actions';
+import {
+    takeLatest
+} from 'redux-saga/effects'
+import {
+    actionNames
+} from './actions';
 
+import sendLoginData from './container/Login/middleware';
 
-const apiBasePath = '/api';
-
-const apiPaths = {
-    time: apiBasePath + '/time'
-}
-
-const api = {
-    getServerTime: () => axios.get(apiPaths.time)
-}
-
-function* fetchUser(action) {
-   try {
-      const response = yield call(api.getServerTime);
-      const time = response.data;
-      yield put(actions.applyServerSideTime(time));
-   } catch (e) {
-      yield put(actions.applyServerSideTime('error'));
-   }
-}
 
 function* mySaga() {
-  yield takeLatest(actionNames.FETCH_SERVER_SIDE_TIME, fetchUser);
+    yield takeLatest(actionNames.SEND_LOGIN_DATA, sendLoginData);
 }
 
 export default mySaga;
