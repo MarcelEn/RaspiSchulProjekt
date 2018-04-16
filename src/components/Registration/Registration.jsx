@@ -24,7 +24,7 @@ const Registratino = props => (
                 />
 
             </FormGroup>
-            <Collapse in={props.userNameInUse}>
+            <Collapse in={props.usernameInUse}>
                 <FormGroup>
                     <Alert bsStyle="danger">
                         Der Nutzername wird bereits verwendet.

@@ -64,13 +64,14 @@ class Registration extends Component {
                 handleUserinput={this.handleUserinput}
                 displayPasswordError={this.state.displayPasswordError}
                 handlePasswordRepeateLeave={this.handlePasswordRepeateLeave}
+                usernameInUse={this.props.usernameInUse}
             />
         );
     }
 }
 
 function mapStateToProps(state) {
-    return state;
+    return state.data.registration;
 }
 
 function mapDispatchToProps(dispatch) {
