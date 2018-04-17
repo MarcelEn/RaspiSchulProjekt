@@ -48,7 +48,7 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-    return state.data.login;
+    return state.data.loginData;
 }
 
 function mapDispatchToProps(dispatch) {

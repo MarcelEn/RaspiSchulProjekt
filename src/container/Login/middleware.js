@@ -7,7 +7,7 @@ import {
     actions
 } from './../../actions';
 
-export default function* (action) {
+export function* sendLoginData (action) {
     yield put(actions.setLoginLoading(true));
     yield put(actions.setLoginError(false));
 

@@ -2,16 +2,20 @@ import {
     combineReducers
 } from 'redux';
 import app from './container/App/reducer';
-import login from './container/Login/reducer';
+import loginData from './container/Login/reducerData';
+import registrationData from './container/Registration/reducerData';
 
 
 const data = combineReducers({
-    login
+    loginData,
+    registrationData
 });
 
-
+const ui = combineReducers({
+    app
+})
 
 export default combineReducers({
     data,
-    ui: app
+    ui
 })

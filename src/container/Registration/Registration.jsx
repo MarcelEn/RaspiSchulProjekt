@@ -71,7 +71,7 @@ class Registration extends Component {
 }
 
 function mapStateToProps(state) {
-    return state.data.registration;
+    return state.data.registrationData;
 }
 
 function mapDispatchToProps(dispatch) {

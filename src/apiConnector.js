@@ -6,7 +6,8 @@ const apiPrefix = 'api'
 
 const apiPaths = {
     sendLoginData: path.resolve(apiPrefix, version, 'account', 'login'),
-    sendRegistrationData: path.resolve(apiPrefix, version, 'account', 'registrierung')
+    sendRegistrationData: path.resolve(apiPrefix, version, 'account', 'registrierung'),
+    searchUsername: username => path.resolve(apiPrefix, version, 'nutzer', username),
 }
 
 
@@ -26,4 +27,7 @@ export default {
             email: registrationData.email
         })
     ),
+    searchUsername: username => (
+        () => axios.get(apiPaths.searchUsername(username))
+    )
 }
