@@ -3,12 +3,12 @@ var router = express.Router();
 var moment = require('moment');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('API');
-});
-
-router.get('/time', function(req, res, next) {
-  res.send(moment().format());
+router.get('/nutzer', function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    if(req.query.q === 'Marcel'){
+        res.send(JSON.stringify(['Marcel']));
+    }
+    res.send(JSON.stringify([]));
 });
 
 

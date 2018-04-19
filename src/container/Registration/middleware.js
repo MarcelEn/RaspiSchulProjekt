@@ -23,3 +23,16 @@ export function* sendRegistrationData(action) {
 
     }
 }
+
+export function* lookupRegistrationUsername(action) {
+    yield put(actions.setRegistrationUsernameInUse(false));
+
+    try {
+
+        const response = yield call(API.searchUsername(action.payload));
+        if(response.data[0] === action.payload){
+            yield put(actions.setRegistrationUsernameInUse(true));
+        }
+    } catch (error) {
+    }
+}

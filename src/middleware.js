@@ -10,12 +10,17 @@ import {
 } from './container/Login/middleware';
 
 import {
-    sendRegistrationData
+    sendRegistrationData,
+    lookupRegistrationUsername
 } from './container/Registration/middleware';
 
 
 function* mySaga() {
+    //Registration
     yield takeLatest(actionNames.SEND_REGISTRATION_DATA, sendRegistrationData);
+    yield takeLatest(actionNames.LOOKUP_REGISTRATION_USERNAME, lookupRegistrationUsername);
+
+    //Login
     yield takeLatest(actionNames.SEND_LOGIN_DATA, sendLoginData);
 }
 

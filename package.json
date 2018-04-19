@@ -99,5 +99,5 @@
     "extends": "react-app"
   },
   "homepage": "./",
-  "proxy": "http://localhost:80"
+  "proxy": "http://localhost:3001"
 }

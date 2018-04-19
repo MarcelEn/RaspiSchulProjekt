@@ -21,6 +21,7 @@ const Registratino = props => (
                     placeholder="Nutzername*"
                     name="username"
                     onChange={props.handleUserinput}
+                    onBlur={props.lookupUsername}
                 />
 
             </FormGroup>
@@ -28,7 +29,7 @@ const Registratino = props => (
                 <FormGroup>
                     <Alert bsStyle="danger">
                         Der Nutzername wird bereits verwendet.
-                </Alert>
+                    </Alert>
                 </FormGroup>
             </Collapse>
 

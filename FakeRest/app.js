@@ -27,6 +27,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(function(reg,res,next){
+    setTimeout(next, 1000);
+});
+
 app.use('/api/0.0.1/account', account);
 app.use('/api/0.0.1', rest);
 app.use(express.static(path.join(__dirname, 'public')));

@@ -7,7 +7,7 @@ const apiPrefix = 'api'
 const apiPaths = {
     sendLoginData: path.resolve(apiPrefix, version, 'account', 'login'),
     sendRegistrationData: path.resolve(apiPrefix, version, 'account', 'registrierung'),
-    searchUsername: username => path.resolve(apiPrefix, version, 'nutzer', username),
+    searchUsername: username => path.resolve(apiPrefix, version, 'nutzer?q=' + username),
 }
 
 

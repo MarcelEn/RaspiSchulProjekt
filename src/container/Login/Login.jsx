@@ -12,32 +12,28 @@ import { proxyToValue, proxyToName } from '../../globalFunctions';
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            username: '',
-            password: '',
-            stayLoggedIn: false
-        }
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUserinput = this.handleUserinput.bind(this);
         this.handleStayLoggedInCheckbox = this.handleStayLoggedInCheckbox.bind(this);
     }
 
     handleSubmit() {
-        this.props.sendLoginData(this.state);
+        this.props.sendLoginData(this.props.ui);
     }
+
     handleUserinput(proxy) {
-        this.setState({ [proxyToName(proxy)]: proxyToValue(proxy) })
+        this.props.setLoginInputField(proxyToName(proxy), proxyToValue(proxy));
     }
+
     handleStayLoggedInCheckbox() {
-        this.setState({ stayLoggedIn: !this.state.stayLoggedIn })
+        this.props.setLoginInputField('stayLoggedIn', !this.props.ui.stayLoggedIn);
     }
     render() {
         return (
             <LoginDumb
-                {...this.state}
-
-                loading={this.props.loading}
-                error={this.props.error}
+                {...this.props.ui}
+                {...this.props.data}
 
                 handleStayLoggedInCheckbox={this.handleStayLoggedInCheckbox}
                 handleSubmit={this.handleSubmit}
@@ -48,12 +44,17 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-    return state.data.loginData;
+    return {
+        data: state.data.loginData,
+        ui: state.ui.loginUi
+    }
+
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        sendLoginData: loginData => { dispatch(actions.sendLoginData(loginData)) }
+        sendLoginData: loginData => { dispatch(actions.sendLoginData(loginData)) },
+        setLoginInputField: (name, value) => { dispatch(actions.setLoginInputField(name, value)) },
     }
 }
 
