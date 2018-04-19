@@ -1,0 +1,6 @@
+.loadingSpinner{
+    padding-left: calc(50% - 8px);
+}
+.spacer{
+    height: 30px;
+}

@@ -15,6 +15,8 @@ export function* sendLoginData (action) {
 
         yield call(API.sendLoginData(action.payload));
         yield put(actions.setLoginLoading(false));
+        yield put(actions.setAppTokenIsValidated(true));
+        yield put(actions.setAppTokenIsSet(true));
 
     } catch (error) {
 

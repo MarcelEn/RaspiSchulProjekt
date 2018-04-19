@@ -1,47 +1,45 @@
 export const actionNames = {
-    //data:
-    SET_REGISTRATION_LOADING: 'SET_REGISTRATION_LOADING',
-    SET_REGISTRATION_ERROR: 'SET_REGISTRATION_ERROR',
-    SET_REGISTRATION_USERNAME_IN_USE: 'SET_REGISTRATION_USERNAME_IN_USE',
-    SEND_REGISTRATION_DATA: 'SEND_REGISTRATION_DATA',
-    LOOKUP_REGISTRATION_USERNAME: 'LOOKUP_REGISTRATION_USERNAME',
+    SET_APP_TOKEN_IS_SET: 'SET_APP_TOKEN_IS_SET',
+    SET_APP_TOKEN_IS_VALIDATED: 'SET_APP_TOKEN_IS_VALIDATED',
+    SET_APP_TOKEN_LOADING: 'SET_APP_TOKEN_LOADING',
+    SET_APP_TOKEN_ERROR: 'SET_APP_TOKEN_ERROR',
+    VALIDATE_APP_TOKEN: 'VALIDATE_APP_TOKEN',
 
-
-    //ui:
-    SET_REGISTRATION_INPUT_FIELD: 'SET_REGISTRATION_INPUT_FIELD',
+    SEND_LOGOUT: 'SEND_LOGOUT',
+    SET_LOGOUT_LOADING: 'SET_LOGOUT_LOADING'
 }
 
 export const actions = {
-    //data:
-    setRegistrationLoading: status => ({
-        type: actionNames.SET_REGISTRATION_LOADING,
+    setAppTokenIsSet: status => ({
+        type: actionNames.SET_APP_TOKEN_IS_SET,
         payload: status
     }),
-    setRegistrationError: status => ({
-        type: actionNames.SET_REGISTRATION_ERROR,
+    
+    setAppTokenIsValidated: status => ({
+        type: actionNames.SET_APP_TOKEN_IS_VALIDATED,
         payload: status
-    }),
-    setRegistrationUsernameInUse: status => ({
-        type: actionNames.SET_REGISTRATION_USERNAME_IN_USE,
-        payload: status
-    }),
-    sendRegistrationData: registrationData => ({
-        type: actionNames.SEND_REGISTRATION_DATA,
-        payload: registrationData
-    }),
-    lookupRegistrationUsername: username => ({
-        type: actionNames.LOOKUP_REGISTRATION_USERNAME,
-        payload: username
     }),
 
+    setAppTokenLoading: status => ({
+        type: actionNames.SET_APP_TOKEN_LOADING,
+        payload: status
+    }),
 
-    //ui
-    setRegistrationInputField: (name, value) => ({
-        type: actionNames.SET_REGISTRATION_INPUT_FIELD,
-        payload: {
-            name,
-            value
-        }
+    setAppTokenError: status => ({
+        type: actionNames.SET_APP_TOKEN_ERROR,
+        payload: status
+    }),
+
+    validateAppToken: () => ({
+        type: actionNames.VALIDATE_APP_TOKEN
+    }),
+
+    sendLogout: () => ({
+        type: actionNames.SEND_LOGOUT
+    }),
+    setLogoutLoading: status => ({
+        type: actionNames.SET_LOGOUT_LOADING,
+        payload: status
     })
 
 }
