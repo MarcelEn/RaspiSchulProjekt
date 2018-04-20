@@ -51,7 +51,7 @@ const Login = props => (
             </Collapse>
             <FormGroup>
                 <LoadingButton loading={props.loading}>
-                    <div className={style.spacer}>
+                    <div>
                         <Button
                             className={style.large}
                             bsStyle="success"

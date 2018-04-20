@@ -93,7 +93,7 @@ const Registratino = props => (
             </FormGroup>
             <FormGroup>
                 <LoadingButton loading={props.loading}>
-                    <div className={style.spacer}>
+                    <div>
                         <Button
                             className={style.large}
                             bsStyle="success"
