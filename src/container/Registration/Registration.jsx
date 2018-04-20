@@ -61,6 +61,7 @@ class Registration extends Component {
         return (
             <RegistrationDumb
                 {...this.props.ui}
+                {...this.props.data}
 
                 disableSubmitButton={this.shouldDisableSubmitButton()}
 

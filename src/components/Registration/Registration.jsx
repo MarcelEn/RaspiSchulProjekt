@@ -7,6 +7,7 @@ import Centering from '../Centering/Centering';
 import Card from '../Card/Card';
 
 import style from './style.css';
+import LoadingButton from '../LoadingButton/LoadingButton';
 
 const Registratino = props => (
     <Centering x className={style.width}>
@@ -91,14 +92,19 @@ const Registratino = props => (
                 <HelpBlock>* - Pflichtfelder</HelpBlock>
             </FormGroup>
             <FormGroup>
-                <Button 
-                className={style.large} 
-                bsStyle="success"
-                disabled={props.disableSubmitButton}
-                onClick={props.handleSubmit}
-                >
-                    Registrieren
-                </Button>
+                <LoadingButton loading={props.loading}>
+                    <div className={style.spacer}>
+                        <Button
+                            className={style.large}
+                            bsStyle="success"
+                            disabled={props.disableSubmitButton}
+                            onClick={props.handleSubmit}
+                        >
+                            Registrieren
+                        </Button>
+                    </div>
+                </LoadingButton>
+
             </FormGroup>
             <FormGroup>
                 <Link to='/login'>

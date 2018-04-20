@@ -8,9 +8,7 @@ const LoadingButton = props => (
             <PropagateLoader />
         </div>
         :
-        <div className={style.spacer}>
-            {props.children}
-        </div>
+        props.children
 )
 
 export default LoadingButton;

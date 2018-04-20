@@ -2,13 +2,13 @@ import React from 'react';
 
 import { FormControl, FormGroup, Button, Alert, Collapse, Checkbox } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { PropagateLoader } from 'react-spinners';
 
 
 import Centering from '../Centering/Centering';
 import Card from '../Card/Card';
 
 import style from './style.css';
+import LoadingButton from '../LoadingButton/LoadingButton';
 
 const Login = props => (
     <Centering x className={style.width}>
@@ -49,27 +49,20 @@ const Login = props => (
                     </Alert>
                 </FormGroup>
             </Collapse>
-            {
-                props.loading ?
-                    <FormGroup>
-                        <div className={style.loadingSpinner + ' ' + style.spacer}>
-                            <PropagateLoader />
-                        </div>
-                    </FormGroup>
-                    :
-                    <FormGroup>
-                        <div className={style.spacer}>
-                            <Button
-                                className={style.large}
-                                bsStyle="success"
-                                onClick={props.handleSubmit}
-                                disabled={props.username === '' || props.password === ''}
-                            >
-                                Login
+            <FormGroup>
+                <LoadingButton loading={props.loading}>
+                    <div className={style.spacer}>
+                        <Button
+                            className={style.large}
+                            bsStyle="success"
+                            onClick={props.handleSubmit}
+                            disabled={props.username === '' || props.password === ''}
+                        >
+                            Login
                             </Button>
-                        </div>
-                    </FormGroup>
-            }
+                    </div>
+                </LoadingButton>
+            </FormGroup>
             <FormGroup>
                 <Link to='/registration'>
                     Registrieren

@@ -15,7 +15,8 @@ export function* sendRegistrationData(action) {
 
         yield call(API.sendRegistrationData(action.payload));
         yield put(actions.setRegistrationLoading(false));
-
+        yield put(actions.setAppTokenIsValidated(true));
+        yield put(actions.setAppTokenIsSet(true));
     } catch (error) {
 
         yield put(actions.setRegistrationLoading(false));

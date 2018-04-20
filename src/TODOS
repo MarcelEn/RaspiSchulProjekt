@@ -1,4 +1,5 @@
 die ui von login und registration im reducer speichern - done
 registration api anbindug fertigstellen - done
+nach registration den login machen - done
 
-nach registration den login machen
+redirect zu root nach login / registrierung
