@@ -31,9 +31,13 @@ export function* lookupRegistrationUsername(action) {
     try {
 
         const response = yield call(API.searchUsername(action.payload));
-        if(response.data[0] === action.payload){
+
+        for (let i = 0; i < response.data.length; i++) {
+            yield put(actions.addUserData(response.data[i]))
+        }
+
+        if (response.data[0] === action.payload) {
             yield put(actions.setRegistrationUsernameInUse(true));
         }
-    } catch (error) {
-    }
+    } catch (error) {}
 }

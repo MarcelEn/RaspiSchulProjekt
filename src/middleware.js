@@ -19,7 +19,20 @@ import {
     sendLogout
 } from './container/App/middleware';
 
+import {
+    sendAddCalendarSearch
+} from './container/AddCalendar/middleware';
+
+import {
+    fetchUserDataById
+} from './container/App/middleware';
+
+
+
 function* mySaga() {
+    //AddCalendar
+    yield takeLatest(actionNames.SEND_ADD_CALENDAR_SEARCH, sendAddCalendarSearch);
+    
     //Tokenvalidation
     yield takeLatest(actionNames.VALIDATE_APP_TOKEN, validateAppToken);
 
@@ -32,6 +45,9 @@ function* mySaga() {
 
     //Logout
     yield takeLatest(actionNames.SEND_LOGOUT, sendLogout);
+
+    //shared App data
+    yield takeLatest(actionNames.FETCH_USER_DATA_BY_ID, fetchUserDataById)
 }
 
 export default mySaga;

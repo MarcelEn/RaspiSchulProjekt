@@ -6,3 +6,4 @@ redirect zu root nach login / registrierung
 popups
 fix popup width bug
 main
+finish CalendarDetails with middleware

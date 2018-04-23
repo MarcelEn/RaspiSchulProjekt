@@ -44,7 +44,9 @@ export const Popup = props => (
                     X
                 </Button>
             </div>
-            {props.children}
+            <div className={style.popupContent}>
+                {props.children}
+            </div>
         </Card>
     </Centering>
 )

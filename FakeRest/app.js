@@ -33,7 +33,7 @@ app.use(function(reg,res,next){
 });
 
 app.use('/api/0.0.1/account', account);
-app.use('/api/0.0.1', rest);
+app.use('/api/0.0.1/rest', rest);
 app.use(express.static(path.join(__dirname, 'public')));
 
 

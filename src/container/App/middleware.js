@@ -34,3 +34,11 @@ export function* sendLogout(action) {
     yield put(actions.setAppTokenIsValidated(false));
     yield put(actions.setLogoutLoading(false));
 }
+
+export function* fetchUserDataById(action) {
+    try {
+        yield call(API.fetchUserDataById(action.payload));
+    } catch (error) {
+
+    }
+}

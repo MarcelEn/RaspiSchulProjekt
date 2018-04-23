@@ -4,8 +4,8 @@
     left: 0;
     height: 100%;
     width: 100%;
-    opacity: 0.2;
-    background: black;
+    opacity: 0.6;
+    background: white;
     transition: 0.2s;
 }
 
@@ -18,4 +18,8 @@
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+.popupContent{
+    margin: 10px;
 }

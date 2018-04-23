@@ -9,8 +9,10 @@ const apiPaths = {
     sendLoginData: path.resolve(apiPrefix, version, 'account', 'login', 'loginData'),
     sendLogout: path.resolve(apiPrefix, version, 'account', 'logout'),
     sendRegistrationData: path.resolve(apiPrefix, version, 'account', 'registrierung'),
-    searchUsername: username => path.resolve(apiPrefix, version, 'nutzer?q=' + username),
+    searchUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?q=' + username),
+    getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     validateToken: path.resolve(apiPrefix, version, 'account', 'login', 'token'),
+    sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
 }
 
 
@@ -38,5 +40,19 @@ export default {
     ),
     searchUsername: username => (
         () => axios.get(apiPaths.searchUsername(username))
-    )
+    ),
+
+    sendAddCalendarSearch: (searchString, userId) => (
+        () => axios.get(apiPaths.sendAddCalendarSearch(searchString, userId))
+    ),
+
+    fetchUserDataById: userId => {
+        if (typeof userId === 'array') {
+            return () => axios.all(userId.map(id => axios.get(apiPaths.getUser(userId))), function (acct, perms) {
+                debugger;
+            });
+        } else {
+            return () => axios.get(apiPaths.getUser(userId))
+        }
+    }
 }

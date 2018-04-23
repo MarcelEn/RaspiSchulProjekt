@@ -7,8 +7,6 @@ import { actions } from '../../actions';
 import { proxyToValue, proxyToName } from '../../globalFunctions';
 
 
-
-//TODO: Connect Login to Middleware
 class Login extends Component {
     constructor(props) {
         super(props);

@@ -8,6 +8,7 @@ import {
 
 export default (state = {
     tokenIsSet: getCookie('accessToken') ? true : false,
+    userData: [],
     tokenIsValidated: false,
     tokenLoading: false,
     tokenError: false,
@@ -38,6 +39,21 @@ export default (state = {
             return {
                 ...state,
                 logoutLoading: action.payload
+            }
+        case actionNames.ADD_USER_DATA:
+            const index = state.userData.findIndex(user => user.user_id === action.payload.user_id);
+            if (index === -1) {
+                return {
+                    ...state,
+                    userData: [...state.userData, action.payload]
+                }
+            } else {
+                let newUserData = [...state.userData];
+                newUserData[index] = action.payload
+                return {
+                    ...state,
+                    userData: newUserData
+                }
             }
 
         default:

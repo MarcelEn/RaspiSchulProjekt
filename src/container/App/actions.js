@@ -9,6 +9,11 @@ export const actionNames = {
     SEND_LOGOUT: 'SEND_LOGOUT',
     SET_LOGOUT_LOADING: 'SET_LOGOUT_LOADING',
 
+
+    //shared data:
+    ADD_USER_DATA: 'ADD_USER_DATA',
+    FETCH_USER_DATA_BY_ID: 'FETCH_USER_DATA_BY_ID',
+
     //ui
     SET_POPUP_ID: 'SET_POPUP_ID',
     CLOSE_POPUP: 'CLOSE_POPUP',
@@ -48,6 +53,16 @@ export const actions = {
         payload: status
     }),
 
+
+    //shared data
+    addUserData: userData => ({
+        type: actionNames.ADD_USER_DATA,
+        payload: userData
+    }),
+    fetchUserDataById: userId => ({
+        type: actionNames.FETCH_USER_DATA_BY_ID,
+        payload: userId
+    }),
 
 
     //ui

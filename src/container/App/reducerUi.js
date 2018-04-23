@@ -3,7 +3,7 @@ import {
 } from '../../actions';
 
 export default (state = {
-    popupId: 'ADD_CALENDAR'
+    popupId: null
 }, action) => {
     switch (action.type) {
         case actionNames.CLOSE_POPUP:
