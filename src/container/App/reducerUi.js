@@ -2,12 +2,8 @@ import {
     actionNames
 } from '../../actions';
 
-import {
-    getCookie
-} from '../../globalFunctions';
-
 export default (state = {
-    popupId: null
+    popupId: 'ADD_CALENDAR'
 }, action) => {
     switch (action.type) {
         case actionNames.CLOSE_POPUP:

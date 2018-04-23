@@ -2,6 +2,7 @@ import {
     combineReducers
 } from 'redux';
 import appData from './container/App/reducerData';
+import appUi from './container/App/reducerUi';
 import loginData from './container/Login/reducerData';
 import loginUi from './container/Login/reducerUi';
 import registrationData from './container/Registration/reducerData';
@@ -17,6 +18,7 @@ const data = combineReducers({
 
 const ui = combineReducers({
     loginUi,
+    appUi,
     registrationUi
 })
 

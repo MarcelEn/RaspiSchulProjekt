@@ -2,9 +2,7 @@ import React from 'react';
 import style from './style.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import Calendar from 'react-calendar';
-import Centering from '../Centering/Centering';
-import PopupWrapper from '../Popup/PopupWrapper';
-
+import { popupId } from '../../constants';
 
 const Main = props => (
     <Row className={style.rowHeightCorrection}>
@@ -17,15 +15,13 @@ const Main = props => (
                     <Button
                         className={style.large}
                         bsStyle="primary"
-
+                        onClick={()=>{props.setPopupId(popupId.ADD_CALENDAR)}}
                     >
                         Kalender hinzufügen
                     </Button>
                 </div>
             </div>
         </Col>
-        <PopupWrapper>
-        </PopupWrapper>
     </Row>
 )
 

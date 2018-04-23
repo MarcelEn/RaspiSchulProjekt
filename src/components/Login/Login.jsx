@@ -11,7 +11,7 @@ import style from './style.css';
 import LoadingButton from '../LoadingButton/LoadingButton';
 
 const Login = props => (
-    <Centering x className={style.width}>
+    <Centering x y className={style.width}>
         <Card>
             <FormGroup>
                 <h3><b>Login</b></h3>

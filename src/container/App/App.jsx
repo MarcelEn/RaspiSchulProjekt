@@ -8,17 +8,19 @@ import Registration from '../Registration/Registration.jsx';
 import { Route, BrowserRouter } from 'react-router-dom';
 
 
-
+import { popupId } from '../../constants';
 import { actions } from '../../actions';
 import CenteredSpinner from '../../components/CenteredSpinner/CenteredSpinner';
 import Main from '../Main/Main';
+import Wrapper from '../../components/Wrapper/Wrapper';
+import { PopupWrapper, Popup } from '../../components/Popup/Popup';
 
 class App extends Component {
     componentWillMount() {
-        if(this.props.data.tokenIsSet){
+        if (this.props.data.tokenIsSet) {
             this.props.validateAppToken();
         }
-        
+
     }
     render() {
         return (
@@ -28,13 +30,26 @@ class App extends Component {
                         <CenteredSpinner />
                         :
                         this.props.data.tokenIsValidated ?
-                            <Main />
+                            <Wrapper>
+                                <Main />
+                                <PopupWrapper
+                                    closePopup={this.props.closePopup}
+                                    setPopupId={this.props.setPopupId}
+                                    popupId={this.props.ui.popupId}
+                                >
+
+                                    <Popup id={popupId.ADD_CALENDAR}>
+                                        <h1>Kalender Hinzufügen</h1>
+                                    </Popup>
+
+                                </PopupWrapper>
+                            </Wrapper>
                             :
-                            <div>
+                            <Wrapper>
                                 <Route exact path="/" component={Login} />
                                 <Route exact path="/login" component={Login} />
                                 <Route exact path="/registration" component={Registration} />
-                            </div>
+                            </Wrapper>
                 }
             </BrowserRouter>
         );
@@ -44,7 +59,7 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         data: state.data.appData,
-        // ui: state.ui.appUi
+        ui: state.ui.appUi
     };
 }
 
@@ -52,6 +67,8 @@ function mapDispatchToProps(dispatch) {
     return {
         validateAppToken: () => { dispatch(actions.validateAppToken()) },
         sendLogout: () => { dispatch(actions.sendLogout()) },
+        closePopup: () => { dispatch(actions.closePopup()) },
+
     }
 }
 

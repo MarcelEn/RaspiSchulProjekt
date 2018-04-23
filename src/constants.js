@@ -6,3 +6,7 @@ export const colors = {
 export const paths = {
 
 }
+
+export const popupId = {
+    ADD_CALENDAR: 'ADD_CALENDAR'
+}

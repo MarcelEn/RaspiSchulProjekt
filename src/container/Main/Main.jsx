@@ -9,7 +9,7 @@ class Main extends Component {
     render() {
         return (
             <MainDumb
-
+                setPopupId={this.props.setPopupId}
             />
         );
     }
@@ -22,7 +22,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        //validateAppToken: () => { dispatch(actions.validateAppToken()) },
+        setPopupId: id => { dispatch(actions.setPopupId(id)) },
     }
 }
 

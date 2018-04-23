@@ -1,12 +1,7 @@
-.centering{
-    display: inline;
-}
-.x{
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.y{
-    margin-top: auto;
-    margin-bottom: auto;
+.centering {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }

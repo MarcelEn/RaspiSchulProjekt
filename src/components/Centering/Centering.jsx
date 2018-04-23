@@ -2,28 +2,16 @@ import React from 'react';
 import style from './style.css';
 
 
-const getClassNames = props => {
-    if (!props.x && !props.y) {
-        return style.x + ' ' + style.y;
-    }
-    let className = '';
-    if (props.x) {
-        className += style.x;
-    }
-    if (props.x && props.y) {
-        className += ' ';
-    }
-    if (props.y) {
-        className += style.y;
-    }
+const getClassnames = props => {
     if(props.className){
-        className+= ' ' + props.className;
+        return style.centering + ' ' + props.className;
+    }else{
+        return style.centering;
     }
-    return className;
 }
 
 const Centering = props => (
-    <div className={getClassNames(props)}>
+    <div className={getClassnames(props)}>
         {props.children}
     </div>
 )
