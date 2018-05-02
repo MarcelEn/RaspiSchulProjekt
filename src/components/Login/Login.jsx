@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Centering from '../Centering/Centering';
 import Card from '../Card/Card';
 
-import style from './style.css';
+import style from './style_module.css';
 import LoadingButton from '../LoadingButton/LoadingButton';
 
 const Login = props => (

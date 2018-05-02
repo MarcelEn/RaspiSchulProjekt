@@ -13,10 +13,10 @@ const getUsers = store => store.data.appData.userData
 
 
 export function* sendAddCalendarSearch(action) {
+   
     const userData = yield select(getUsers);
-
     yield put(actions.setAddCalendarLoading(true));
-    yield put(actions.setAddCalendarError(true))
+    yield put(actions.setAddCalendarError(false))
 
     yield put(actions.applyAddCalendarResponse([]))
 
@@ -44,7 +44,6 @@ export function* sendAddCalendarSearch(action) {
         yield put(actions.applyAddCalendarResponse(response.data))
 
     } catch (error) {
-        
         yield put(actions.setAddCalendarError(true))
 
     }

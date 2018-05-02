@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './style.css';
+import style from './style_module.css';
 import { Row, Col, Button } from 'react-bootstrap';
 import Calendar from 'react-calendar';
 import { popupId } from '../../constants';

@@ -6,11 +6,13 @@ import { actions } from '../../actions';
 import { proxyToValue, proxyToName } from '../../globalFunctions';
 import AddCalendarDumb from '../../components/AddCalendar/AddCalendar';
 
+
 class AddCalendar extends Component {
     constructor(props) {
         super(props);
         this.handleUserinput = this.handleUserinput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDescriptionToggle = this.handleDescriptionToggle.bind(this);
     }
     handleUserinput(proxy) {
         this.props.setAddCalendarInputField(proxyToName(proxy), proxyToValue(proxy));
@@ -18,13 +20,12 @@ class AddCalendar extends Component {
     handleSubmit() {
         this.props.sendAddCalendarSearch(this.props.ui);
     }
-    //TODO: make this functional...
-    componentDidMount(){
-        this.props.fetchUserDataById(['10001', '10002'])
+    handleDescriptionToggle(index) {
+        this.props.setAddCalendarShowDescription(index);
     }
     componentDidUpdate() {
         let neededUserIds = []
-        this.props.searchResults.forEach(result => {
+        this.props.data.searchResults.forEach(result => {
             if (!this.props.userData.find(user => user.user_id === result.owner_id)) {
                 neededUserIds.push(result.owner_id)
             }
@@ -41,6 +42,7 @@ class AddCalendar extends Component {
                 handleUserinput={this.handleUserinput}
                 handleSubmit={this.handleSubmit}
                 userData={this.props.userData}
+                handleDescriptionToggle={this.handleDescriptionToggle}
             />
         );
     }
@@ -59,6 +61,7 @@ function mapDispatchToProps(dispatch) {
         setAddCalendarInputField: (name, value) => { dispatch(actions.setAddCalendarInputField(name, value)) },
         sendAddCalendarSearch: userinput => { dispatch(actions.sendAddCalendarSearch(userinput)) },
         fetchUserDataById: userId => { dispatch(actions.fetchUserDataById(userId)) },
+        setAddCalendarShowDescription: index => { dispatch(actions.setAddCalendarShowDescription(index)) },
     }
 }
 

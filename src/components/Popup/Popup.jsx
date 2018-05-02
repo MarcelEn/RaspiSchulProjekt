@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import { Button } from 'react-bootstrap';
 
-import style from './style.css';
+import style from './style_module.css';
 import Centering from '../Centering/Centering';
 import Card from '../Card/Card';
 

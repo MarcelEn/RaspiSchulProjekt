@@ -9,6 +9,7 @@ import {
 export default (state = {
     tokenIsSet: getCookie('accessToken') ? true : false,
     userData: [],
+    calendarData: [],
     tokenIsValidated: false,
     tokenLoading: false,
     tokenError: false,

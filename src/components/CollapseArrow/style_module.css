@@ -1,0 +1,9 @@
+.closed {
+    transform: rotate(-90deg);
+}
+.arrow{
+    transition: 0.2s;
+    height: 14px;
+    display: inline;
+    cursor: pointer;
+}

@@ -1,23 +1,39 @@
 import React from 'react';
-import style from './style.css';
-import { Button, Collapse, Well } from 'react-bootstrap';
+import style from './style_module.css';
+import { Collapse, Well } from 'react-bootstrap';
 import LoadingButton from '../LoadingButton/LoadingButton';
 
 import { ClipLoader } from 'react-spinners';
+import CollapseArrow from '../CollapseArrow/CollapseArrow';
+import Card from '../Card/Card';
+
 
 const CalendarDetails = props => (
     <Well>
 
+        <CollapseArrow
+            isOpen={props.isOpen}
+            onClick={() => { props.handleDescriptionToggle(props.index) }}
+        />
+
         {props.calendarData.calendar_title}
 
         <span className={style.alignRight}>
-            {props.userData ?
-                props.userData.user_name
-                :
-                <ClipLoader size={20} />
+            {
+                props.userData ?
+                    props.userData.user_name
+                    :
+                    <ClipLoader size={20} />
             }
         </span>
-        {/* {props.userData.user_name} */}
+
+        <Collapse in={props.isOpen}>
+            <div>
+                <Card>
+                    {props.calendarData.calendar_description}
+                </Card>
+            </div>
+        </Collapse>
     </Well>
 )
 

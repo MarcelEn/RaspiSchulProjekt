@@ -46,13 +46,17 @@ export default {
         () => axios.get(apiPaths.sendAddCalendarSearch(searchString, userId))
     ),
 
-    fetchUserDataById: userId => {
-        if (typeof userId === 'array') {
-            return () => axios.all(userId.map(id => axios.get(apiPaths.getUser(userId))), function (acct, perms) {
-                debugger;
-            });
-        } else {
-            return () => axios.get(apiPaths.getUser(userId))
-        }
-    }
+    fetchUserDataById: userId => () => new Promise(
+        (resolve, reject) => axios.all(
+            userId.map(
+                id => axios.get(apiPaths.getUser(id))
+            )
+        )
+        .then((...responses) => {
+            resolve(responses)
+        })
+        .catch(e => {
+            reject(e);
+        })
+    )
 }

@@ -3,7 +3,8 @@ export const actionNames = {
     SET_ADD_CALENDAR_LOADING: 'SET_ADD_CALENDAR_LOADING',
     SET_ADD_CALENDAR_ERROR: 'SET_ADD_CALENDAR_ERROR',
     SEND_ADD_CALENDAR_SEARCH: 'SEND_ADD_CALENDAR_SEARCH',
-    APPLY_ADD_CALENDAR_RESPONSE: 'APPLY_ADD_CALENDAR_CALENDAT_RESPONSE'
+    APPLY_ADD_CALENDAR_RESPONSE: 'APPLY_ADD_CALENDAR_CALENDAR_RESPONSE',
+    SET_ADD_CALENDAR_SHOW_DESCRIPTION: 'SET_ADD_CALENDAR_SHOW_DESCRIPTION'
 }
 
 export const actions = {
@@ -14,6 +15,12 @@ export const actions = {
             value
         }
     }),
+    setAddCalendarShowDescription: index => ({
+        type: actionNames.SET_ADD_CALENDAR_SHOW_DESCRIPTION,
+        payload: index
+    }),
+
+
     setAddCalendarLoading: status => ({
         type: actionNames.SET_ADD_CALENDAR_LOADING,
         payload: status
