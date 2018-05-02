@@ -17,3 +17,6 @@ export function getCookie(cname) {
     }
     return undefined;
 }
+
+//TODO: remove static link
+export const getUserImageUrlById = id => '/avatar.jpgf';

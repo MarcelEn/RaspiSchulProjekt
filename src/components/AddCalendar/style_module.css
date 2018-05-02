@@ -5,3 +5,11 @@
 .alignRight {
     float: right;
 }
+
+.descirption{
+    padding: 20px;
+}
+
+.transition{
+    transition: 0.2s;
+}

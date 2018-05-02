@@ -4,8 +4,9 @@ import { FormControl, FormGroup, Button, Collapse, Alert } from 'react-bootstrap
 import LoadingButton from '../LoadingButton/LoadingButton';
 import CalendarDetails from './CalendarDetails';
 
+
 const AddCalendar = props => (
-    <div>
+    <div className={style.dimensions}>
         <FormGroup>
             <h3><b>Kalender hinzufügen</b></h3>
         </FormGroup>

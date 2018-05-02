@@ -6,11 +6,11 @@ import LoadingButton from '../LoadingButton/LoadingButton';
 import { ClipLoader } from 'react-spinners';
 import CollapseArrow from '../CollapseArrow/CollapseArrow';
 import Card from '../Card/Card';
-
+import ReactQuill from 'react-quill';
+import ProfileImage from '../../container/ProfileImage/ProfileImage';
 
 const CalendarDetails = props => (
-    <Well>
-
+    <Well className={style.transition}>
         <CollapseArrow
             isOpen={props.isOpen}
             onClick={() => { props.handleDescriptionToggle(props.index) }}
@@ -27,11 +27,21 @@ const CalendarDetails = props => (
             }
         </span>
 
+        <ProfileImage
+
+        />
+
         <Collapse in={props.isOpen}>
             <div>
-                <Card>
-                    {props.calendarData.calendar_description}
-                </Card>
+                <div className={style.descirption}>
+                    <Card>
+                        <ReactQuill
+                            value={props.calendarData.calendar_description}
+                            theme="bubble"
+                            readOnly
+                        />
+                    </Card>
+                </div>
             </div>
         </Collapse>
     </Well>

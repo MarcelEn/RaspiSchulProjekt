@@ -69,7 +69,7 @@ router.get('/calendar', function (req, res, next) {
                 {
                     calendar_id: '50003',
                     calendar_title: 'Hello World 3!',
-                    calendar_description: 'This is a fancy descpription 3',
+                    calendar_description: '<h1>Some fancy description</h1><p><em>This calendar covers:</em></p><ul><li>Some fancy stuff</li><li>and more stuff</li></ul>',
                     owner_id: '10002',
                     visibility: 1
                 }

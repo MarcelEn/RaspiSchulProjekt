@@ -29,12 +29,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(function(reg,res,next){
-    setTimeout(next, 1000);
+    setTimeout(next, 50);
 });
 
 app.use('/api/0.0.1/account', account);
 app.use('/api/0.0.1/rest', rest);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
 
