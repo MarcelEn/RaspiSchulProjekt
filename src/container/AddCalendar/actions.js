@@ -4,7 +4,8 @@ export const actionNames = {
     SET_ADD_CALENDAR_ERROR: 'SET_ADD_CALENDAR_ERROR',
     SEND_ADD_CALENDAR_SEARCH: 'SEND_ADD_CALENDAR_SEARCH',
     APPLY_ADD_CALENDAR_RESPONSE: 'APPLY_ADD_CALENDAR_CALENDAR_RESPONSE',
-    SET_ADD_CALENDAR_SHOW_DESCRIPTION: 'SET_ADD_CALENDAR_SHOW_DESCRIPTION'
+    SET_ADD_CALENDAR_SHOW_DESCRIPTION: 'SET_ADD_CALENDAR_SHOW_DESCRIPTION',
+    TOGGLE_ADD_CALENDAR_SELECTION: 'TOGGLE_ADD_CALENDAR_SELECTION'
 }
 
 export const actions = {
@@ -17,6 +18,10 @@ export const actions = {
     }),
     setAddCalendarShowDescription: index => ({
         type: actionNames.SET_ADD_CALENDAR_SHOW_DESCRIPTION,
+        payload: index
+    }),
+    toggleAddCalendarSelection: index => ({
+        type: actionNames.TOGGLE_ADD_CALENDAR_SELECTION,
         payload: index
     }),
 

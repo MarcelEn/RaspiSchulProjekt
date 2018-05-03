@@ -6,4 +6,5 @@
     height: 14px;
     display: inline;
     cursor: pointer;
+    user-select: none;
 }

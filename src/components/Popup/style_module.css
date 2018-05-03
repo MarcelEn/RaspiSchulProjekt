@@ -1,5 +1,6 @@
 .popup{
     background: white;
+    overflow: auto;
     height: 100%;
 }
 .popupWrapper{
@@ -23,4 +24,5 @@
     cursor: pointer;
     padding-top: 13px;
     padding-left: 14px;
+    user-select: none;
 }

@@ -13,6 +13,7 @@ class AddCalendar extends Component {
         this.handleUserinput = this.handleUserinput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDescriptionToggle = this.handleDescriptionToggle.bind(this);
+        this.handleSelection = this.handleSelection.bind(this);
     }
     handleUserinput(proxy) {
         this.props.setAddCalendarInputField(proxyToName(proxy), proxyToValue(proxy));
@@ -22,6 +23,9 @@ class AddCalendar extends Component {
     }
     handleDescriptionToggle(index) {
         this.props.setAddCalendarShowDescription(index);
+    }
+    handleSelection(proxy) {
+        this.props.toggleAddCalendarSelection(proxyToValue(proxy));
     }
     componentDidUpdate() {
         let neededUserIds = []
@@ -43,6 +47,7 @@ class AddCalendar extends Component {
                 handleSubmit={this.handleSubmit}
                 userData={this.props.userData}
                 handleDescriptionToggle={this.handleDescriptionToggle}
+                handleSelection={this.handleSelection}
             />
         );
     }
@@ -62,6 +67,7 @@ function mapDispatchToProps(dispatch) {
         sendAddCalendarSearch: userinput => { dispatch(actions.sendAddCalendarSearch(userinput)) },
         fetchUserDataById: userId => { dispatch(actions.fetchUserDataById(userId)) },
         setAddCalendarShowDescription: index => { dispatch(actions.setAddCalendarShowDescription(index)) },
+        toggleAddCalendarSelection: index => { dispatch(actions.toggleAddCalendarSelection(index)) }
     }
 }
 

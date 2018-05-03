@@ -5,9 +5,21 @@ import {
 export default (state = {
     titleOrId: '',
     username: '',
-    openedDescription: null
+    openedDescription: null,
+    selected: []
 }, action) => {
     switch (action.type) {
+        case actionNames.TOGGLE_ADD_CALENDAR_SELECTION:
+            let selected = [...state.selected];
+            if (selected.find(selection => selection === action.payload)) {
+                selected = selected.filter(selection => selection !== action.payload)
+            } else {
+                selected.push(action.payload);
+            }
+            return {
+                ...state,
+                selected
+            }
         case actionNames.SET_ADD_CALENDAR_INPUT_FIELD:
             return {
                 ...state,
@@ -21,7 +33,8 @@ export default (state = {
         case actionNames.APPLY_ADD_CALENDAR_RESPONSE:
             return {
                 ...state,
-                openedDescription: null
+                openedDescription: null,
+                selected: []
             }
         default:
             return state;

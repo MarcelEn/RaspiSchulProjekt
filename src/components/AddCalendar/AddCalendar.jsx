@@ -7,59 +7,72 @@ import CalendarDetails from './CalendarDetails';
 
 const AddCalendar = props => (
     <Grid>
-        <FormGroup>
-            <h3><b>Kalender hinzufügen</b></h3>
-        </FormGroup>
-        <FormGroup>
-            <FormControl
-                type="text"
-                value={props.v}
-                name="titleOrId"
-                placeholder="Kalender - Titel / ID"
-                onChange={props.handleUserinput}
-                disabled={props.loading}
-            />
-
-        </FormGroup>
-        <FormGroup>
-            <FormControl
-                type="text"
-                value={props.username}
-                name="username"
-                placeholder="Nutzername"
-                onChange={props.handleUserinput}
-                disabled={props.loading}
-            />
-        </FormGroup>
-        <Collapse in={props.error}>
-            <Alert bsStyle="danger">
-                <b>Whoops!</b>
-                <p>
-                    Da ist was schief gelaufen :/
-                </p>
-            </Alert>
-        </Collapse>
-        <Collapse in={props.titleOrId.length < 4 && props.username.length < 4 && !props.error}>
+        <div className={style.limitWidth}>
             <FormGroup>
-                <Alert bsStyle="warning">
-                    Sie müssen mindestens 4 Zeichen eingeben.
-                </Alert>
+                <h3><b>Kalender hinzufügen</b></h3>
             </FormGroup>
-        </Collapse>
-        <FormGroup>
-            <LoadingButton loading={props.loading}>
-                <div>
-                    <Button
-                        className={style.large}
-                        bsStyle="success"
-                        onClick={props.handleSubmit}
-                        disabled={props.titleOrId.length < 4 && props.username.length < 4}
-                    >
-                        Suchen
+            <FormGroup>
+                <FormControl
+                    type="text"
+                    value={props.v}
+                    name="titleOrId"
+                    placeholder="Kalender - Titel / ID"
+                    onChange={props.handleUserinput}
+                    disabled={props.loading}
+                />
+
+            </FormGroup>
+            <FormGroup>
+                <FormControl
+                    type="text"
+                    value={props.username}
+                    name="username"
+                    placeholder="Nutzername"
+                    onChange={props.handleUserinput}
+                    disabled={props.loading}
+                />
+            </FormGroup>
+            <Collapse in={props.error}>
+                <Alert bsStyle="danger">
+                    <b>Whoops!</b>
+                    <p>
+                        Da ist was schief gelaufen :/
+                </p>
+                </Alert>
+            </Collapse>
+            <Collapse in={props.titleOrId.length < 4 && props.username.length < 4 && !props.error}>
+                <FormGroup>
+                    <Alert bsStyle="warning">
+                        Sie müssen mindestens 4 Zeichen eingeben.
+                </Alert>
+                </FormGroup>
+            </Collapse>
+            <FormGroup>
+                <LoadingButton loading={props.loading}>
+                    <div>
+                        <Button
+                            className={style.large}
+                            bsStyle="success"
+                            onClick={props.handleSubmit}
+                            disabled={props.titleOrId.length < 4 && props.username.length < 4}
+                        >
+                            Suchen
                     </Button>
-                </div>
-            </LoadingButton>
-        </FormGroup>
+                    </div>
+                </LoadingButton>
+            </FormGroup>
+            <FormGroup>
+
+                <Button
+                    className={style.large}
+                    bsStyle="success"
+                    onClick={props.handleSubmit}
+                    disabled={props.searchResults.length === 0}
+                >
+                    hinzufügen
+                </Button>
+            </FormGroup>
+        </div>
         <Collapse in={props.searchResults.length > 0}>
             <div>
                 {
@@ -70,6 +83,8 @@ const AddCalendar = props => (
                             index={index}
                             isOpen={index === props.openedDescription}
                             handleDescriptionToggle={props.handleDescriptionToggle}
+                            handleSelection={props.handleSelection}
+                            selected={props.selected.find(index)}
                             key={'addCalendar-' + index}
                         />
                     ))

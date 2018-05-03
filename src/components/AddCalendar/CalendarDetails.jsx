@@ -1,22 +1,18 @@
 import React from 'react';
 import style from './style_module.css';
-import { Collapse, Well, Row, Col } from 'react-bootstrap';
+import { Collapse, Well, Row, Col, Button } from 'react-bootstrap';
 
 
 import { ClipLoader } from 'react-spinners';
 import CollapseArrow from '../CollapseArrow/CollapseArrow';
-import Card from '../Card/Card';
 import ReactQuill from 'react-quill';
 import ProfileImage from '../../container/ProfileImage/ProfileImage';
 
 const CalendarDetails = props => (
-    <Well className={style.transition}>
-        <Row>
+    <div className={style.calendarBlock}>
+        <Row className={style.verticalAlign}>
             <Col
                 xs={1}
-                sm={1}
-                md={1}
-                lg={1}
             >
                 <CollapseArrow
                     isOpen={props.isOpen}
@@ -24,10 +20,15 @@ const CalendarDetails = props => (
                 />
             </Col>
             <Col
-                xs={5}
-                sm={5}
-                md={6}
-                lg={6}
+                xs={9}
+                sm={6}
+                md={4}
+                className={style.seperator}
+                style={
+                    {
+                        borderRight: '1px solid rgb(222, 222, 222)'
+                    }
+                }
             >
                 <b>
                     {props.calendarData.calendar_title}
@@ -36,10 +37,9 @@ const CalendarDetails = props => (
             {
                 props.userData ?
                     <Col
-                        xs={6}
-                        sm={6}
-                        md={3}
-                        lg={3}
+                        xsHidden
+                        sm={3}
+                        md={2}
                     >
                         {props.userData.first_name + ' ' + props.userData.last_name}
                     </Col>
@@ -52,7 +52,18 @@ const CalendarDetails = props => (
                         xsHidden
                         smHidden
                         md={2}
-                        lg={2}
+                    >
+                        {props.userData.user_name}
+                    </Col>
+                    :
+                    ''
+            }
+            {
+                props.userData ?
+                    <Col
+                        xsHidden
+                        smHidden
+                        md={1}
                     >
                         <ProfileImage
                             firstname={props.userData.first_name}
@@ -63,29 +74,38 @@ const CalendarDetails = props => (
 
                     :
                     <Col
-                        xs={3}
+                        xsHidden
                         sm={3}
-                        md={6}
-                        lg={6}
                     >
                         <ClipLoader size={20} />
                     </Col>
             }
+            <Col
+                xs={2}
+            >
+                <Button
+                    onClick={props.handleSelection}
+                    value={props.index}
+                    bsStyle={props.selected ? 'success' : 'default'}
+                >
+                    {
+                        props.selected ? '-' : '+'
+                    }
+                </Button>
+            </Col>
         </Row>
         <Collapse in={props.isOpen}>
-            <div>
-                <div className={style.descirption}>
-                    <Card>
-                        <ReactQuill
-                            value={props.calendarData.calendar_description}
-                            theme="bubble"
-                            readOnly
-                        />
-                    </Card>
-                </div>
+            <div className={style.descirption}>
+                <hr />
+                <ReactQuill
+                    value={props.calendarData.calendar_description}
+                    theme="bubble"
+                    readOnly
+                />
             </div>
         </Collapse>
-    </Well>
+        <hr />
+    </div>
 )
 
 export default CalendarDetails;
