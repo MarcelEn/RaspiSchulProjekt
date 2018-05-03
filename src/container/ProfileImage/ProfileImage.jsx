@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 import { Image } from 'react-bootstrap';
 
-import LoginDumb from '../../components/Login/Login.jsx';
-
-import { getUserImageUrlById } from '../../globalFunctions';
+import { getUserImageUrlByUsername } from '../../globalFunctions';
 import LetterImage from '../../components/LetterImage/LetterImage';
 
 class ProfileImage extends Component {
@@ -23,13 +21,14 @@ class ProfileImage extends Component {
         return (
             this.state.imageAvailable ?
                 <Image
-                    src={getUserImageUrlById(4)}
+                    src={getUserImageUrlByUsername(this.props.username)}
                     circle
                     onLoad={this.imageIsAvailable}
                 />
                 :
                 <LetterImage
-                    letter='asdf'
+                    firstname={this.props.firstname}
+                    lastname={this.props.lastname}
                 />
         );
 

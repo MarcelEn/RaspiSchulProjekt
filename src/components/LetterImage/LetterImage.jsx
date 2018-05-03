@@ -4,7 +4,8 @@ import style from './style_module.css';
 
 const LetterImage = props => (
     <div className={style.roundedImage}>
-        <b>{props.letter[0].toUpperCase()}</b>
+
+        <b>{props.firstname[0].toUpperCase() + props.lastname[0].toUpperCase()}</b>
     </div>
 )
 
