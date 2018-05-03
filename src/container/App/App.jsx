@@ -37,6 +37,7 @@ class App extends Component {
                                     closePopup={this.props.closePopup}
                                     setPopupId={this.props.setPopupId}
                                     popupId={this.props.ui.popupId}
+                                    showPopup={this.props.ui.showPopup}
                                 >
 
                                     <Popup id={popupId.ADD_CALENDAR}>

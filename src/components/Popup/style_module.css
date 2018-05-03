@@ -1,25 +1,22 @@
-.popupBackground{
+.popup{
+    background: white;
+    padding: 2%;
+    height: 100%;
+}
+.popupWrapper{
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
     width: 100%;
-    opacity: 0.6;
-    background: white;
-    transition: 0.2s;
+    height: 100%;
+    transition: 0.5s;
+    margin-left: 0%;
+    box-shadow: 0px 0px 10px black;
 }
-
-.popupHide{
-    opacity: 0;
-    pointer-events: none;
+.hide{
+    margin-left: -100%; 
 }
-
 .closeButton{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-
-.popupContent{
-    margin: 10px;
+    transform: rotate(180deg);
+    display: inline-block;
 }

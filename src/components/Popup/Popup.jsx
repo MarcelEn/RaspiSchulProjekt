@@ -4,14 +4,15 @@ import { Button } from 'react-bootstrap';
 import style from './style_module.css';
 import Centering from '../Centering/Centering';
 import Card from '../Card/Card';
+import CollapseArrow from '../CollapseArrow/CollapseArrow';
 
 
 
 const getWrapperClasses = props => {
-    if (props.popupId) {
-        return style.popupBackground;
+    if (props.showPopup) {
+        return style.popupWrapper;
     }
-    return style.popupBackground + ' ' + style.popupHide;
+    return style.popupWrapper + ' ' + style.hide;
 }
 
 const toArray = value => {
@@ -23,30 +24,33 @@ const toArray = value => {
 }
 
 export const PopupWrapper = props => (
-    <div >
-        <div className={getWrapperClasses(props)} />
-        {toArray(props.children)
-            .filter(child => child.props.id === props.popupId)
-            .map((child, index) => cloneElement(child, { closePopup: props.closePopup, key: 'popupWindow-' + index })
-            )
+    <div className={getWrapperClasses(props)}>
+        {
+            toArray(props.children)
+                .filter(child => child.props.id === props.popupId)
+                .map(
+                    (child, index) => cloneElement(
+                        child,
+                        {
+                            closePopup: props.closePopup,
+                            key: 'popupWindow-' + index
+                        }
+                    )
+                )
         }
-    </div>
+    </div >
 )
 
 export const Popup = props => (
-    <Centering>
-        <Card>
-            <div className={style.closeButton}>
-                <Button
-                    bsStyle="danger"
-                    onClick={props.closePopup}
-                >
-                    X
-                </Button>
-            </div>
-            <div className={style.popupContent}>
-                {props.children}
-            </div>
-        </Card>
-    </Centering>
+    <div className={style.popup}>
+        <div
+            className={style.closeButton}
+            onClick={props.closePopup}
+        >
+            <CollapseArrow />
+        </div>
+        <div className={style.popupContent}>
+            {props.children}
+        </div>
+    </div>
 )
