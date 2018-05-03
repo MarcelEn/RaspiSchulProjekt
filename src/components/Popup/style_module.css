@@ -1,6 +1,5 @@
 .popup{
     background: white;
-    padding: 2%;
     height: 100%;
 }
 .popupWrapper{
@@ -18,5 +17,10 @@
 }
 .closeButton{
     transform: rotate(180deg);
-    display: inline-block;
+    background: #e5efff;
+    box-shadow: 0px 0px 3px gray;
+    height: 50px;
+    cursor: pointer;
+    padding-top: 13px;
+    padding-left: 14px;
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import style from './style_module.css';
-import { FormControl, FormGroup, Button, Collapse, Alert } from 'react-bootstrap';
+import { FormControl, FormGroup, Button, Collapse, Alert, Grid } from 'react-bootstrap';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import CalendarDetails from './CalendarDetails';
 
 
 const AddCalendar = props => (
-    <div className={style.dimensions}>
+    <Grid>
         <FormGroup>
             <h3><b>Kalender hinzufügen</b></h3>
         </FormGroup>
@@ -76,7 +76,7 @@ const AddCalendar = props => (
                 }
             </div>
         </Collapse>
-    </div>
+    </Grid>
 )
 
 

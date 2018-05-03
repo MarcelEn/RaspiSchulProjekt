@@ -2,7 +2,6 @@ import React from 'react';
 import style from './style_module.css';
 import { Collapse, Well, Row, Col } from 'react-bootstrap';
 
-import LoadingButton from '../LoadingButton/LoadingButton';
 
 import { ClipLoader } from 'react-spinners';
 import CollapseArrow from '../CollapseArrow/CollapseArrow';
