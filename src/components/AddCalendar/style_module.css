@@ -19,5 +19,8 @@
 .lessPadding {
     padding: 10px;
 }
-
-.calendarBlock {}
+.loadingIndicator{
+    position: absolute;
+    left: 50%;
+    top: 7px;
+}

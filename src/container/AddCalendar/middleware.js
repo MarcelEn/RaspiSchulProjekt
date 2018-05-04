@@ -8,12 +8,16 @@ import {
     actions
 } from './../../actions';
 
+import {
+    getSavedCalendars,
+    setSavedCalendars
+} from '../../globalFunctions';
 
 const getUsers = store => store.data.appData.userData
 
 
 export function* sendAddCalendarSearch(action) {
-   
+
     const userData = yield select(getUsers);
     yield put(actions.setAddCalendarLoading(true));
     yield put(actions.setAddCalendarError(false))
@@ -23,10 +27,10 @@ export function* sendAddCalendarSearch(action) {
 
     try {
         let userId = userData.find(user => user.user_name === action.payload.username);
-        
-        if(!userId){
+
+        if (!userId) {
             userId = ''
-        }else{
+        } else {
             userId = userId.user_id;
         }
 
@@ -50,4 +54,15 @@ export function* sendAddCalendarSearch(action) {
 
 
     yield put(actions.setAddCalendarLoading(false));
+}
+
+export function* toggleAddCalendarSelection(action) {
+    let savedCalendars = getSavedCalendars();
+
+    if (savedCalendars.find(calendar => calendar === action.payload)) {
+        setSavedCalendars(savedCalendars.filter(calendar => calendar !== action.payload));
+    } else {
+        setSavedCalendars([...savedCalendars, action.payload]);
+    }
+    yield put(actions.updateSavedCalendars());
 }

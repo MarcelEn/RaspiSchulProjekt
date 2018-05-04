@@ -1,9 +1,10 @@
-.popup{
+.popup {
     background: white;
     overflow: auto;
     height: 100%;
 }
-.popupWrapper{
+
+.popupWrapper {
     position: absolute;
     top: 0;
     left: 0;
@@ -13,10 +14,17 @@
     margin-left: 0%;
     box-shadow: 0px 0px 10px black;
 }
-.hide{
-    margin-left: -100%; 
+
+.hide {
+    margin-left: -100%;
 }
-.closeButton{
+
+.popupContent {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+
+.closeButton {
     transform: rotate(180deg);
     background: #e5efff;
     box-shadow: 0px 0px 3px gray;

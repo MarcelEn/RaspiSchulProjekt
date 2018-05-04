@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './style_module.css';
-import { Collapse, Well, Row, Col, Button } from 'react-bootstrap';
+import { Collapse, Row, Col, Button } from 'react-bootstrap';
 
 
 import { ClipLoader } from 'react-spinners';
@@ -76,8 +76,11 @@ const CalendarDetails = props => (
                     <Col
                         xsHidden
                         sm={3}
+                        md={5}
                     >
-                        <ClipLoader size={20} />
+                        <div className={style.loadingIndicator}>
+                            <ClipLoader size={20} />
+                        </div>
                     </Col>
             }
             <Col
@@ -85,7 +88,7 @@ const CalendarDetails = props => (
             >
                 <Button
                     onClick={props.handleSelection}
-                    value={props.index}
+                    value={props.calendarData.calendar_id}
                     bsStyle={props.selected ? 'success' : 'default'}
                 >
                     {

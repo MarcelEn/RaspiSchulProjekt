@@ -43,6 +43,7 @@ class AddCalendar extends Component {
             <AddCalendarDumb
                 {...this.props.ui}
                 {...this.props.data}
+                savedCalendars={this.props.savedCalendars}
                 handleUserinput={this.handleUserinput}
                 handleSubmit={this.handleSubmit}
                 userData={this.props.userData}
@@ -56,6 +57,7 @@ class AddCalendar extends Component {
 function mapStateToProps(state) {
     return {
         data: state.data.addCalendarData,
+        savedCalendars: state.data.appData.savedCalendars,
         ui: state.ui.addCalendarUi,
         userData: state.data.appData.userData
     }

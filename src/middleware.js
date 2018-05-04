@@ -20,7 +20,8 @@ import {
 } from './container/App/middleware';
 
 import {
-    sendAddCalendarSearch
+    sendAddCalendarSearch,
+    toggleAddCalendarSelection
 } from './container/AddCalendar/middleware';
 
 import {
@@ -32,7 +33,8 @@ import {
 function* mySaga() {
     //AddCalendar
     yield takeLatest(actionNames.SEND_ADD_CALENDAR_SEARCH, sendAddCalendarSearch);
-    
+    yield takeLatest(actionNames.TOGGLE_ADD_CALENDAR_SELECTION, toggleAddCalendarSelection);
+
     //Tokenvalidation
     yield takeLatest(actionNames.VALIDATE_APP_TOKEN, validateAppToken);
 

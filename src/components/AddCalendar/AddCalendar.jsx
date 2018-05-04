@@ -61,17 +61,6 @@ const AddCalendar = props => (
                     </div>
                 </LoadingButton>
             </FormGroup>
-            <FormGroup>
-
-                <Button
-                    className={style.large}
-                    bsStyle="success"
-                    onClick={props.handleSubmit}
-                    disabled={props.searchResults.length === 0}
-                >
-                    hinzufügen
-                </Button>
-            </FormGroup>
         </div>
         <Collapse in={props.searchResults.length > 0}>
             <div>
@@ -84,7 +73,7 @@ const AddCalendar = props => (
                             isOpen={index === props.openedDescription}
                             handleDescriptionToggle={props.handleDescriptionToggle}
                             handleSelection={props.handleSelection}
-                            selected={props.selected.find(index)}
+                            selected={props.savedCalendars.find(calendar => calendar === data.calendar_id)}
                             key={'addCalendar-' + index}
                         />
                     ))

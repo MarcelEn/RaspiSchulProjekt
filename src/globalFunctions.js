@@ -24,8 +24,8 @@ export function getCookie(cname) {
     return undefined;
 }
 
-//TODO: remove static link
-export const getUserImageUrlByUsername = id => '/avatar.jpgf';
+//TODO: define media links
+export const getUserImageUrlByUsername = username => '/' + username + '.jpg';
 
 export const getColorOfLetter = (firstletter, lastletter) => {
     const combinedIndex =
@@ -93,4 +93,18 @@ export const getColorOfLetter = (firstletter, lastletter) => {
 
 
     return 'rgb(' + colorRotator[0] + ',' + colorRotator[1] + ',' + colorRotator[2] + ')';
+}
+
+
+export const getSavedCalendars = () => {
+    try {
+        return JSON.parse(localStorage.savedCalendars)
+    } catch (e) {
+        setSavedCalendars([]);
+        return [];
+    }
+
+}
+export const setSavedCalendars = array => {
+    localStorage.setItem('savedCalendars', JSON.stringify(array))
 }

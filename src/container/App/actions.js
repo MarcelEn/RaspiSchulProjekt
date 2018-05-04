@@ -13,6 +13,7 @@ export const actionNames = {
     //shared data:
     ADD_USER_DATA: 'ADD_USER_DATA',
     FETCH_USER_DATA_BY_ID: 'FETCH_USER_DATA_BY_ID',
+    UPDATE_SAVED_CALENDARS: 'UPDATE_SAVED_CALENDARS',
 
     //ui
     SET_POPUP_ID: 'SET_POPUP_ID',
@@ -25,7 +26,7 @@ export const actions = {
         type: actionNames.SET_APP_TOKEN_IS_SET,
         payload: status
     }),
-    
+
     setAppTokenIsValidated: status => ({
         type: actionNames.SET_APP_TOKEN_IS_VALIDATED,
         payload: status
@@ -62,6 +63,9 @@ export const actions = {
     fetchUserDataById: userId => ({
         type: actionNames.FETCH_USER_DATA_BY_ID,
         payload: userId
+    }),
+    updateSavedCalendars: () => ({
+        type: actionNames.UPDATE_SAVED_CALENDARS
     }),
 
 
