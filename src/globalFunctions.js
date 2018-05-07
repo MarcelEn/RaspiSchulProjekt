@@ -24,6 +24,10 @@ export function getCookie(cname) {
     return undefined;
 }
 
+export const selectUsers = store => store.data.appData.userData
+
+export const selectCalendarData = store => store.data.appData.calendarData
+
 //TODO: define media links
 export const getUserImageUrlByUsername = username => '/' + username + '.jpg';
 
@@ -96,15 +100,15 @@ export const getColorOfLetter = (firstletter, lastletter) => {
 }
 
 
-export const getSavedCalendars = () => {
+export const getCalendarFilter = () => {
     try {
-        return JSON.parse(localStorage.savedCalendars)
+        return JSON.parse(localStorage.calendarFilter)
     } catch (e) {
-        setSavedCalendars([]);
+        setCalendarFilter([]);
         return [];
     }
 
 }
-export const setSavedCalendars = array => {
-    localStorage.setItem('savedCalendars', JSON.stringify(array))
+export const setCalendarFilter = array => {
+    localStorage.setItem('calendarFilter', JSON.stringify(array))
 }

@@ -16,7 +16,8 @@ import {
 
 import {
     validateAppToken,
-    sendLogout
+    sendLogout,
+    fetchRemoteDataInit
 } from './container/App/middleware';
 
 import {
@@ -50,6 +51,7 @@ function* mySaga() {
 
     //shared App data
     yield takeLatest(actionNames.FETCH_USER_DATA_BY_ID, fetchUserDataById)
+    yield takeLatest(actionNames.FETCH_REMOTE_DATA_INIT, fetchRemoteDataInit)
 }
 
 export default mySaga;

@@ -13,6 +13,7 @@ const apiPaths = {
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     validateToken: path.resolve(apiPrefix, version, 'account', 'login', 'token'),
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
+    fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
 }
 
 
@@ -58,5 +59,6 @@ export default {
         .catch(e => {
             reject(e);
         })
-    )
+    ),
+    fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars)
 }

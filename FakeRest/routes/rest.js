@@ -81,6 +81,20 @@ router.get('/calendar', function (req, res, next) {
 });
 
 
+router.get('/calendar/saved', function (req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(
+        [{
+            calendar_id: '50003',
+            calendar_title: 'Hello World 3!',
+            calendar_description: '<h1>Some fancy description</h1><p><em>This calendar covers:</em></p><ul><li>Some fancy stuff</li><li>and more stuff</li></ul>',
+            owner_id: '10002',
+            visibility: 1
+        }]
+    ));
+});
+
+
 router.all('/*', function (req, res, next) {
     res.sendStatus(404);
 });

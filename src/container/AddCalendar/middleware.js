@@ -3,22 +3,21 @@ import {
     call,
     select
 } from 'redux-saga/effects';
+
 import API from './../../apiConnector';
+
 import {
     actions
 } from './../../actions';
 
 import {
-    getSavedCalendars,
-    setSavedCalendars
-} from '../../globalFunctions';
-
-const getUsers = store => store.data.appData.userData
+    selectUsers
+} from '../../globalFunctions'
 
 
 export function* sendAddCalendarSearch(action) {
 
-    const userData = yield select(getUsers);
+    const userData = yield select(selectUsers);
     yield put(actions.setAddCalendarLoading(true));
     yield put(actions.setAddCalendarError(false))
 
@@ -57,12 +56,5 @@ export function* sendAddCalendarSearch(action) {
 }
 
 export function* toggleAddCalendarSelection(action) {
-    let savedCalendars = getSavedCalendars();
 
-    if (savedCalendars.find(calendar => calendar === action.payload)) {
-        setSavedCalendars(savedCalendars.filter(calendar => calendar !== action.payload));
-    } else {
-        setSavedCalendars([...savedCalendars, action.payload]);
-    }
-    yield put(actions.updateSavedCalendars());
 }

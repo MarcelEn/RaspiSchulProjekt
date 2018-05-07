@@ -21,7 +21,11 @@ class App extends Component {
         if (this.props.data.tokenIsSet) {
             this.props.validateAppToken();
         }
-
+    }
+    componentDidUpdate(){
+        if(!this.props.data.firstInit && this.props.data.tokenIsValidated){
+            this.props.fetchRemoteDataInit();
+        }
     }
     render() {
         return (
@@ -68,6 +72,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         validateAppToken: () => { dispatch(actions.validateAppToken()) },
+        fetchRemoteDataInit: () => { dispatch(actions.fetchRemoteDataInit()) },
         sendLogout: () => { dispatch(actions.sendLogout()) },
         closePopup: () => { dispatch(actions.closePopup()) },
 

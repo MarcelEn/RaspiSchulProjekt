@@ -1,11 +1,18 @@
 import {
     put,
-    call
+    call,
+    select
 } from 'redux-saga/effects';
+
 import API from './../../apiConnector';
+
 import {
     actions
 } from './../../actions';
+
+import {
+    selectCalendarData
+} from '../../globalFunctions';
 
 export function* validateAppToken(action) {
 
@@ -38,9 +45,21 @@ export function* sendLogout(action) {
 export function* fetchUserDataById(action) {
     try {
         const response = yield call(API.fetchUserDataById(action.payload));
-        for(let i = 0; i < response[0].length; i++){
+        for (let i = 0; i < response[0].length; i++) {
             yield put(actions.addUserData(response[0][i].data))
         }
-    } catch (error) {
-    }
+    } catch (error) {}
+}
+export function* fetchRemoteDataInit(action) {
+    yield put(actions.setFirstInitIsDone());
+    yield(function* () {
+        try {
+            const savedCalendarsResponse = yield call(API.fetchSavedCalendars)
+            
+            const calendarData = yield select(selectCalendarData)
+        } catch (error) {
+
+        }
+    })();
+
 }

@@ -3,15 +3,15 @@ import {
 } from '../../actions';
 
 import {
-    getCookie,
-    getSavedCalendars,
+    getCookie
 } from '../../globalFunctions';
 
 export default (state = {
     tokenIsSet: getCookie('accessToken') ? true : false,
+    firstInit: false,
     userData: [],
     calendarData: [],
-    savedCalendars: getSavedCalendars(),
+    savedCalendars: [],
     tokenIsValidated: false,
     tokenLoading: false,
     tokenError: false,
@@ -43,11 +43,11 @@ export default (state = {
                 ...state,
                 logoutLoading: action.payload
             }
-        case actionNames.UPDATE_SAVED_CALENDARS:
-            return {
-                ...state,
-                savedCalendars: getSavedCalendars()
-            }
+        // case actionNames.UPDATE_SAVED_CALENDARS:
+        //     return {
+        //         ...state,
+        //         savedCalendars: getSavedCalendars()
+        //     }
         case actionNames.ADD_USER_DATA:
             const index = state.userData.findIndex(user => user.user_id === action.payload.user_id);
             if (index === -1) {
@@ -63,7 +63,11 @@ export default (state = {
                     userData: newUserData
                 }
             }
-
+        case actionNames.SET_FIRST_INIT_IS_DONE:
+            return {
+                ...state,
+                firstInit: true
+            }
         default:
             return state;
     }

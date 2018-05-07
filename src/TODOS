@@ -9,3 +9,5 @@ main
 finish CalendarDetails with middleware
 take a look at registry username search bug
 finish addCalendar component
+remove outcommended UPDATE_SAVED_CALENDARS actions
+handle saved calnedar => look at middleware of addCalendar and App
