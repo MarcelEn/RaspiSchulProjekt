@@ -62,10 +62,10 @@ const AddCalendar = props => (
                 </LoadingButton>
             </FormGroup>
         </div>
-        <Collapse in={props.searchResults.length > 0}>
+        <Collapse in={props.searchResultsWithData.length > 0}>
             <div>
                 {
-                    props.searchResults.map((data, index) => (
+                    props.searchResultsWithData.map((data, index) => (
                         <CalendarDetails
                             calendarData={data}
                             userData={props.userData.find(userData => userData.user_id === data.owner_id)}

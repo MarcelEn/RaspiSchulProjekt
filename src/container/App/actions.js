@@ -12,9 +12,10 @@ export const actionNames = {
 
     //shared data:
     ADD_USER_DATA: 'ADD_USER_DATA',
+    ADD_CALENDAR_DATA: 'ADD_CALENDAR_DATA',
     FETCH_USER_DATA_BY_ID: 'FETCH_USER_DATA_BY_ID',
     SET_FIRST_INIT_IS_DONE: 'SET_FIRST_INIT_IS_DONE',
-    // UPDATE_SAVED_CALENDARS: 'UPDATE_SAVED_CALENDARS',
+    UPDATE_SAVED_CALENDARS: 'UPDATE_SAVED_CALENDARS',
     FETCH_REMOTE_DATA_INIT: 'FETCH_REMOTE_DATA_INIT',
 
     //ui
@@ -62,6 +63,10 @@ export const actions = {
         type: actionNames.ADD_USER_DATA,
         payload: userData
     }),
+    addCalendarData: calendarData => ({
+        type: actionNames.ADD_CALENDAR_DATA,
+        payload: calendarData
+    }),
     fetchUserDataById: userId => ({
         type: actionNames.FETCH_USER_DATA_BY_ID,
         payload: userId
@@ -69,9 +74,10 @@ export const actions = {
     setFirstInitIsDone: () => ({
         type: actionNames.SET_FIRST_INIT_IS_DONE
     }),
-    // updateSavedCalendars: () => ({
-    //     type: actionNames.UPDATE_SAVED_CALENDARS
-    // }),
+    updateSavedCalendars: ids => ({
+        type: actionNames.UPDATE_SAVED_CALENDARS,
+        payload: ids
+    }),
     fetchRemoteDataInit: () => ({
         type: actionNames.FETCH_REMOTE_DATA_INIT
     }),

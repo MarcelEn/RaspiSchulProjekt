@@ -50,16 +50,17 @@ export function* fetchUserDataById(action) {
         }
     } catch (error) {}
 }
+
 export function* fetchRemoteDataInit(action) {
     yield put(actions.setFirstInitIsDone());
     yield(function* () {
         try {
             const savedCalendarsResponse = yield call(API.fetchSavedCalendars)
-            
-            const calendarData = yield select(selectCalendarData)
-        } catch (error) {
-
-        }
+            yield put(actions.addCalendarData(savedCalendarsResponse.data))
+            yield put(actions.updateSavedCalendars(
+                savedCalendarsResponse.data.map(calendar => calendar.calendar_id)
+            ))
+        } catch (error) {}
     })();
 
 }

@@ -29,7 +29,7 @@ class AddCalendar extends Component {
     }
     componentDidUpdate() {
         let neededUserIds = []
-        this.props.data.searchResults.forEach(result => {
+        this.props.searchResultsWithData.forEach(result => {
             if (!this.props.userData.find(user => user.user_id === result.owner_id)) {
                 neededUserIds.push(result.owner_id)
             }
@@ -44,6 +44,7 @@ class AddCalendar extends Component {
                 {...this.props.ui}
                 {...this.props.data}
                 savedCalendars={this.props.savedCalendars}
+                searchResultsWithData={this.props.searchResultsWithData}
                 handleUserinput={this.handleUserinput}
                 handleSubmit={this.handleSubmit}
                 userData={this.props.userData}
@@ -55,8 +56,14 @@ class AddCalendar extends Component {
 }
 
 function mapStateToProps(state) {
+    const searchResultsWithData = state.data.addCalendarData.searchResults.map(
+        calendar_id => state.data.appData.calendarData.find(
+            calendar => calendar.calendar_id === calendar_id
+        )
+    )
     return {
         data: state.data.addCalendarData,
+        searchResultsWithData,
         savedCalendars: state.data.appData.savedCalendars,
         ui: state.ui.addCalendarUi,
         userData: state.data.appData.userData
