@@ -10,12 +10,20 @@ const Main = props => (
             <Calendar className={style.calendar} />
 
             <div className={style.textCentering}>
-                <h4>{'<FilterOptions />'}</h4>
+                <h3>Kalender</h3>
+                <Button
+                    className={style.large}
+                    bsStyle="primary"
+                // onClick={() => { props.setPopupId(popupId.ADD_CALENDAR) }}
+                >
+                    Kalender erstellen
+                    </Button>
+                <hr />
                 <div className={style.spacer}>
                     <Button
                         className={style.large}
                         bsStyle="primary"
-                        onClick={()=>{props.setPopupId(popupId.ADD_CALENDAR)}}
+                        onClick={() => { props.setPopupId(popupId.ADD_CALENDAR) }}
                     >
                         Kalender hinzufügen
                     </Button>

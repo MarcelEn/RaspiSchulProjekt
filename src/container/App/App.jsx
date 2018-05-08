@@ -23,6 +23,7 @@ class App extends Component {
         }
     }
     componentDidUpdate(){
+        // TODO: move this in validateAppToken
         if(!this.props.data.firstInit && this.props.data.tokenIsValidated){
             this.props.fetchRemoteDataInit();
         }

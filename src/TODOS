@@ -1,13 +1,15 @@
 die ui von login und registration im reducer speichern - done
 registration api anbindug fertigstellen - done
 nach registration den login machen - done
+remove outcommended UPDATE_SAVED_CALENDARS actions - done
+handle saved calnedar => look at middleware of addCalendar and App - done
+implement TODO comment in App.jsx - done
+popups - done
+finish addCalendar component - done
 
-redirect zu root nach login / registrierung
-popups
-fix popup width bug
+
 main
+redirect zu root nach login / registrierung
+fix popup width bug
 finish CalendarDetails with middleware
 take a look at registry username search bug
-finish addCalendar component
-remove outcommended UPDATE_SAVED_CALENDARS actions
-handle saved calnedar => look at middleware of addCalendar and App

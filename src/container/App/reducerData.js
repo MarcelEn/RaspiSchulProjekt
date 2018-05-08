@@ -15,7 +15,8 @@ export default (state = {
     tokenIsValidated: false,
     tokenLoading: false,
     tokenError: false,
-    logoutLoading: false
+    logoutLoading: false,
+    userId: null
 }, action) => {
     switch (action.type) {
         case actionNames.SET_APP_TOKEN_IS_SET:
@@ -86,6 +87,11 @@ export default (state = {
                     ...state.calendarData,
                     ...newCalendarData
                 ]
+            }
+        case actionNames.SET_USER_ID:
+            return {
+                ...state,
+                userId: action.payload
             }
         case actionNames.SET_FIRST_INIT_IS_DONE:
             return {

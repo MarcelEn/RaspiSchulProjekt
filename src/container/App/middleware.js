@@ -20,7 +20,8 @@ export function* validateAppToken(action) {
     yield put(actions.setAppTokenLoading(true))
 
     try {
-        yield call(API.validateAppToken());
+        const response = yield call(API.validateAppToken());
+        yield put(actions.setUserId(response.data.user_id));
         yield put(actions.setAppTokenLoading(false))
         yield put(actions.setAppTokenIsValidated(true))
     } catch (error) {

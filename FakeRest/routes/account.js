@@ -5,13 +5,18 @@ const makeCookie = (reg, res, next) => {
     res.cookie('accessToken', Math.random(), {
         maxAge: 900000
     });
-    res.sendStatus(200);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(
+        {
+            user_id: '10001'
+        }
+    ));
 }
 
 router.post('/login/loginData', makeCookie);
 router.post('/login/token', makeCookie);
 
-router.delete('/logout', function (req, res, next   ) {
+router.delete('/logout', function (req, res, next) {
     res.clearCookie('accessToken');
     res.sendStatus(200);
 });

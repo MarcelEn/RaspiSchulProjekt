@@ -19,6 +19,7 @@ export const actionNames = {
     FETCH_REMOTE_DATA_INIT: 'FETCH_REMOTE_DATA_INIT',
     REMOVE_SAVED_CALENDAR: 'REMOVE_SAVED_CALENDAR',
     ADD_SAVED_CALENDAR: 'ADD_SAVED_CALENDAR',
+    SET_USER_ID: 'SET_USER_ID',
 
     //ui
     SET_POPUP_ID: 'SET_POPUP_ID',
@@ -91,7 +92,10 @@ export const actions = {
     fetchRemoteDataInit: () => ({
         type: actionNames.FETCH_REMOTE_DATA_INIT
     }),
-
+    setUserId: userId => ({
+        type: actionNames.SET_USER_ID,
+        payload: userId
+    }),
 
     //ui
     setPopupId: id => ({
