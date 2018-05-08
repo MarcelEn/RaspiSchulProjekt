@@ -11,7 +11,8 @@ import {
 } from './../../actions';
 
 import {
-    selectUsers
+    selectUsers,
+    selectSavedCalendars
 } from '../../globalFunctions'
 
 
@@ -57,5 +58,19 @@ export function* sendAddCalendarSearch(action) {
 }
 
 export function* toggleAddCalendarSelection(action) {
-
+    const savedCalendars = yield select(selectSavedCalendars)
+    if (savedCalendars.find(savedId => savedId === action.payload)) {
+        try {
+            yield call(API.deleteSavedCalendar(action.payload))
+            yield put(actions.removeSavedCalendar(action.payload))
+        } catch (error) {}
+    } else {
+        try {
+            yield call(API.addSavedCalendar(action.payload))
+            //we make this check because the user could press the button multiple times
+            if (savedCalendars.find(savedId => savedId === action.payload)) {
+                yield put(actions.addSavedCalendar(action.payload))
+            }
+        } catch (error) {}
+    }
 }

@@ -94,6 +94,14 @@ router.get('/calendar/saved', function (req, res, next) {
     ));
 });
 
+router.delete('/calendar/saved/:id', function (req, res, next) {
+    res.sendStatus(204);
+});
+
+router.put('/calendar/saved/:id', function (req, res, next) {
+    res.sendStatus(201);
+});
+
 
 router.all('/*', function (req, res, next) {
     res.sendStatus(404);

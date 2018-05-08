@@ -28,6 +28,8 @@ export const selectUsers = store => store.data.appData.userData
 
 export const selectCalendarData = store => store.data.appData.calendarData
 
+export const selectSavedCalendars = store => store.data.appData.savedCalendars
+
 //TODO: define media links
 export const getUserImageUrlByUsername = username => '/' + username + '.jpg';
 

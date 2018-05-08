@@ -48,6 +48,19 @@ export default (state = {
                 ...state,
                 savedCalendars: action.payload
             }
+        case actionNames.REMOVE_SAVED_CALENDAR:
+            return {
+                ...state,
+                savedCalendars: state.savedCalendars.filter(savedCalendar => savedCalendar !== action.payload)
+            }
+        case actionNames.ADD_SAVED_CALENDAR:
+            return {
+                ...state,
+                savedCalendars: [
+                    ...state.savedCalendars,
+                    action.payload
+                ]
+            }
         case actionNames.ADD_USER_DATA:
             const index = state.userData.findIndex(user => user.user_id === action.payload.user_id);
             if (index === -1) {

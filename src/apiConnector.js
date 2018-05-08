@@ -14,6 +14,7 @@ const apiPaths = {
     validateToken: path.resolve(apiPrefix, version, 'account', 'login', 'token'),
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
+    addOrRemoveSavedCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved', calendarId),
 }
 
 
@@ -60,5 +61,7 @@ export default {
             reject(e);
         })
     ),
-    fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars)
+    fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars),
+    deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
+    addSavedCalendar: calendarId => () => axios.put(apiPaths.addOrRemoveSavedCalendar(calendarId)),
 }
