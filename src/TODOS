@@ -13,3 +13,4 @@ redirect zu root nach login / registrierung
 fix popup width bug
 finish CalendarDetails with middleware
 take a look at registry username search bug
+look at TODO comment in App middleware

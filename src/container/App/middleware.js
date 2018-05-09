@@ -54,6 +54,7 @@ export function* fetchUserDataById(action) {
 
 export function* fetchRemoteDataInit(action) {
     yield put(actions.setFirstInitIsDone());
+    //TODO: make this calls paralel
     yield(function* () {
         try {
             const savedCalendarsResponse = yield call(API.fetchSavedCalendars)
@@ -63,5 +64,14 @@ export function* fetchRemoteDataInit(action) {
             ))
         } catch (error) {}
     })();
-
+    //TODO: make next calls: load the calendars of the logged in user.
+    // yield(function* () {
+    //     try {
+    //         const savedCalendarsResponse = yield call(API.fetchSavedCalendars)
+    //         yield put(actions.addCalendarData(savedCalendarsResponse.data))
+    //         yield put(actions.updateSavedCalendars(
+    //             savedCalendarsResponse.data.map(calendar => calendar.calendar_id)
+    //         ))
+    //     } catch (error) {}
+    // })();
 }
