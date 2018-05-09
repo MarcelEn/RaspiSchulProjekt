@@ -12,19 +12,10 @@ const getWrapperClasses = props => {
     return style.popupWrapper + ' ' + style.hide;
 }
 
-const toArray = value => {
-    if (typeof value === 'object') {
-        return [value];
-    } else {
-        return value;
-    }
-}
-
 export const PopupWrapper = props => (
     <div className={getWrapperClasses(props)}>
         {
-            toArray(props.children)
-                .filter(child => child.props.id === props.popupId)
+            props.children.filter(child => child.props.id === props.popupId)
                 .map(
                     (child, index) => cloneElement(
                         child,

@@ -14,20 +14,18 @@ const Main = props => (
                 <Button
                     className={style.large}
                     bsStyle="primary"
-                // onClick={() => { props.setPopupId(popupId.ADD_CALENDAR) }}
+                    onClick={() => { props.setPopupId(popupId.MANAGE_CALENDAR) }}
                 >
-                    Kalender erstellen
-                    </Button>
+                    Kalender verwalten
+                </Button>
                 <hr />
-                <div className={style.spacer}>
-                    <Button
-                        className={style.large}
-                        bsStyle="primary"
-                        onClick={() => { props.setPopupId(popupId.ADD_CALENDAR) }}
-                    >
-                        Kalender hinzufügen
-                    </Button>
-                </div>
+                <Button
+                    className={style.large}
+                    bsStyle="primary"
+                    onClick={() => { props.setPopupId(popupId.ADD_CALENDAR) }}
+                >
+                    Kalender hinzufügen
+                </Button>
             </div>
         </Col>
     </Row>

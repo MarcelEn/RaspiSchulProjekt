@@ -68,7 +68,7 @@ export function* toggleAddCalendarSelection(action) {
         try {
             yield call(API.addSavedCalendar(action.payload))
             //we make this check because the user could press the button multiple times
-            if (savedCalendars.find(savedId => savedId === action.payload)) {
+            if (!savedCalendars.find(savedId => savedId === action.payload)) {
                 yield put(actions.addSavedCalendar(action.payload))
             }
         } catch (error) {}

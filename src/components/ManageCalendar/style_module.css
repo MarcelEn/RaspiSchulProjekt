@@ -12,6 +12,10 @@
     border-right: 1px solid rgb(222, 222, 222);
 }
 
+.verticalAlign {
+    line-height: 50px;
+}
+
 .lessPadding {
     padding: 10px;
 }

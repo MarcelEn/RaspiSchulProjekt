@@ -15,6 +15,8 @@ import Main from '../Main/Main';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import { PopupWrapper, Popup } from '../../components/Popup/Popup';
 import AddCalendar from '../AddCalendar/AddCalendar';
+import ManageCalendar from '../ManageCalendar/ManageCalendar';
+
 
 class App extends Component {
     componentWillMount() {
@@ -22,9 +24,9 @@ class App extends Component {
             this.props.validateAppToken();
         }
     }
-    componentDidUpdate(){
+    componentDidUpdate() {
         // TODO: move this in validateAppToken
-        if(!this.props.data.firstInit && this.props.data.tokenIsValidated){
+        if (!this.props.data.firstInit && this.props.data.tokenIsValidated) {
             this.props.fetchRemoteDataInit();
         }
     }
@@ -47,6 +49,9 @@ class App extends Component {
 
                                     <Popup id={popupId.ADD_CALENDAR}>
                                         <AddCalendar />
+                                    </Popup>
+                                    <Popup id={popupId.MANAGE_CALENDAR}>
+                                        <ManageCalendar />
                                     </Popup>
 
                                 </PopupWrapper>

@@ -1,16 +1,19 @@
 import React from 'react';
 import style from './style_module.css';
-import { FormControl, FormGroup, Button, Collapse, Alert, Grid } from 'react-bootstrap';
+import { FormControl, FormGroup, Button, Collapse, Alert, Grid, PageHeader } from 'react-bootstrap';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import CalendarDetails from './CalendarDetails';
 
 
 const AddCalendar = props => (
     <Grid>
+        <FormGroup>
+            <PageHeader>
+                Kalender hinzufügen
+                </PageHeader>
+        </FormGroup>
         <div className={style.limitWidth}>
-            <FormGroup>
-                <h3><b>Kalender hinzufügen</b></h3>
-            </FormGroup>
+
             <FormGroup>
                 <FormControl
                     type="text"
@@ -69,9 +72,8 @@ const AddCalendar = props => (
                         <CalendarDetails
                             calendarData={data}
                             userData={props.userData.find(userData => userData.user_id === data.owner_id)}
-                            index={index}
                             isOpen={index === props.openedDescription}
-                            handleDescriptionToggle={props.handleDescriptionToggle}
+                            handleDescriptionToggle={() => props.handleDescriptionToggle(index)}
                             handleSelection={props.handleSelection}
                             selected={props.savedCalendars.find(calendar => calendar === data.calendar_id)}
                             key={'addCalendar-' + index}
