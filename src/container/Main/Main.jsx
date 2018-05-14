@@ -11,11 +11,12 @@ import { proxyToValue } from '../../globalFunctions';
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.formatOwnCalendar = this.formatOwnCalendar.bind(this);
+        this.filterOwnCalendar = this.filterOwnCalendar.bind(this);
+        this.filterOthersCalendar = this.filterOthersCalendar.bind(this);
         this.handleFilterToggle = this.handleFilterToggle.bind(this);
         this.isCalendarActive = this.isCalendarActive.bind(this);
     }
-    formatOwnCalendar() {
+    filterOwnCalendar() {
         return this.props.calendarData.filter(
             calendar => calendar.owner_id === this.props.userId
         )
@@ -28,6 +29,13 @@ class Main extends Component {
             calendar_id => calendar_id === calendarId
         )
     }
+    filterOthersCalendar(){
+        return this.props.calendarData.filter(
+            calendarData => this.props.savedCalendars.find(
+                savedCalendar => savedCalendar === calendarData.calendar_id
+            )
+        )
+    }
     render() {
         return (
             <Row className={style.rowHeightCorrection}>
@@ -37,7 +45,7 @@ class Main extends Component {
                     <div className={style.textCentering}>
                         <h3>Kalender</h3>
                         {
-                            this.formatOwnCalendar().map((calendar, index) =>
+                            this.filterOwnCalendar().map((calendar, index) =>
                                 <Button
                                     key={'ownCalendarFilter-' + index}
                                     className={style.large + ' ' + style.marginBottom}
@@ -57,6 +65,19 @@ class Main extends Component {
                             Kalender verwalten
                         </Button>
                         <hr />
+                        {
+                            this.filterOthersCalendar().map((calendar, index) =>
+                                <Button
+                                    key={'othersCalendarFilter-' + index}
+                                    className={style.large + ' ' + style.marginBottom}
+                                    bsStyle={this.isCalendarActive(calendar.calendar_id) ? 'success' : 'default'}
+                                    onClick={this.handleFilterToggle}
+                                    value={calendar.calendar_id}
+                                >
+                                    {calendar.calendar_title}
+                                </Button>
+                            )
+                        }
                         <Button
                             className={style.large}
                             bsStyle="primary"
@@ -76,6 +97,7 @@ function mapStateToProps(state) {
         ui: state.ui.mainUi,
         userId: state.data.appData.userId,
         calendarData: state.data.appData.calendarData,
+        savedCalendars: state.data.appData.savedCalendars,
     };
 }
 
