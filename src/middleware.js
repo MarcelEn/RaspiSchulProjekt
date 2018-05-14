@@ -29,9 +29,16 @@ import {
     fetchUserDataById
 } from './container/App/middleware';
 
+import {
+    toggleMainCalendarFilter
+} from './container/Main/middleware';
 
 
 function* mySaga() {
+    //Main
+    yield takeLatest(actionNames.TOGGLE_MAIN_CALENDAR_FILTER, toggleMainCalendarFilter)
+
+
     //AddCalendar
     yield takeLatest(actionNames.SEND_ADD_CALENDAR_SEARCH, sendAddCalendarSearch);
     yield takeLatest(actionNames.TOGGLE_ADD_CALENDAR_SELECTION, toggleAddCalendarSelection);
