@@ -1,15 +1,14 @@
 import React from 'react';
 import { Row, Col, Collapse } from 'react-bootstrap';
 
-import style from './style_module.css';
-
 import CollapseArrow from '../CollapseArrow/CollapseArrow';
+import ListCard from '../ListCard/ListCard';
 
 
 
 const SliderWithHeadingAndArrow = props => (
     <div>
-        <Row className={style.verticalAlign}>
+        <ListCard>
             <Col
                 xs={1}
             >
@@ -19,7 +18,7 @@ const SliderWithHeadingAndArrow = props => (
                 />
             </Col>
             {props.heading}
-        </Row>
+        </ListCard>
         <Collapse in={props.isOpen}>
             <div>
                 <hr />
