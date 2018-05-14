@@ -24,12 +24,12 @@ class Main extends Component {
     handleFilterToggle(proxy) {
         this.props.toggleMainCalendarFilter(proxyToValue(proxy));
     }
-    isCalendarActive(calendarId){
+    isCalendarActive(calendarId) {
         return this.props.ui.activeCalendars.find(
             calendar_id => calendar_id === calendarId
         )
     }
-    filterOthersCalendar(){
+    filterOthersCalendar() {
         return this.props.calendarData.filter(
             calendarData => this.props.savedCalendars.find(
                 savedCalendar => savedCalendar === calendarData.calendar_id
@@ -57,13 +57,6 @@ class Main extends Component {
                                 </Button>
                             )
                         }
-                        <Button
-                            className={style.large}
-                            bsStyle="primary"
-                            onClick={() => { this.props.setPopupId(popupId.MANAGE_CALENDAR) }}
-                        >
-                            Kalender verwalten
-                        </Button>
                         <hr />
                         {
                             this.filterOthersCalendar().map((calendar, index) =>
@@ -78,12 +71,20 @@ class Main extends Component {
                                 </Button>
                             )
                         }
+                        <hr />
+                        <Button
+                            className={style.large + ' ' + style.marginBottom}
+                            bsStyle="primary"
+                            onClick={() => { this.props.setPopupId(popupId.MANAGE_CALENDAR) }}
+                        >
+                            verwalten
+                        </Button>
                         <Button
                             className={style.large}
                             bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.ADD_CALENDAR) }}
                         >
-                            Kalender hinzufügen
+                            hinzufügen
                         </Button>
                     </div>
                 </Col>

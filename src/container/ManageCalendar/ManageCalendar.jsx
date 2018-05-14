@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import style from './style_module.css';
 
 import { actions } from '../../actions';
 import { proxyToValue, proxyToName } from '../../globalFunctions';
-import ManageCalendarDumb from '../../components/ManageCalendar/ManageCalendar';
-
+import { FormGroup, Grid, PageHeader } from 'react-bootstrap';
 class ManageCalendar extends Component {
     constructor(props) {
         super(props);
@@ -15,9 +15,14 @@ class ManageCalendar extends Component {
     }
     render() {
         return (
-            <ManageCalendarDumb
+            <Grid>
+                <PageHeader>
+                    Kalender verwalten
+                </PageHeader>
+                <FormGroup>
 
-            />
+                </FormGroup>
+            </Grid>
         );
     }
 }

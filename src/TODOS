@@ -8,6 +8,7 @@ popups - done
 finish addCalendar component - done
 fix error - done
 add filtering for owncalendar with localstorage loading - done
+refactor seperation of dump part in smart components - done
 
 
 main
@@ -17,4 +18,3 @@ finish CalendarDetails with middleware
 take a look at registry username search bug
 look at TODO comment in App middleware
 finish managecalendar component
-refactor seperation of dump part in smart components
