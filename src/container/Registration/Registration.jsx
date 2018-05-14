@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import RegistrationDumb from '../../components/Registration/Registration.jsx';
+import { FormControl, FormGroup, Button, Collapse, Alert, HelpBlock } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+import style from './style_module.css';
 
 import { actions } from '../../actions';
 import { proxyToValue, proxyToName } from '../../globalFunctions';
+import Centering from '../../components/Centering/Centering';
+import Card from '../../components/Card/Card';
+import LoadingButton from '../../components/LoadingButton/LoadingButton';
 
 //TODO: Connect Registration to middleware and implement error features in the dumb Component
 class Registration extends Component {
@@ -59,18 +65,109 @@ class Registration extends Component {
 
     render() {
         return (
-            <RegistrationDumb
-                {...this.props.ui}
-                {...this.props.data}
+            <Centering x className={style.width}>
+                <Card>
+                    <FormGroup>
+                        <h3><b>Registrieren</b></h3>
+                    </FormGroup>
+                    <FormGroup validationState={this.props.data.userNameInUse ? 'error' : null}>
+                        <FormControl
+                            type="text"
+                            value={this.props.ui.username}
+                            placeholder="Nutzername*"
+                            name="username"
+                            onChange={this.handleUserinput}
+                            onBlur={this.lookupUsername}
+                        />
 
-                disableSubmitButton={this.shouldDisableSubmitButton()}
+                    </FormGroup>
+                    <Collapse in={this.props.data.usernameInUse}>
+                        <FormGroup>
+                            <Alert bsStyle="danger">
+                                Der Nutzername wird bereits verwendet.
+                            </Alert>
+                        </FormGroup>
+                    </Collapse>
 
-                lookupUsername={this.lookupUsername}
-                handleSubmit={this.handleSubmit}
-                handleUserinput={this.handleUserinput}
-                handlePasswordRepeateLeave={this.handlePasswordRepeateLeave}
-                usernameInUse={this.props.data.usernameInUse}
-            />
+                    <FormGroup>
+                        <FormControl
+                            type="text"
+                            value={this.props.ui.firstname}
+                            placeholder="Vorname*"
+                            name="firstname"
+                            onChange={this.handleUserinput}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <FormControl
+                            type="text"
+                            value={this.props.ui.lastname}
+                            placeholder="Nachname*"
+                            name="lastname"
+                            onChange={this.handleUserinput}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <FormControl
+                            type="mail"
+                            value={this.props.ui.email}
+                            placeholder="E-Mail*"
+                            name="email"
+                            onChange={this.handleUserinput}
+                        />
+                    </FormGroup>
+                    <FormGroup validationState={this.props.ui.displayPasswordError ? 'error' : null}>
+                        <FormControl
+                            type="password"
+                            value={this.props.ui.password}
+                            placeholder="Passwort*"
+                            name="password"
+                            onChange={this.handleUserinput}
+                            onBlur={this.handlePasswordRepeateLeave}
+                        />
+                    </FormGroup>
+                    <FormGroup validationState={this.props.ui.displayPasswordError ? 'error' : null}>
+                        <FormControl
+                            type="password"
+                            value={this.props.ui.repeatPassword}
+                            placeholder="Passwort wiederholen*"
+                            name="repeatPassword"
+                            onChange={this.handleUserinput}
+                            onBlur={this.handlePasswordRepeateLeave}
+                        />
+                    </FormGroup>
+                    <Collapse in={this.props.ui.displayPasswordError}>
+                        <FormGroup>
+                            <Alert bsStyle="danger">
+                                Die eingegebenen Passwörter sind nicht identisch.
+                    </Alert>
+                        </FormGroup>
+                    </Collapse>
+                    <FormGroup>
+                        <HelpBlock>* - Pflichtfelder</HelpBlock>
+                    </FormGroup>
+                    <FormGroup>
+                        <LoadingButton loading={this.props.data.loading}>
+                            <div>
+                                <Button
+                                    className={style.large}
+                                    bsStyle="success"
+                                    disabled={this.shouldDisableSubmitButton()}
+                                    onClick={this.handleSubmit}
+                                >
+                                    Registrieren
+                                </Button>
+                            </div>
+                        </LoadingButton>
+
+                    </FormGroup>
+                    <FormGroup>
+                        <Link to='/login'>
+                            zurück zum Login
+                        </Link>
+                    </FormGroup>
+                </Card>
+            </Centering>
         );
     }
 }
