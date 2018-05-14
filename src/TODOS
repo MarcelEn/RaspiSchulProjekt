@@ -6,6 +6,7 @@ handle saved calnedar => look at middleware of addCalendar and App - done
 implement TODO comment in App.jsx - done
 popups - done
 finish addCalendar component - done
+fix error - done
 
 
 main
@@ -14,3 +15,6 @@ fix popup width bug
 finish CalendarDetails with middleware
 take a look at registry username search bug
 look at TODO comment in App middleware
+finish managecalendar component
+refactor seperation of dump part in smart components
+add filtering for owncalendar with localstorage loading

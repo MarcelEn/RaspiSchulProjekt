@@ -6,10 +6,20 @@ import MainDumb from '../../components/Main/Main';
 import { actions } from '../../actions';
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+        this.formatOwnCalendar = this.formatOwnCalendar.bind(this);
+    }
+    formatOwnCalendar() {
+        return this.props.calendarData.filter(
+            calendar => calendar.owner_id === this.props.userId
+        )
+    }
     render() {
         return (
             <MainDumb
                 setPopupId={this.props.setPopupId}
+                ownCalendars={this.formatOwnCalendar()}
             />
         );
     }
@@ -17,6 +27,8 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
+        userId: state.data.appData.userId,
+        calendarData: state.data.appData.calendarData,
     };
 }
 

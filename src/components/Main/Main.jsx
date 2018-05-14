@@ -11,6 +11,18 @@ const Main = props => (
 
             <div className={style.textCentering}>
                 <h3>Kalender</h3>
+                {
+                    props.ownCalendars.map((calendar, index) =>
+                        <Button
+                            key={'ownCalendarFilter-' + index}
+                            className={style.large + ' ' + style.marginBottom}
+                            bsStyle="success"
+                            // onClick={() => { props.setPopupId(popupId.MANAGE_CALENDAR) }}
+                        >
+                            {calendar.calendar_title}
+                        </Button>
+                    )
+                }
                 <Button
                     className={style.large}
                     bsStyle="primary"
