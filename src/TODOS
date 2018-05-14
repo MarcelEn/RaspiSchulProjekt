@@ -18,3 +18,4 @@ finish CalendarDetails with middleware
 take a look at registry username search bug
 look at TODO comment in App middleware
 finish managecalendar component
+    -> add delete option

@@ -15,6 +15,7 @@ class ManageCalendar extends Component {
         super(props);
         this.filterEditableCalendarData = this.filterEditableCalendarData.bind(this);
         this.handleEditButton = this.handleEditButton.bind(this);
+        this.handleEditInput = this.handleEditInput.bind(this);
     }
 
     filterEditableCalendarData() {
@@ -31,6 +32,23 @@ class ManageCalendar extends Component {
             )
         );
     }
+
+    handleEditInput(proxy) {
+        let name, value;
+
+        if (typeof proxy === 'string') {
+            name = 'calendar_description';
+            value = proxy;
+        } else {
+            name = proxyToName(proxy);
+            value = proxyToValue(proxy);
+        }
+
+        if (name === 'visibility')
+            value = parseInt(value, 10);
+
+        this.props.setManageCalendarInputField(name, value)
+    }
     render() {
         return (
             <Grid>
@@ -41,7 +59,15 @@ class ManageCalendar extends Component {
                     this.props.editingCalendar ?
 
                         <EditCalendar
-
+                            calendarData={this.props.editingCalendar}
+                            userId={this.props.userId}
+                            handleEditInput={this.handleEditInput}
+                            cancelManageCalendarEditing={this.props.cancelManageCalendarEditing}
+                            handleSave={this.props.handleSave}
+                            loading={this.props.loading}
+                            error={this.props.error}
+                            success={this.props.success}
+                            
                         />
 
                         :
@@ -75,12 +101,18 @@ function mapStateToProps(state) {
         editingCalendar: state.ui.manageCalendarUi.editingCalendar,
         calendarData: state.data.appData.calendarData,
         userId: state.data.appData.userId,
+        loading: state.data.manageCalendarData.loading,
+        error: state.data.manageCalendarData.error,
+        success: state.data.manageCalendarData.success,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        startManageCalendarEditing: calendarId => { dispatch(actions.startManageCalendarEditing(calendarId)) }
+        startManageCalendarEditing: calendarId => { dispatch(actions.startManageCalendarEditing(calendarId)) },
+        setManageCalendarInputField: (name, value) => { dispatch(actions.setManageCalendarInputField(name, value)) },
+        cancelManageCalendarEditing: () => { dispatch(actions.cancelManageCalendarEditing()) },
+        handleSave: () => { dispatch(actions.saveManageCalendarEditing()) }
     }
 }
 

@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { Form, FormGroup, Col, FormControl, Radio, OverlayTrigger, Tooltip, ControlLabel } from 'react-bootstrap';
+import { Form, FormGroup, Col, FormControl, Radio, OverlayTrigger, Tooltip, ControlLabel, Button, ButtonGroup, Collapse, Alert } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
+import { PropagateLoader } from 'react-spinners';
+
+import style from './style_module.css';
 
 
 const modules = {
@@ -32,71 +35,96 @@ const formats = [
 
 const EditCalendar = props => (
     <Form horizontal>
-
-
         <FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
                 <b>Titel</b>
             </Col>
             <Col sm={10}>
-                <FormControl type="text" placeholder="Titel" />
+                <FormControl
+                    type="text"
+                    placeholder="Titel"
+                    value={props.calendarData.calendar_title}
+                    onChange={props.handleEditInput}
+                    name="calendar_title"
+                />
             </Col>
         </FormGroup>
 
 
+        {
+            props.calendarData.owner_id === props.userId ?
+                <FormGroup>
+                    <Col componentClass={ControlLabel} sm={2}>
+                        <b>Sichtbarkeit</b>
+                    </Col>
+                    <Col sm={10}>
 
-        <FormGroup>
-            <Col componentClass={ControlLabel} sm={2}>
-                <b>Sichtbarkeit</b>
-            </Col>
-            <Col sm={10}>
+                        <Radio
+                            name="visibility"
+                            inline
+                            checked={props.calendarData.visibility === 0}
+                            onChange={props.handleEditInput}
+                            value={0}
+                        >
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={
+                                    <Tooltip id="tooltip">
+                                        Ihr Kalender wird nur für Sie zu verfügung stehen.
+                                    </Tooltip>
+                                }
+                            >
+                                <span>Privat</span>
+                            </OverlayTrigger>
 
-                <Radio name="visibility" inline>
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={
-                            <Tooltip id="tooltip">
-                                Ihr Kalender wird nur für Sie zu verfügung stehen.
-                            </Tooltip>
-                        }
-                    >
-                        <span>Privat</span>
-                    </OverlayTrigger>
-
-                </Radio>
-
-
-                <Radio name="visibility" inline>
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={
-                            <Tooltip id="tooltip">
-                                Andere können Ihren Kalender betrachten, allerdings nicht bearbeiten.
-                            </Tooltip>
-                        }
-                    >
-                        <span>Sichtbar</span>
-                    </OverlayTrigger>
-
-                </Radio>
+                        </Radio>
 
 
-                <Radio name="visibility" inline>
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={
-                            <Tooltip id="tooltip">
-                                Andere haben vollen Zugriff auf den Kalender, lediglich die Sichtbarkeitsfunktion ist Ihnen vorbehalten.
-                            </Tooltip>
-                        }
-                    >
-                        <span>Öffentlich</span>
-                    </OverlayTrigger>
+                        <Radio
+                            name="visibility"
+                            inline
+                            checked={props.calendarData.visibility === 1}
+                            onChange={props.handleEditInput}
+                            value={1}
+                        >
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={
+                                    <Tooltip id="tooltip">
+                                        Andere können Ihren Kalender betrachten, allerdings nicht bearbeiten.
+                                    </Tooltip>
+                                }
+                            >
+                                <span>Sichtbar</span>
+                            </OverlayTrigger>
 
-                </Radio>
-            </Col>
-        </FormGroup>
+                        </Radio>
 
+
+                        <Radio
+                            name="visibility"
+                            inline
+                            checked={props.calendarData.visibility === 2}
+                            onChange={props.handleEditInput}
+                            value={2}
+                        >
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={
+                                    <Tooltip id="tooltip">
+                                        Andere haben vollen Zugriff auf den Kalender, lediglich die Sichtbarkeitsfunktion ist Ihnen vorbehalten.
+                                    </Tooltip>
+                                }
+                            >
+                                <span>Öffentlich</span>
+                            </OverlayTrigger>
+
+                        </Radio>
+                    </Col>
+                </FormGroup>
+                :
+                ''
+        }
 
         <FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
@@ -105,8 +133,8 @@ const EditCalendar = props => (
             <Col sm={10}>
                 <ReactQuill
                     theme={'snow'}
-                    //onChange={this.handleChange}
-                    //value={this.state.editorHtml}
+                    onChange={props.handleEditInput}
+                    value={props.calendarData.calendar_description}
                     modules={modules}
                     formats={formats}
                     placeholder={'Füge eine Beschreibung hinzu.'}
@@ -114,7 +142,65 @@ const EditCalendar = props => (
             </Col>
         </FormGroup>
 
+        <Collapse in={props.error}>
+            <FormGroup>
+                <Col smOffset={2} sm={10}>
+                    <Alert bsStyle="danger">
+                        <b>Whoops! </b>
+                        <p>
+                            Da ist etwas schief gelaufen.
+                        </p>
+                    </Alert>
+                </Col>
+            </FormGroup>
+        </Collapse>
 
+        <Collapse in={props.success}>
+            <FormGroup>
+                <Col smOffset={2} sm={10}>
+                    <Alert bsStyle="success">
+                        Die Daten wurden erfolgreich gespeichert.
+                    </Alert>
+                </Col>
+            </FormGroup>
+        </Collapse>
+        <FormGroup>
+            {
+                props.loading ?
+                    <Col smOffset={2} sm={10}>
+                        <div className={style.moveSpinnerToCenter}>
+                            <PropagateLoader />
+                        </div>
+                    </Col>
+                    :
+                    <Col smOffset={2} sm={10}>
+                        <ButtonGroup>
+                            <Button
+                                bsStyle="default"
+                                onClick={props.cancelManageCalendarEditing}
+                            >
+                                zurück
+                            </Button>
+                            <Button
+                                bsStyle="primary"
+                                disabled={props.calendarData.calendar_title === ''}
+                                onClick={props.handleSave}
+                            >
+                                speichern
+                            </Button>
+                            <Button
+                                bsStyle="danger"
+                            // onClick={props.cancelManageCalendarEditing}
+                            >
+                                löschen
+                            </Button>
+                        </ButtonGroup>
+
+                    </Col>
+            }
+
+
+        </FormGroup>
     </Form>
 )
 

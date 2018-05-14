@@ -33,11 +33,16 @@ import {
     toggleMainCalendarFilter
 } from './container/Main/middleware';
 
+import { 
+    saveManageCalendarEditing
+} from './container/ManageCalendar/middleware';
 
 function* mySaga() {
+    //ManageCalendar
+    yield takeLatest(actionNames.SAVE_MANAGE_CALENDAR_EDITING, saveManageCalendarEditing)
+
     //Main
     yield takeLatest(actionNames.TOGGLE_MAIN_CALENDAR_FILTER, toggleMainCalendarFilter)
-
 
     //AddCalendar
     yield takeLatest(actionNames.SEND_ADD_CALENDAR_SEARCH, sendAddCalendarSearch);

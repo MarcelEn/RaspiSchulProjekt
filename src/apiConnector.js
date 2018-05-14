@@ -15,6 +15,7 @@ const apiPaths = {
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
     addOrRemoveSavedCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved', calendarId),
+    updateCalendarData: path.resolve(apiPrefix, version, 'rest', 'calendar'),
 }
 
 
@@ -47,7 +48,9 @@ export default {
     sendAddCalendarSearch: (searchString, userId) => (
         () => axios.get(apiPaths.sendAddCalendarSearch(searchString, userId))
     ),
-
+    updateCalendarData: calendarData => (
+        () => axios.post(apiPaths.updateCalendarData, calendarData)
+    ),
     fetchUserDataById: userId => () => new Promise(
         (resolve, reject) => axios.all(
             userId.map(
