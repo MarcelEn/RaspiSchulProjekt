@@ -21,11 +21,6 @@ const CalendarDetails = props => (
                     sm={6}
                     md={4}
                     className={style.seperator}
-                    style={
-                        {
-                            borderRight: '1px solid rgb(222, 222, 222)'
-                        }
-                    }
                 >
                     <b>
                         {props.calendarData.calendar_title}

@@ -1,0 +1,8 @@
+.seperator {
+    border-right: 1px solid rgb(222, 222, 222);
+}
+.loadingIndicator{
+    position: absolute;
+    left: 50%;
+    top: 7px;
+}

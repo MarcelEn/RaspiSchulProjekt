@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { FormControl, FormGroup, Button, Collapse, Alert, Grid, PageHeader } from 'react-bootstrap';
+
+import style from './style_module.css';
 
 import { actions } from '../../actions';
 import { proxyToValue, proxyToName } from '../../globalFunctions';
-import AddCalendarDumb from '../../components/AddCalendar/AddCalendar';
-
+import LoadingButton from '../../components/LoadingButton/LoadingButton';
+import CalendarDetails from '../../components/CalendarDetails/CalendarDetails';
 
 class AddCalendar extends Component {
     constructor(props) {
@@ -40,17 +43,83 @@ class AddCalendar extends Component {
     }
     render() {
         return (
-            <AddCalendarDumb
-                {...this.props.ui}
-                {...this.props.data}
-                savedCalendars={this.props.savedCalendars}
-                searchResultsWithData={this.props.searchResultsWithData}
-                handleUserinput={this.handleUserinput}
-                handleSubmit={this.handleSubmit}
-                userData={this.props.userData}
-                handleDescriptionToggle={this.handleDescriptionToggle}
-                handleSelection={this.handleSelection}
-            />
+            <Grid>
+                <FormGroup>
+                    <PageHeader>
+                        Kalender hinzufügen
+                </PageHeader>
+                </FormGroup>
+                <div className={style.limitWidth}>
+
+                    <FormGroup>
+                        <FormControl
+                            type="text"
+                            value={this.props.ui.v}
+                            name="titleOrId"
+                            placeholder="Kalender - Titel / ID"
+                            onChange={this.handleUserinput}
+                            disabled={this.props.data.loading}
+                        />
+
+                    </FormGroup>
+                    <FormGroup>
+                        <FormControl
+                            type="text"
+                            value={this.props.ui.username}
+                            name="username"
+                            placeholder="Nutzername"
+                            onChange={this.handleUserinput}
+                            disabled={this.props.data.loading}
+                        />
+                    </FormGroup>
+                    <Collapse in={this.props.data.error}>
+                        <Alert bsStyle="danger">
+                            <b>Whoops!</b>
+                            <p>
+                                Da ist was schief gelaufen :/
+                            </p>
+                        </Alert>
+                    </Collapse>
+                    <Collapse in={this.props.ui.titleOrId.length < 4 && this.props.ui.username.length < 4 && !this.props.data.error}>
+                        <FormGroup>
+                            <Alert bsStyle="warning">
+                                Sie müssen mindestens 4 Zeichen eingeben.
+                    </Alert>
+                        </FormGroup>
+                    </Collapse>
+                    <FormGroup>
+                        <LoadingButton loading={this.props.data.loading}>
+                            <div>
+                                <Button
+                                    className={style.large}
+                                    bsStyle="success"
+                                    onClick={this.handleSubmit}
+                                    disabled={this.props.ui.titleOrId.length < 4 && this.props.ui.username.length < 4}
+                                >
+                                    Suchen
+                        </Button>
+                            </div>
+                        </LoadingButton>
+                    </FormGroup>
+                </div>
+                <Collapse in={this.props.searchResultsWithData.length > 0}>
+                    <div>
+                        {
+                            this.props.searchResultsWithData.map((data, index) => (
+                                <CalendarDetails
+                                    calendarData={data}
+                                    userData={this.props.userData.find(userData => userData.user_id === data.owner_id)}
+                                    isOpen={index === this.props.ui.openedDescription}
+                                    handleDescriptionToggle={() => this.handleDescriptionToggle(index)}
+                                    handleSelection={this.handleSelection}
+                                    selected={this.props.savedCalendars.find(calendar => calendar === data.calendar_id)}
+                                    key={'addCalendar-' + index}
+                                />
+                            ))
+                        }
+                    </div>
+                </Collapse>
+            </Grid>
         );
     }
 }
