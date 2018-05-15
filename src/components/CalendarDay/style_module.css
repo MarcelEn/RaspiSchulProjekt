@@ -1,0 +1,29 @@
+.day {
+    display: block;
+    float: left;
+    width: 20%;
+    height: 100%;
+    border-right: 1px solid gray;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .day {
+        width: 100%;
+    }
+}
+
+
+.appointment{
+    background: lightblue;
+    border-radius: 5px;
+}
+
+
+.dayProgression{
+    position: relative;
+    height: 110%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.082);
+    border-bottom: 2px solid orangered;
+}

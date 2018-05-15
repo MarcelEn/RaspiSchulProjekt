@@ -97,7 +97,7 @@ class Main extends Component {
                         </Button>
                     </div>
                 </Col>
-                <Col xs={12} sm={9} md={8} lg={9}>
+                <Col className={style.calendarView} xs={12} sm={9} lg={10}>
                     <CalendarView />
                 </Col>
             </Row>
