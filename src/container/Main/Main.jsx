@@ -86,6 +86,14 @@ class Main extends Component {
                         >
                             suchen
                         </Button>
+                        <hr />
+                        <Button
+                            className={style.large}
+                            bsStyle="primary"
+                            onClick={() => { this.props.setPopupId(popupId.USER_SETTINGS) }}
+                        >
+                            Einstellungen
+                        </Button>
                     </div>
                 </Col>
             </Row>

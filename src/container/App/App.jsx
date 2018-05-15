@@ -16,6 +16,7 @@ import Wrapper from '../../components/Wrapper/Wrapper';
 import { PopupWrapper, Popup } from '../../components/Popup/Popup';
 import AddCalendar from '../AddCalendar/AddCalendar';
 import ManageCalendar from '../ManageCalendar/ManageCalendar';
+import UserSettings from '../UserSettings/UserSettings';
 
 
 class App extends Component {
@@ -53,7 +54,9 @@ class App extends Component {
                                     <Popup id={popupId.MANAGE_CALENDAR}>
                                         <ManageCalendar />
                                     </Popup>
-
+                                    <Popup id={popupId.USER_SETTINGS}>
+                                        <UserSettings />
+                                    </Popup>
                                 </PopupWrapper>
                             </Wrapper>
                             :

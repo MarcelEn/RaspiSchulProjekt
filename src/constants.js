@@ -9,5 +9,6 @@ export const paths = {
 
 export const popupId = {
     ADD_CALENDAR: 'ADD_CALENDAR',
-    MANAGE_CALENDAR: 'MANAGE_CALENDAR'
+    MANAGE_CALENDAR: 'MANAGE_CALENDAR',
+    USER_SETTINGS: 'USER_SETTINGS'
 }
