@@ -18,7 +18,8 @@ const apiPaths = {
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
     addOrRemoveSavedCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved', calendarId),
     updateCalendarData: path.resolve(apiPrefix, version, 'rest', 'calendar'),
-    deleteCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', calendarId)
+    deleteCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', calendarId),
+    searchAppointmentsByCalendarId: calendarId => path.resolve(apiPrefix, version, 'rest', 'appointment?calendar_id=' + calendarId),
 }
 
 
@@ -73,4 +74,5 @@ export default {
     fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     addSavedCalendar: calendarId => () => axios.put(apiPaths.addOrRemoveSavedCalendar(calendarId)),
+    searchAppointmentsByCalendarId: calendarId => axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId))
 }

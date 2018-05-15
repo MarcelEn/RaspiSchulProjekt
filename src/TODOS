@@ -20,3 +20,4 @@ finish CalendarDetails with middleware
 take a look at registry username search bug
 look at TODO comment in App middleware
 remove in managecalendar middleware deletion all appointments of calendar
+make appointment loading more smart and not just fetch the whole calendar

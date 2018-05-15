@@ -34,6 +34,10 @@ export const selectUserId = store => store.data.appData.userId
 
 export const selectEditingCalendar = store => store.ui.manageCalendarUi.editingCalendar
 
+export const selectActiveCalendar = store => store.ui.mainUi.activeCalendars
+
+
+
 //TODO: define media links
 export const getUserImageUrlByUsername = username => '/' + username + '.jpg';
 

@@ -39,6 +39,7 @@ export function* deleteManageCalendarEditing(action) {
 
     try {
         yield call(API.deleteCalendar(action.payload))
+        yield put(actions.toggleMainCalendarFilter(action.payload))
         yield put(actions.removeCalendarDataById(action.payload))
         yield put(actions.cancelManageCalendarEditing())
     } catch (error) {

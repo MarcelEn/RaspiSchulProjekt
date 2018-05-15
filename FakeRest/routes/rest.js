@@ -110,8 +110,32 @@ router.post('/calendar', function (req, res, next) {
     res.sendStatus(201);
 });
 
+router.get('/appointment', function (req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(
+        [{
+            appointment_id: parseInt(req.query.calendar_id, 10) + 1000,
+            start: '',
+            end: '',
+            kalendar_id: req.query.calendar_id,
+            appointment_title: '',
+            appointment_description: ''
+        }, {
+            appointment_id: parseInt(req.query.calendar_id, 10) - 1000,
+            start: '',
+            end: '',
+            kalendar_id: req.query.calendar_id,
+            appointment_title: '',
+            appointment_description: ''
+        }]
+    ));
+});
 
 router.all('/*', function (req, res, next) {
     res.sendStatus(404);
 });
+
+
+
+
 module.exports = router;

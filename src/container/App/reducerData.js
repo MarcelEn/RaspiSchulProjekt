@@ -11,6 +11,7 @@ export default (state = {
     firstInit: false,
     userData: [],
     calendarData: [],
+    appointmentData: [],
     savedCalendars: [],
     tokenIsValidated: false,
     tokenLoading: false,
@@ -86,6 +87,17 @@ export default (state = {
                 calendarData: [
                     ...state.calendarData,
                     ...newCalendarData
+                ]
+            }
+        case actionNames.ADD_APPOINTMENT_DATA:
+            const newAppointmentData = action.payload.filter(
+                appointment => !state.appointmentData.find(a => a.appointment_id === appointment.appointment_id)
+            )
+            return {
+                ...state,
+                appointmentData: [
+                    ...state.appointmentData,
+                    ...newAppointmentData
                 ]
             }
         case actionNames.REMOVE_CALENDAR_DATA_BY_ID:

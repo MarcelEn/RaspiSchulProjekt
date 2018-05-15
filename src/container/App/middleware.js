@@ -10,10 +10,23 @@ import {
     actions
 } from './../../actions';
 
+import axios from 'axios';
+
 import {
     selectCalendarData,
-    selectUserId
+    selectUserId,
+    selectActiveCalendar
 } from '../../globalFunctions';
+
+const createMultipleRequests = requests => () => new Promise(
+    (resolve, reject) => {
+        axios.all(requests)
+            .then((...responses) => resolve(responses))
+            .catch(e => {
+                reject(e)
+            })
+    }
+)
 
 export function* validateAppToken(action) {
 
@@ -72,6 +85,21 @@ export function* fetchRemoteDataInit(action) {
             const userId = yield select(selectUserId);
             const calendarsResponse = yield call(API.sendAddCalendarSearch('', userId));
             yield put(actions.addCalendarData(calendarsResponse.data));
+        } catch (error) {}
+    })();
+
+    yield(function* () {
+        try {
+            const activeCalendars = yield select(selectActiveCalendar);
+            const responses = yield call(
+                createMultipleRequests(
+                    activeCalendars
+                    .map(calendarId => API.searchAppointmentsByCalendarId(calendarId))
+                )
+            )
+            for(let i = 0; i < responses[0].length; i ++){
+                yield put(actions.addAppointmentData(responses[0][i].data))
+            }
         } catch (error) {}
     })();
 }
