@@ -3,9 +3,11 @@ export const actionNames = {
     CANCEL_MANAGE_CALENDAR_EDITING: 'CANCEL_MANAGE_CALENDAR_EDITING',
     SET_MANAGE_CALENDAR_INPUT_FIELD: 'SET_MANAGE_CALENDAR_INPUT_FIELD',
     SAVE_MANAGE_CALENDAR_EDITING: 'SAVE_MANAGE_CALENDAR_EDITING',
+    DELETE_MANAGE_CALENDAR_EDITING: 'DELETE_MANAGE_CALENDAR_EDITING',
     SET_MANAGE_CALENDAR_ERROR: 'SET_MANAGE_CALENDAR_ERROR',
     SET_MANAGE_CALENDAR_LOADING: 'SET_MANAGE_CALENDAR_LOADING',
-    SET_MANAGE_CALENDAR_SUCCESS: 'SET_MANAGE_CALENDAR_SUCCESS'
+    SET_MANAGE_CALENDAR_SUCCESS: 'SET_MANAGE_CALENDAR_SUCCESS',
+    SET_MANAGE_CALENDAR_DELETION_WARNING: 'SET_MANAGE_CALENDAR_DELETION_WARNING'
 }
 
 export const actions = {
@@ -37,5 +39,13 @@ export const actions = {
     setManageCalendarSuccess: status => ({
         type: actionNames.SET_MANAGE_CALENDAR_SUCCESS,
         payload: status
+    }),
+    setManageCalendarDeletionWarning: status => ({
+        type: actionNames.SET_MANAGE_CALENDAR_DELETION_WARNING,
+        payload: status
+    }),
+    deleteManageCalendarEditing: calendarId => ({
+        type: actionNames.DELETE_MANAGE_CALENDAR_EDITING,
+        payload: calendarId
     })
 }

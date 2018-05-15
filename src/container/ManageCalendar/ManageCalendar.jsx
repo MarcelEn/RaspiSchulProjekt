@@ -56,18 +56,16 @@ class ManageCalendar extends Component {
                     Kalender bearbeiten
                 </PageHeader>
                 {
-                    this.props.editingCalendar ?
+                    this.props.editCalendar.calendarData ?
 
                         <EditCalendar
-                            calendarData={this.props.editingCalendar}
+                            {...this.props.editCalendar}
                             userId={this.props.userId}
                             handleEditInput={this.handleEditInput}
                             cancelManageCalendarEditing={this.props.cancelManageCalendarEditing}
                             handleSave={this.props.handleSave}
-                            loading={this.props.loading}
-                            error={this.props.error}
-                            success={this.props.success}
-                            
+                            setManageCalendarDeletionWarning={this.props.setManageCalendarDeletionWarning}
+                            deleteManageCalendarEditing={this.props.deleteManageCalendarEditing}
                         />
 
                         :
@@ -98,12 +96,15 @@ class ManageCalendar extends Component {
 
 function mapStateToProps(state) {
     return {
-        editingCalendar: state.ui.manageCalendarUi.editingCalendar,
+        editCalendar: {
+            calendarData: state.ui.manageCalendarUi.editingCalendar,
+            showDeleteWarning: state.ui.manageCalendarUi.showDeleteWarning,
+            loading: state.data.manageCalendarData.loading,
+            error: state.data.manageCalendarData.error,
+            success: state.data.manageCalendarData.success,
+        },
         calendarData: state.data.appData.calendarData,
-        userId: state.data.appData.userId,
-        loading: state.data.manageCalendarData.loading,
-        error: state.data.manageCalendarData.error,
-        success: state.data.manageCalendarData.success,
+        userId: state.data.appData.userId
     }
 }
 
@@ -112,7 +113,9 @@ function mapDispatchToProps(dispatch) {
         startManageCalendarEditing: calendarId => { dispatch(actions.startManageCalendarEditing(calendarId)) },
         setManageCalendarInputField: (name, value) => { dispatch(actions.setManageCalendarInputField(name, value)) },
         cancelManageCalendarEditing: () => { dispatch(actions.cancelManageCalendarEditing()) },
-        handleSave: () => { dispatch(actions.saveManageCalendarEditing()) }
+        handleSave: () => { dispatch(actions.saveManageCalendarEditing()) },
+        setManageCalendarDeletionWarning: status => { dispatch(actions.setManageCalendarDeletionWarning(status)) },
+        deleteManageCalendarEditing: calendarId => { dispatch(actions.deleteManageCalendarEditing(calendarId)) },
     }
 }
 

@@ -34,12 +34,14 @@ import {
 } from './container/Main/middleware';
 
 import { 
-    saveManageCalendarEditing
+    saveManageCalendarEditing,
+    deleteManageCalendarEditing
 } from './container/ManageCalendar/middleware';
 
 function* mySaga() {
     //ManageCalendar
     yield takeLatest(actionNames.SAVE_MANAGE_CALENDAR_EDITING, saveManageCalendarEditing)
+    yield takeLatest(actionNames.DELETE_MANAGE_CALENDAR_EDITING, deleteManageCalendarEditing)
 
     //Main
     yield takeLatest(actionNames.TOGGLE_MAIN_CALENDAR_FILTER, toggleMainCalendarFilter)

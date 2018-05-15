@@ -16,6 +16,7 @@ const apiPaths = {
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
     addOrRemoveSavedCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved', calendarId),
     updateCalendarData: path.resolve(apiPrefix, version, 'rest', 'calendar'),
+    deleteCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', calendarId)
 }
 
 
@@ -50,6 +51,9 @@ export default {
     ),
     updateCalendarData: calendarData => (
         () => axios.post(apiPaths.updateCalendarData, calendarData)
+    ),
+    deleteCalendar: calendarId => (
+        () => axios.delete(apiPaths.deleteCalendar(calendarId))
     ),
     fetchUserDataById: userId => () => new Promise(
         (resolve, reject) => axios.all(

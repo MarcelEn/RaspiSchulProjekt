@@ -102,6 +102,10 @@ router.put('/calendar/saved/:id', function (req, res, next) {
     res.sendStatus(201);
 });
 
+router.delete('/calendar/:id', function (req, res, next) {
+    res.sendStatus(204);
+});
+
 router.post('/calendar', function (req, res, next) {
     res.sendStatus(201);
 });

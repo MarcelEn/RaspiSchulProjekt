@@ -190,7 +190,7 @@ const EditCalendar = props => (
                             </Button>
                             <Button
                                 bsStyle="danger"
-                            // onClick={props.cancelManageCalendarEditing}
+                                onClick={() => props.setManageCalendarDeletionWarning(true)}
                             >
                                 löschen
                             </Button>
@@ -198,9 +198,34 @@ const EditCalendar = props => (
 
                     </Col>
             }
-
-
         </FormGroup>
+        <Collapse in={props.showDeleteWarning}>
+            <FormGroup>
+                <Col smOffset={2} sm={10}>
+                    <Alert bsStyle="danger">
+                        <b>Sind Sie sich sicher?</b>
+                        <p>
+                            <b>Hinweis:</b> Durch das Löschen werden ebenfalls alle Termine gelöscht.{' '}
+                            <Button
+                                bsStyle="danger"
+                                onClick={() => props.deleteManageCalendarEditing(props.calendarData.calendar_id)}
+                            >
+                                löschen
+                            </Button>
+                            {' '}
+                            <Button
+                                bsStyle="success"
+                                onClick={() => props.setManageCalendarDeletionWarning(false)}
+                            >
+                                abbrechen
+                            </Button>
+                        </p>
+                    </Alert>
+                </Col>
+            </FormGroup>
+        </Collapse>
+
+
     </Form>
 )
 

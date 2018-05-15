@@ -30,3 +30,19 @@ export function* saveManageCalendarEditing(action) {
 
     yield put(actions.setManageCalendarLoading(false))
 }
+
+export function* deleteManageCalendarEditing(action) {
+    yield put(actions.setManageCalendarSuccess(false))
+    yield put(actions.setManageCalendarLoading(true))
+    yield put(actions.setManageCalendarError(false))
+    yield put(actions.setManageCalendarDeletionWarning(false))
+
+    try {
+        yield call(API.deleteCalendar(action.payload))
+        yield put(actions.removeCalendarDataById(action.payload))
+        yield put(actions.cancelManageCalendarEditing())
+    } catch (error) {
+        yield put(actions.setManageCalendarError(true))
+        yield put(actions.setManageCalendarLoading(false))
+    }
+}

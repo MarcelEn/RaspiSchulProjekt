@@ -3,9 +3,15 @@ import {
 } from '../../actions';
 
 export default (state = {
-    editingCalendar: null
+    editingCalendar: null,
+    showDeleteWarning: false
 }, action) => {
     switch (action.type) {
+        case actionNames.SET_MANAGE_CALENDAR_DELETION_WARNING:
+            return {
+                ...state,
+                showDeleteWarning: action.payload
+            }
         case actionNames.START_MANAGE_CALENDAR_EDITING:
             return {
                 ...state,
@@ -14,7 +20,8 @@ export default (state = {
         case actionNames.CANCEL_MANAGE_CALENDAR_EDITING:
             return {
                 ...state,
-                editingCalendar: null
+                editingCalendar: null,
+                showDeleteWarning: false
             }
         case actionNames.SET_MANAGE_CALENDAR_INPUT_FIELD:
             return {

@@ -88,6 +88,14 @@ export default (state = {
                     ...newCalendarData
                 ]
             }
+        case actionNames.REMOVE_CALENDAR_DATA_BY_ID:
+            const calendarData = state.calendarData.filter(
+                c => c.calendar_id !== action.payload
+            )
+            return {
+                ...state,
+                calendarData
+            }
         case actionNames.SET_USER_ID:
             return {
                 ...state,

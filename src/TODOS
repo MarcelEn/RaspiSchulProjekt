@@ -9,6 +9,8 @@ finish addCalendar component - done
 fix error - done
 add filtering for owncalendar with localstorage loading - done
 refactor seperation of dump part in smart components - done
+finish managecalendar component - done
+    -> add delete option - done
 
 
 main
@@ -17,5 +19,4 @@ fix popup width bug
 finish CalendarDetails with middleware
 take a look at registry username search bug
 look at TODO comment in App middleware
-finish managecalendar component
-    -> add delete option
+remove in managecalendar middleware deletion all appointments of calendar
