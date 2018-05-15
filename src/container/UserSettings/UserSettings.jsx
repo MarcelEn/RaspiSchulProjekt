@@ -8,7 +8,7 @@ import { Grid, PageHeader, Form, Col, FormControl, FormGroup, ControlLabel, Coll
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
 import { getUserImageUrlByUsername } from '../../globalFunctions';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
-class Login extends Component {
+class UserSettings extends Component {
     constructor(props) {
         super(props);
     }
@@ -225,4 +225,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(UserSettings)

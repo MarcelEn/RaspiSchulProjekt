@@ -8,6 +8,7 @@ import style from './style_module.css';
 import { actions } from '../../actions';
 import { popupId } from '../../constants';
 import { proxyToValue } from '../../globalFunctions';
+import CalendarView from '../CalendarView/CalendarView';
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -39,7 +40,7 @@ class Main extends Component {
     render() {
         return (
             <Row className={style.rowHeightCorrection}>
-                <Col className={style.sideBarWrapper} xs={12} md={3} lg={2}>
+                <Col className={style.sideBarWrapper} xs={12} sm={3} lg={2}>
                     <Calendar className={style.calendar} />
 
                     <div className={style.textCentering}>
@@ -95,6 +96,9 @@ class Main extends Component {
                             Einstellungen
                         </Button>
                     </div>
+                </Col>
+                <Col xs={12} sm={9} md={8} lg={9}>
+                    <CalendarView />
                 </Col>
             </Row>
         );

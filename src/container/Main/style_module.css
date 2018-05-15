@@ -4,25 +4,32 @@
     padding: 10px;
 }
 
-.textCentering{
+.textCentering {
     text-align: center;
 }
 
-.sideBarWrapper{
+.sideBarWrapper {
     box-shadow: 1px 0px 2px gray;
     padding: 0px;
-    min-width: 345px;
+    /* min-width: 345px; */
     height: 100%;
 }
 
-.rowHeightCorrection{
+@media (max-width: 992px) {
+    .sideBarWrapper {
+        height: auto;
+        box-shadow: none;
+    }
+}
+
+.rowHeightCorrection {
     height: 100%;
 }
 
-.large{
+.large {
     width: 70%;
 }
 
-.marginBottom{
+.marginBottom {
     margin-bottom: 5px;
 }
