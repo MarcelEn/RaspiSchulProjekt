@@ -1,9 +1,11 @@
 import path from 'path';
 import axios from 'axios';
-import hash from 'string-hash';
+import hash from 'hash.js';
+
+const generateHash = string => hash.sha256().update(string).digest('hex');
 
 const version = '0.0.1';
-const apiPrefix = 'api'
+const apiPrefix = 'api';
 
 const apiPaths = {
     sendLoginData: path.resolve(apiPrefix, version, 'account', 'login', 'loginData'),
@@ -27,7 +29,7 @@ export default {
     sendLoginData: loginData => (
         () => axios.post(apiPaths.sendLoginData, {
             loginName: loginData.username,
-            passwort: hash(loginData.password)
+            passwort: generateHash(loginData.password)
         })
     ),
     sendLogout: () => (
@@ -38,7 +40,7 @@ export default {
             loginName: registrationData.username,
             vorname: registrationData.firstname,
             nachname: registrationData.lastname,
-            password: hash(registrationData.password),
+            password: generateHash(registrationData.password),
             email: registrationData.email
         })
     ),
