@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Col, Button } from 'react-bootstrap';
 import Calendar from 'react-calendar';
 
 import style from './style_module.css';
@@ -39,7 +39,7 @@ class Main extends Component {
     }
     render() {
         return (
-            <Row className={style.rowHeightCorrection}>
+            <div className={style.rowHeightCorrection}>
                 <Col className={style.sideBarWrapper} xs={12} sm={3} lg={2}>
                     <Calendar className={style.calendar} />
 
@@ -100,7 +100,7 @@ class Main extends Component {
                 <Col className={style.calendarView} xs={12} sm={9} lg={10}>
                     <CalendarView />
                 </Col>
-            </Row>
+            </div>
         );
     }
 }

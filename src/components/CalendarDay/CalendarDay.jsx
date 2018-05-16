@@ -24,7 +24,7 @@ const CalendarDate = props => (
     <div className={style.day}>
         <div className={style.dayProgression} style={{ top: getDayProgressionInPercent(props.date) }} />
         <div className={style.lineWrapper}>
-            <VerticalHourLegend />
+            <VerticalHourLegend day={props.day}/>
         </div>
     </div>
 )

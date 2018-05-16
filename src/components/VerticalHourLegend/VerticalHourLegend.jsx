@@ -13,7 +13,7 @@ const VerticalHourLegend = props => (
     <div className={style.wrapper}>
         {
             getArray(48).map((e, index) =>
-                <div className={style.element}>
+                <div key={'sperator-' + props.day + '-' + index} className={style.element}>
                     {
                         props.legend ?
                             index !== 0 ?

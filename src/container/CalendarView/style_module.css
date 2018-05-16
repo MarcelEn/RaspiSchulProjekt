@@ -1,22 +1,72 @@
-.maxSize{
+.maxSize {
     height: 100%;
+}
+
+.maxSize,
+.tableWrapperBig,
+.tableWrapperSmall {
+    float: left;
+    width: 100%;
+    transition: 0.2s;
+}
+
+.weekDays {
+    float: left;
+    width: calc(100% - 7px);
+    padding-left: 5%;
+    height: 3%;
+}
+
+.tableInnerWrapper {
+    height: 1300px;
+    float: left;
     width: 100%;
 }
 
-.responsiveWidth{
+.tableWrapperBig {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.tableWrapperSmall {
+    height: 25%;
+    overflow-y: scroll;
+    box-shadow: 2px 1px 3px grey;
+}
+
+.responsiveWidth {
     float: left;
     height: 100%;
     width: 95%;
 }
 
-.legendWidth{
+.time {
     width: 5%;
     height: 100%;
     float: left;
 }
 
+.infoPanel {
+    float: left;
+    height: 72%;
+    width: 100%;
+}
+
+.weekDay {
+    padding-top: 0.5%;
+    height: 100%;
+    background: #337ab7;
+    color: white;
+    width: calc(100% / 7);
+    text-align: center;
+    float: left;
+    border-radius: 6px 6px 0px 0px;
+    box-sizing: border-box;
+    border: 2px solid #225079;
+}
+
 @media (max-width: 768px) {
-    .responsiveWidth{
+    .responsiveWidth {
         width: 100%;
     }
 }

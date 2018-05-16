@@ -116,3 +116,14 @@ body {
 .react-calendar__navigation__next2-button, .react-calendar__navigation__prev2-button{
     visibility: hidden;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(49, 49, 49, 0.582);
+    border-radius: 10px;
+}
