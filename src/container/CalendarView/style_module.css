@@ -2,3 +2,21 @@
     height: 100%;
     width: 100%;
 }
+
+.responsiveWidth{
+    float: left;
+    height: 100%;
+    width: 95%;
+}
+
+.legendWidth{
+    width: 5%;
+    height: 100%;
+    float: left;
+}
+
+@media (max-width: 768px) {
+    .responsiveWidth{
+        width: 100%;
+    }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './style_module.css';
 import moment from 'moment';
+import VerticalHourLegend from '../VerticalHourLegend/VerticalHourLegend';
 
 const millisecondsOfDay = 1000 * 60 * 60 * 24;
 
@@ -22,6 +23,9 @@ const getDayProgressionInPercent = (date) => {
 const CalendarDate = props => (
     <div className={style.day}>
         <div className={style.dayProgression} style={{ top: getDayProgressionInPercent(props.date) }} />
+        <div className={style.lineWrapper}>
+            <VerticalHourLegend />
+        </div>
     </div>
 )
 
