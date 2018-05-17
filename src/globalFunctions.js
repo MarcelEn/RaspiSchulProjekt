@@ -1,9 +1,30 @@
+import moment from 'moment';
+import {
+    millisecondsOfDay
+} from './constants';
 const alphabet = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 ]
 
 
 //Exports
+
+
+
+export const getDayProgression = () => (moment().valueOf() - getTodayInMilliseconds()) / millisecondsOfDay
+
+export const getDayProgressionInPercent = (date) => {
+    const today = moment(moment().format('YYYY-MM-DD'))
+
+    if (today.isBefore(date)) {
+        return "100%";
+    }
+    if (today.isAfter(date)) {
+        return "0%";
+    }
+    return (1 - getDayProgression()) * -100 - 10 + '%'
+}
+
 export const proxyToValue = proxy => proxy.target.value;
 
 export const proxyToName = proxy => proxy.target.name;
@@ -35,6 +56,8 @@ export const selectUserId = store => store.data.appData.userId
 export const selectEditingCalendar = store => store.ui.manageCalendarUi.editingCalendar
 
 export const selectActiveCalendar = store => store.ui.mainUi.activeCalendars
+
+export const getTodayInMilliseconds = () => moment(moment().format("YYYY-MM-DD")).valueOf()
 
 
 

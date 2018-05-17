@@ -2,30 +2,32 @@ import React from 'react';
 import style from './style_module.css';
 import moment from 'moment';
 import VerticalHourLegend from '../VerticalHourLegend/VerticalHourLegend';
+import { getTodayInMilliseconds, getDayProgressionInPercent } from '../../globalFunctions'
+import Appointment from './Appointment';
 
-const millisecondsOfDay = 1000 * 60 * 60 * 24;
 
-const getDayProgression = () => (moment().valueOf() - moment(moment().format("YYYY-MM-DD")).valueOf()) / millisecondsOfDay
-
-const getDayProgressionInPercent = (date) => {
-    const today = moment(moment().format('YYYY-MM-DD'))
-
-    if (today.isBefore(date)) {
-        return "100%";
-    }
-    if (today.isAfter(date)) {
-        return "0%";
-    }
-    return (1 - getDayProgression()) * - 100 - 10 + '%'
+const example = {
+    appointment_id: 49002,
+    start: getTodayInMilliseconds() + 36000000,
+    end: getTodayInMilliseconds() + 36000000 + 3600000,
+    kalendar_id: '50002',
+    appointment_title: 'Hallo',
+    appointment_description: ''
 }
-
 
 const CalendarDate = props => (
     <div className={style.day}>
-        <div className={style.dayProgression} style={{ top: getDayProgressionInPercent(props.date) }} />
         <div className={style.lineWrapper}>
-            <VerticalHourLegend day={props.day}/>
+            <VerticalHourLegend day={props.legend} />
         </div>
+        <div className={style.dayProgression} style={{ top: getDayProgressionInPercent(props.date) }} />
+
+        <Appointment
+            appointment={example}
+            width="50%"
+            left="0%"
+        />
+
     </div>
 )
 
