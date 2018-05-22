@@ -7,6 +7,7 @@ import style from './style_module.css';
 import { actions } from '../../actions';
 import CalendarDay from '../../components/CalendarDay/CalendarDay'
 import VerticalHourLegend from '../../components/VerticalHourLegend/VerticalHourLegend';
+import DetailedAppointmentView from '../../components/DetailedAppointmentView/DetailedAppointmentView';
 
 
 const week = [
@@ -44,7 +45,7 @@ class CalendarView extends Component {
         const start = thisDay.valueOf();
 
         thisDay.add(1, "day");
-        
+
         const end = thisDay.valueOf();
 
         return appointments.filter(
@@ -88,6 +89,16 @@ class CalendarView extends Component {
                     </div>
                 </div>
                 <div className={style.infoPanel}>
+                    {
+                        this.props.detailedAppointmentId ?
+                            <DetailedAppointmentView
+                                {...this.props.appointmentData.find(
+                                    appointment => appointment.appointment_id === this.props.detailedAppointmentId
+                                )}
+                            />
+                            :
+                            ''
+                    }
                 </div>
             </div>
         );

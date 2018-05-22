@@ -121,14 +121,14 @@ router.get('/appointment', function (req, res, next) {
             end: moment(moment().format("YYYY-MM-DD")).valueOf() + 36000000 + 3600000,
             calendar_id: req.query.calendar_id,
             appointment_title: 'Hallo',
-            appointment_description: ''
+            appointment_description: '<h1>Some fancy description</h1><p><em>This calendar covers:</em></p><ul><li>Some fancy stuff</li><li>and more stuff</li></ul>'
         }, {
             appointment_id: req.query.calendar_id + 2,
             start: moment(moment().format("YYYY-MM-DD")).valueOf() + 36000000,
             end: moment(moment().format("YYYY-MM-DD")).valueOf() + 36000000 + 3600000,
             calendar_id: req.query.calendar_id,
             appointment_title: 'BB',
-            appointment_description: ''
+            appointment_description: '<h1>Some fancy description</h1><p><em>This calendar covers:</em></p><ul><li>Some fancy stuff</li><li>and more stuff</li></ul>'
         }]
     ));
 });

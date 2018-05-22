@@ -1,0 +1,7 @@
+.heading{
+    box-shadow: 2px 1px 3px gray;
+    padding-left: 8px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 38px;
+}
