@@ -25,12 +25,8 @@ class CalendarView extends Component {
         this.state = {
             in: false
         }
-        this.handleAppointmentSelect = this.handleAppointmentSelect.bind(this);
         this.getAppointmentsOfThisWeek = this.getAppointmentsOfThisWeek.bind(this);
         this.filterForThisDay = this.filterForThisDay.bind(this);
-    }
-    handleAppointmentSelect(appointmentId) {
-        console.log(appointmentId)
     }
     getAppointmentsOfThisWeek() {
         return this.props.appointmentData
@@ -45,9 +41,10 @@ class CalendarView extends Component {
     }
     filterForThisDay(appointments, index) {
         const thisDay = moment(this.props.dateOfMonday).add(index, 'day');
-
         const start = thisDay.valueOf();
+
         thisDay.add(1, "day");
+        
         const end = thisDay.valueOf();
 
         return appointments.filter(
@@ -70,7 +67,7 @@ class CalendarView extends Component {
                         )
                     }
                 </div>
-                <div className={!this.state.in ? style.tableWrapperBig : style.tableWrapperSmall}>
+                <div className={this.props.detailedAppointmentId ? style.tableWrapperSmall : style.tableWrapperBig}>
                     <div className={style.tableInnerWrapper}>
                         <div className={style.time}>
                             <VerticalHourLegend day="legend" legend />
@@ -80,7 +77,7 @@ class CalendarView extends Component {
                                 week.map((day, index) =>
                                     <CalendarDay
                                         appointments={this.filterForThisDay(appointmentsOfThisWeek, index)}
-                                        handleAppointmentSelect={this.handleAppointmentSelect}
+                                        handleAppointmentSelect={this.props.toggleCalendarviewDetailedAppointmentId}
                                         key={"day-" + day}
                                         day={day}
                                         date={moment(this.props.dateOfMonday).add(index, 'day')}
@@ -108,6 +105,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        toggleCalendarviewDetailedAppointmentId: id => { dispatch(actions.toggleCalendarviewDetailedAppointmentId(id)) },
     }
 }
 
