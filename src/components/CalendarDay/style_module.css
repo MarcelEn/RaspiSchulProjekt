@@ -1,15 +1,19 @@
 .appointment {
     position: absolute;
-    background: #337ab7;
-    border: 2px solid #225079;
     border-radius: 5px;
-    width: 100%;
-    height: 100px;
     box-sizing: border-box;
+    padding: 1px;
 }
-.appointmentContent{
+
+.appointmentContent {
     height: 100%;
     width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 4px;
+    overflow: hidden;
+    user-select: none;
+    cursor: pointer;
 }
 
 .day {
@@ -28,10 +32,12 @@
     border-bottom: 2px solid orangered;
 }
 
-.dayProgression, .lineWrapper {
+.dayProgression,
+.lineWrapper {
     position: absolute;
 }
-.lineWrapper{
+
+.lineWrapper {
     width: 100%;
     height: 100%;
 }
