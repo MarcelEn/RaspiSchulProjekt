@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import style from './style_module.css';
 
@@ -18,7 +19,6 @@ const week = [
     'Sonntag'
 ]
 
-
 class CalendarView extends Component {
     constructor(props) {
         super(props);
@@ -26,11 +26,38 @@ class CalendarView extends Component {
             in: false
         }
         this.handleAppointmentSelect = this.handleAppointmentSelect.bind(this);
+        this.getAppointmentsOfThisWeek = this.getAppointmentsOfThisWeek.bind(this);
+        this.filterForThisDay = this.filterForThisDay.bind(this);
     }
     handleAppointmentSelect(appointmentId) {
         console.log(appointmentId)
     }
+    getAppointmentsOfThisWeek() {
+        return this.props.appointmentData
+            .filter(
+                appointment => this.props.activeCalendars.find(calendarId => calendarId === appointment.calendar_id)
+            )
+            .filter(
+                appointment =>
+                    moment(appointment.start).isBetween(this.props.dateOfMonday, moment(this.props.dateOfMonday).add(6, "day")) ||
+                    moment(appointment.end).isBetween(this.props.dateOfMonday, moment(this.props.dateOfMonday).add(6, "day"))
+            )
+    }
+    filterForThisDay(appointments, index) {
+        const thisDay = moment(this.props.dateOfMonday).add(index, 'day');
+
+        const start = thisDay.valueOf();
+        thisDay.add(1, "day");
+        const end = thisDay.valueOf();
+
+        return appointments.filter(
+            appointment =>
+                moment(appointment.start).isBetween(start, end) ||
+                moment(appointment.end).isBetween(start, end)
+        )
+    }
     render() {
+        const appointmentsOfThisWeek = this.getAppointmentsOfThisWeek();
         return (
             <div className={style.maxSize}>
                 <div className={style.weekDays}>
@@ -50,12 +77,13 @@ class CalendarView extends Component {
                         </div>
                         <div className={style.responsiveWidth}>
                             {
-                                week.map(day =>
+                                week.map((day, index) =>
                                     <CalendarDay
+                                        appointments={this.filterForThisDay(appointmentsOfThisWeek, index)}
                                         handleAppointmentSelect={this.handleAppointmentSelect}
                                         key={"day-" + day}
                                         day={day}
-                                        date="2018-05-14"
+                                        date={moment(this.props.dateOfMonday).add(index, 'day')}
                                     />
                                 )
                             }
@@ -71,6 +99,9 @@ class CalendarView extends Component {
 
 function mapStateToProps(state) {
     return {
+        appointmentData: state.data.appData.appointmentData,
+        activeCalendars: state.ui.mainUi.activeCalendars,
+        ...state.ui.calendarViewUi,
     }
 
 }

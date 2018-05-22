@@ -41,7 +41,10 @@ class Main extends Component {
         return (
             <div className={style.rowHeightCorrection}>
                 <Col className={style.sideBarWrapper} xs={12} sm={3} lg={2}>
-                    <Calendar className={style.calendar} />
+                    <Calendar 
+                    className={style.calendar} 
+                    onClickDay={this.props.setCalendarViewDateOfMonday}
+                    />
 
                     <div className={style.textCentering}>
                         <h3>Kalender</h3>
@@ -118,6 +121,7 @@ function mapDispatchToProps(dispatch) {
     return {
         setPopupId: id => { dispatch(actions.setPopupId(id)) },
         toggleMainCalendarFilter: calendarId => { dispatch(actions.toggleMainCalendarFilter(calendarId)) },
+        setCalendarViewDateOfMonday: day => { dispatch(actions.setCalendarViewDateOfMonday(day)) },
     }
 }
 

@@ -14,6 +14,7 @@
     overflow: hidden;
     user-select: none;
     cursor: pointer;
+    word-break: break-all;
 }
 
 .day {
@@ -28,8 +29,10 @@
 .dayProgression {
     height: 110%;
     width: 100%;
-    background: rgba(0, 0, 0, 0.082);
+    background: rgba(0, 0, 0, 0.178);
     border-bottom: 2px solid orangered;
+    pointer-events: none;
+    z-index: 4;
 }
 
 .dayProgression,

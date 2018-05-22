@@ -13,31 +13,6 @@ const getHeight = (start, end) => {
     return (end - start) / millisecondsOfDay * 100 + "%"
 }
 
-const example = [{
-    appointment_id: 49002,
-    start: getTodayInMilliseconds() + 36000000,
-    end: getTodayInMilliseconds() + 36000000 + 3600000,
-    kalendar_id: '50002',
-    appointment_title: 'Hallo',
-    appointment_description: ''
-},
-{
-    appointment_id: 49002,
-    start: getTodayInMilliseconds() + 36000000,
-    end: getTodayInMilliseconds() + 36000000 + 3600000,
-    kalendar_id: '50002',
-    appointment_title: 'Ich bin ein ganz wichtiger Termin',
-    appointment_description: ''
-},
-{
-    appointment_id: 49002,
-    start: getTodayInMilliseconds() + 30000000,
-    end: getTodayInMilliseconds() + 35999999,
-    kalendar_id: '50002',
-    appointment_title: 'Mop',
-    appointment_description: ''
-}]
-
 
 const adjustAppointments = appointments => {
     let alreadyMappedAppointments = [];
@@ -79,7 +54,7 @@ const CalendarDate = props => (
         </div>
         <div className={style.dayProgression} style={{ top: getDayProgressionInPercent(props.date) }} />
         {
-            adjustAppointments(example).map(
+            adjustAppointments(props.appointments).map(
                 (appointment, index) =>
                     <Appointment
                         key={"CalendarDay-" + props.day + "-" + index}

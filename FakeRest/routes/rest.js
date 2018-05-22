@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 
+
+
 /* GET users listing. */
 router.get('/user', function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
@@ -114,18 +116,18 @@ router.get('/appointment', function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(
         [{
-            appointment_id: parseInt(req.query.calendar_id, 10) + 1000,
-            start: '',
-            end: '',
-            kalendar_id: req.query.calendar_id,
-            appointment_title: '',
+            appointment_id: req.query.calendar_id + 1,
+            start: moment(moment().format("YYYY-MM-DD")).valueOf() + 36000000,
+            end: moment(moment().format("YYYY-MM-DD")).valueOf() + 36000000 + 3600000,
+            calendar_id: req.query.calendar_id,
+            appointment_title: 'Hallo',
             appointment_description: ''
         }, {
-            appointment_id: parseInt(req.query.calendar_id, 10) - 1000,
-            start: '',
-            end: '',
-            kalendar_id: req.query.calendar_id,
-            appointment_title: '',
+            appointment_id: req.query.calendar_id + 2,
+            start: moment(moment().format("YYYY-MM-DD")).valueOf() + 36000000,
+            end: moment(moment().format("YYYY-MM-DD")).valueOf() + 36000000 + 3600000,
+            calendar_id: req.query.calendar_id,
+            appointment_title: 'BB',
             appointment_description: ''
         }]
     ));
