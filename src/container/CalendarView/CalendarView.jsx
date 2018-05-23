@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import style from './style_module.css';
 
+import { popupId } from '../../constants';
 import { actions } from '../../actions';
 import CalendarDay from '../../components/CalendarDay/CalendarDay'
 import VerticalHourLegend from '../../components/VerticalHourLegend/VerticalHourLegend';
@@ -29,7 +30,7 @@ class CalendarView extends Component {
         this.getAppointmentsOfThisWeek = this.getAppointmentsOfThisWeek.bind(this);
         this.filterForThisDay = this.filterForThisDay.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        
+
     }
     getAppointmentsOfThisWeek() {
         return this.props.appointmentData
@@ -56,7 +57,7 @@ class CalendarView extends Component {
                 moment(appointment.end).isBetween(start, end)
         )
     }
-    handleClose(){
+    handleClose() {
         this.props.toggleCalendarviewDetailedAppointmentId(null);
     }
     render() {
@@ -104,6 +105,7 @@ class CalendarView extends Component {
                                 handleDelete={this.props.handleCalendarViewDeletion}
                                 showEditButtons
                                 confirmDeletion={this.props.confirmDeletion}
+                                handleEdit={this.props.handleEdit}
                             />
                             :
                             ''
@@ -127,6 +129,7 @@ function mapDispatchToProps(dispatch) {
     return {
         toggleCalendarviewDetailedAppointmentId: id => { dispatch(actions.toggleCalendarviewDetailedAppointmentId(id)) },
         handleCalendarViewDeletion: () => { dispatch(actions.handleCalendarViewDeletion()) },
+        handleEdit: () => { dispatch(actions.setPopupId(popupId.EDIT_APPOINTMENT)) }
     }
 }
 

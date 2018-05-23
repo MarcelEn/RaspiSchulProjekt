@@ -17,6 +17,7 @@ import { PopupWrapper, Popup } from '../../components/Popup/Popup';
 import AddCalendar from '../AddCalendar/AddCalendar';
 import ManageCalendar from '../ManageCalendar/ManageCalendar';
 import UserSettings from '../UserSettings/UserSettings';
+import EditAppointment from '../EditAppointment/EditAppointment';
 
 
 class App extends Component {
@@ -56,6 +57,9 @@ class App extends Component {
                                     </Popup>
                                     <Popup id={popupId.USER_SETTINGS}>
                                         <UserSettings />
+                                    </Popup>
+                                    <Popup id={popupId.EDIT_APPOINTMENT}>
+                                        <EditAppointment />
                                     </Popup>
                                 </PopupWrapper>
                             </Wrapper>
