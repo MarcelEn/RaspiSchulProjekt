@@ -2,11 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import style from './style_module.css';
+import { Grid, FormGroup, PageHeader } from 'react-bootstrap';
+import AppointmentEditor from '../../components/AppointmentEditor/AppointmentEditor';
+
 
 class EditAppointment extends Component {
     render() {
         return (
-            <h1>Hallo :)</h1>
+            <Grid>
+                <FormGroup>
+                    <PageHeader>
+                        Termin bearbeiten
+                    </PageHeader>
+                </FormGroup>
+                <AppointmentEditor 
+                
+                />
+            </Grid>
         );
     }
 }
@@ -14,7 +26,6 @@ class EditAppointment extends Component {
 function mapStateToProps(state) {
     return {
     }
-
 }
 
 function mapDispatchToProps(dispatch) {
