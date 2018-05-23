@@ -13,7 +13,6 @@ import mainData from './container/Main/reducerData';
 import mainUi from './container/Main/reducerUi';
 import manageCalendarData from './container/ManageCalendar/reducerData';
 import manageCalendarUi from './container/ManageCalendar/reducerUi';
-import calendarViewData from './container/CalendarView/reducerData';
 import calendarViewUi from './container/CalendarView/reducerUi';
 
 const data = combineReducers({
@@ -22,8 +21,7 @@ const data = combineReducers({
     registrationData,
     addCalendarData,
     mainData,
-    manageCalendarData,
-    calendarViewData
+    manageCalendarData
 });
 
 const ui = combineReducers({
