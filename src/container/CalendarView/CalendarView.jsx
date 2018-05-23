@@ -28,6 +28,8 @@ class CalendarView extends Component {
         }
         this.getAppointmentsOfThisWeek = this.getAppointmentsOfThisWeek.bind(this);
         this.filterForThisDay = this.filterForThisDay.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        
     }
     getAppointmentsOfThisWeek() {
         return this.props.appointmentData
@@ -53,6 +55,9 @@ class CalendarView extends Component {
                 moment(appointment.start).isBetween(start, end) ||
                 moment(appointment.end).isBetween(start, end)
         )
+    }
+    handleClose(){
+        this.props.toggleCalendarviewDetailedAppointmentId(null);
     }
     render() {
         const appointmentsOfThisWeek = this.getAppointmentsOfThisWeek();
@@ -95,6 +100,7 @@ class CalendarView extends Component {
                                 {...this.props.appointmentData.find(
                                     appointment => appointment.appointment_id === this.props.detailedAppointmentId
                                 )}
+                                handleClose={this.handleClose}
                             />
                             :
                             ''
