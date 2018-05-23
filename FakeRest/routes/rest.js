@@ -133,6 +133,12 @@ router.get('/appointment', function (req, res, next) {
     ));
 });
 
+
+router.delete('/appointment/:id', function (req, res, next) {
+    res.sendStatus(204);
+});
+
+
 router.all('/*', function (req, res, next) {
     res.sendStatus(404);
 });
