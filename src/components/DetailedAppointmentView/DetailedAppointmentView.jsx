@@ -25,10 +25,10 @@ const DetailedAppointmentView = props => (
                     {getDurationText(props.start, props.end)}
                 </span>
                 {
-                    !props.showEditButtons ? ' ' : ''
+                    props.showEditButtons ? ' ' : ''
                 }
                 {
-                    !props.showEditButtons ?
+                    props.showEditButtons ?
                         <ButtonGroup>
                             <Button onClick={props.handleEdit} bsStyle="primary">
                                 bearbeiten
@@ -36,11 +36,11 @@ const DetailedAppointmentView = props => (
                             {
                                 props.confirmDeletion ?
                                     <Button onClick={props.handleDelete} bsStyle="danger">
-                                        löschen
+                                        sicher?
                                     </Button>
                                     :
                                     <Button onClick={props.handleDelete} bsStyle="danger">
-                                        sicher?
+                                        löschen
                                 </Button>
                             }
 
