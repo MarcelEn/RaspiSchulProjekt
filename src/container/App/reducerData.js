@@ -100,6 +100,14 @@ export default (state = {
                     ...newAppointmentData
                 ]
             }
+        case actionNames.REMOVE_APPOINTMENT_DATA_BY_ID:
+            const appointmentData = state.appointmentData.filter(
+                appointment => appointment.appointment_id !== action.payload
+            )
+            return {
+                ...state,
+                appointmentData
+            }
         case actionNames.REMOVE_CALENDAR_DATA_BY_ID:
             const calendarData = state.calendarData.filter(
                 c => c.calendar_id !== action.payload

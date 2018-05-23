@@ -38,7 +38,14 @@ import {
     deleteManageCalendarEditing
 } from './container/ManageCalendar/middleware';
 
+import { 
+    handleCalendarviewDeletion
+} from './container/CalendarView/middleware';
+
 function* mySaga() {
+    //CalendarView
+    yield takeLatest(actionNames.HANDLE_CALENDARVIEW_DELETION, handleCalendarviewDeletion)
+
     //ManageCalendar
     yield takeLatest(actionNames.SAVE_MANAGE_CALENDAR_EDITING, saveManageCalendarEditing)
     yield takeLatest(actionNames.DELETE_MANAGE_CALENDAR_EDITING, deleteManageCalendarEditing)

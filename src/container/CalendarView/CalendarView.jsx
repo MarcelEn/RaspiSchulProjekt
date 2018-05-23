@@ -101,6 +101,9 @@ class CalendarView extends Component {
                                     appointment => appointment.appointment_id === this.props.detailedAppointmentId
                                 )}
                                 handleClose={this.handleClose}
+                                handleDelete={this.props.handleCalendarViewDeletion}
+                                showEditButtons
+                                confirmDeletion={this.props.confirmDeletion}
                             />
                             :
                             ''
@@ -123,6 +126,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         toggleCalendarviewDetailedAppointmentId: id => { dispatch(actions.toggleCalendarviewDetailedAppointmentId(id)) },
+        handleCalendarViewDeletion: () => { dispatch(actions.handleCalendarViewDeletion()) },
     }
 }
 
