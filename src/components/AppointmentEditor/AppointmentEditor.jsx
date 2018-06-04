@@ -1,38 +1,61 @@
 import React from 'react';
+import moment from 'moment';
 import style from './style_module.css';
 import { Form, Col, FormControl, Button } from 'react-bootstrap';
 import HorizontalFormElement from '../HorizontalFormElement/HorizontalFormElement';
 import ReactQuill from 'react-quill';
 import { formats, modules } from '../../constants';
-
+import TimeSelect from '../TimeSelect/TimeSelect';
 
 const AppointmentEditor = props => (
     <Form horizontal>
         <HorizontalFormElement label="Kalender">
-            <FormControl componentClass="select" multiple placeholder="Kalender">
-                <option value="select"></option>
-                <option value="other">...</option>
-                <option value="select"></option>
-                <option value="other">...</option>
-                <option value="select"></option>
-                <option value="other">...</option>
-                <option value="select"></option>
-                <option value="other">...</option>
+            <FormControl value={[50002]} componentClass="select" multiple placeholder="Kalender">
+                {
+                    props.myCalendars.map(
+                        (calendar, index) =>
+                            <option key={"selectMyCalendar-" + index} value={calendar.calendar_id}>
+                                {
+                                    calendar.calendar_title
+                                }
+                            </option>
+                    )
+                }
+                {
+                    props.savedCalendars.length > 0 ?
+                        <hr />
+                        :
+                        ''
+                }
+                {
+                    props.savedCalendars.map(
+                        (calendar, index) =>
+                            <option key={"selectSavedCalendar-" + index} value={calendar.calendar_id}>
+                                {
+                                    calendar.calendar_title
+                                }
+                            </option>
+                    )
+                }
             </FormControl>
         </HorizontalFormElement>
         <HorizontalFormElement label="Start">
             <Col xs={6}>
                 <FormControl
                     type="date"
-                    placeholder="Titel"
                     name=""
+                    value={moment(props.appointmentData.start).format("YYYY-MM-DD")}
                 />
             </Col>
-            <Col xs={6}>
-                <FormControl
-                    type="time"
-                    placeholder="Titel"
-                    name=""
+            <Col xs={3}>
+                <TimeSelect
+                    value={moment(props.appointmentData.start).format("hh")}
+                />
+            </Col>
+            <Col xs={3}>
+                <TimeSelect
+                    value={moment(props.appointmentData.start).format("mm")}
+                    type="minute"
                 />
             </Col>
         </HorizontalFormElement>
@@ -40,15 +63,19 @@ const AppointmentEditor = props => (
             <Col xs={6}>
                 <FormControl
                     type="date"
-                    placeholder="Titel"
                     name=""
+                    value={moment(props.appointmentData.end).format("YYYY-MM-DD")}
                 />
             </Col>
-            <Col xs={6}>
-                <FormControl
-                    type="time"
-                    placeholder="Titel"
-                    name=""
+            <Col xs={3}>
+                <TimeSelect
+                    value={moment(props.appointmentData.end).format("hh")}
+                />
+            </Col>
+            <Col xs={3}>
+                <TimeSelect
+                    value={moment(props.appointmentData.end).format("mm")}
+                    type="minute"
                 />
             </Col>
         </HorizontalFormElement>
@@ -56,6 +83,7 @@ const AppointmentEditor = props => (
             <FormControl
                 type="text"
                 placeholder="Titel"
+                value={props.appointmentData.appointment_title}
                 name=""
             />
         </HorizontalFormElement>
@@ -63,7 +91,7 @@ const AppointmentEditor = props => (
         <HorizontalFormElement label="Beschreibung">
             <ReactQuill
                 theme={'snow'}
-                value={""}
+                value={props.appointmentData.appointment_description}
                 modules={modules}
                 formats={formats}
                 placeholder={'Füge eine Beschreibung hinzu.'}
