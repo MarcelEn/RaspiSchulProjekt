@@ -42,7 +42,14 @@ import {
     handleCalendarviewDeletion
 } from './container/CalendarView/middleware';
 
+import { 
+    applyInitToEditAppointment
+} from './container/EditAppointment/middleware';
+
 function* mySaga() {
+    //EditAppointment
+    yield takeLatest(actionNames.TOGGLE_CALENDARVIEW_DETAILED_APPOINTMENT_ID, applyInitToEditAppointment)
+
     //CalendarView
     yield takeLatest(actionNames.HANDLE_CALENDARVIEW_DELETION, handleCalendarviewDeletion)
 

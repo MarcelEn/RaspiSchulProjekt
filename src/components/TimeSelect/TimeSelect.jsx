@@ -9,7 +9,10 @@ const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 const TimeSelect = props => {
     if (props.type === "minute") {
         return (
-            <FormControl value={props.value} componentClass="select" placeholder="Kalender">
+            <FormControl value={props.value}
+                onChange={props.onChange}
+                name={props.name}
+                componentClass="select">
                 {
                     minutes.map(
                         minute =>
@@ -23,7 +26,10 @@ const TimeSelect = props => {
 
     }
     return (
-        <FormControl value={props.value} componentClass="select" placeholder="Kalender">
+        <FormControl value={props.value}
+            onChange={props.onChange}
+            name={props.name}
+            componentClass="select">
             {
                 hours.map(
                     hour =>
