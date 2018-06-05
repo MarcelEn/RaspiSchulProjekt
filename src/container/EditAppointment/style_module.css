@@ -5,6 +5,12 @@
 .width{
     max-width: 300px;
 }
+
 .buttonMargin{
     margin: 1px;
+}
+
+.conflictContainer{
+    overflow-y: auto;
+    max-height: 300px;
 }

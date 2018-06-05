@@ -8,7 +8,7 @@ import { actions } from '../../actions';
 import style from './style_module.css';
 import { Grid, FormGroup, PageHeader, Form, FormControl, Col, Button, Alert, Collapse } from 'react-bootstrap';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
-import { selectUserId, selectCalendarData, selectEditAppointmentUi, proxyToName, proxyToValue } from '../../globalFunctions';
+import { selectUserId, selectCalendarData, selectEditAppointmentUi, selectAppointmentData, proxyToName, proxyToValue } from '../../globalFunctions';
 import TimeSelect from '../../components/TimeSelect/TimeSelect';
 
 class EditAppointment extends Component {
@@ -17,6 +17,7 @@ class EditAppointment extends Component {
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handleQuillInput = this.handleQuillInput.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
+        this.getBsStyle = this.getBsStyle.bind(this);
     }
     handleUserInput(proxy) {
         this.props.setEditAppointmentInputField(proxyToName(proxy), proxyToValue(proxy))
@@ -28,24 +29,34 @@ class EditAppointment extends Component {
         const name = proxyToName(proxy).split("_")[0];
         const type = proxyToName(proxy).split("_")[1];
         const value = proxyToValue(proxy);
+        if (value === "") {
+            return;
+        }
         const oldTimeStamp = moment(this.props.appointment[name]);
         switch (type) {
             case "date":
-                const hoursAndMinutes = oldTimeStamp.valueOf() - moment(oldTimeStamp.format("YYYY-MM-DD")).valueOf();
-                this.props.setEditAppointmentInputField(name, hoursAndMinutes + moment(value).valueOf())
+                this.props.setEditAppointmentInputField(name,
+                    moment(oldTimeStamp.format(`${value}THH:mm`)).valueOf()
+                )
                 break;
             case "hour":
-                // TODO
-                // const newHours = parseInt(value, 10);
-                
-                // this.props.setEditAppointmentInputField(name,
-                //     oldTimeStamp.add(newHours, "hour").valueOf()
-                // )
+                this.props.setEditAppointmentInputField(name,
+                    moment(oldTimeStamp.format(`YYYY-MM-DDT${value}:mm`)).valueOf()
+                )
                 break;
             case "minute":
+                this.props.setEditAppointmentInputField(name,
+                    moment(oldTimeStamp.format(`YYYY-MM-DDTHH:${value}`)).valueOf()
+                )
                 break;
             default:
         }
+    }
+    getBsStyle(calendar) {
+        if (this.props.conflictFilterWhitelist.find(item => item === calendar.calendar_id)) {
+            return "success";
+        }
+        return "default";
     }
     render() {
         return (
@@ -56,7 +67,7 @@ class EditAppointment extends Component {
                     </PageHeader>
                 </FormGroup>
                 <Form horizontal>
-                    <HorizontalFormElement label="Kalender">
+                    <HorizontalFormElement label="Kalender*">
                         <FormControl
                             onChange={this.handleUserInput}
                             name="calendar_id"
@@ -95,7 +106,7 @@ class EditAppointment extends Component {
                             }
                         </FormControl>
                     </HorizontalFormElement>
-                    <HorizontalFormElement label="Start">
+                    <HorizontalFormElement label="Start*">
                         <Col xs={6}>
                             <FormControl
                                 type="date"
@@ -120,21 +131,26 @@ class EditAppointment extends Component {
                             />
                         </Col>
                     </HorizontalFormElement>
-                    <HorizontalFormElement label="Ende">
+                    <HorizontalFormElement label="Ende*">
                         <Col xs={6}>
                             <FormControl
                                 type="date"
-                                name=""
+                                name="end_date"
+                                onChange={this.handleTimeChange}
                                 value={moment(this.props.appointment.end).format("YYYY-MM-DD")}
                             />
                         </Col>
                         <Col xs={3}>
                             <TimeSelect
+                                onChange={this.handleTimeChange}
+                                name="end_hour"
                                 value={moment(this.props.appointment.end).format("HH")}
                             />
                         </Col>
                         <Col xs={3}>
                             <TimeSelect
+                                onChange={this.handleTimeChange}
+                                name="end_minute"
                                 value={moment(this.props.appointment.end).format("mm")}
                                 type="minute"
                             />
@@ -146,8 +162,12 @@ class EditAppointment extends Component {
                             this.props.calendarData.map(
                                 (calendar, index) =>
                                     <Button
+                                        key={"conflictFilterButton-" + index}
+                                        onClick={this.props.toggleEditAppointmentConflictFilterWhitelist}
                                         className={style.buttonMargin}
-                                        value={calendar.calendar_id}>
+                                        value={calendar.calendar_id}
+                                        bsStyle={this.getBsStyle(calendar)}
+                                    >
                                         {calendar.calendar_title}
                                     </Button>
                             )
@@ -155,18 +175,22 @@ class EditAppointment extends Component {
 
                     </HorizontalFormElement>
                     <HorizontalFormElement label="Konflikte">
-                        {/* {
-                            this.props.calendarData.map(
-                                (calendar, index) =>
-                                    <Button
-                                        className={style.buttonMargin}
-                                        value={calendar.calendar_id}>
-                                        {calendar.calendar_title}
-                                    </Button>
-                            )
-                        } */}
+                        <div className={style.conflictContainer}>
+                            {
+                                this.props.conflicts.map(
+                                    (conflict, index) =>
+                                        <Alert bsStyle="danger">
+                                            <b>{conflict.appointment_title}</b><br />
+                                            @
+                                        {moment(conflict.start).format("DD-MM-YYYY HH:mm")}
+                                            {" - "}
+                                            {moment(conflict.end).format("DD-MM-YYYY HH:mm")}
+                                        </Alert>
+                                )
+                            }
+                        </div>
                     </HorizontalFormElement>
-                    <HorizontalFormElement label="Titel">
+                    <HorizontalFormElement label="Titel*">
                         <FormControl
                             type="text"
                             placeholder="Titel"
@@ -217,9 +241,17 @@ function mapStateToProps(state) {
     const currentUser = selectUserId(state);
     const calendarData = selectCalendarData(state);
     const appointmentUi = selectEditAppointmentUi(state)
-    // const conflicts = appointment.filter(
-    //     appointment => 
-    // )
+    const appointmentData = selectAppointmentData(state);
+    const conflicts = appointmentData.filter(
+        appointment =>
+            (
+                moment(appointmentUi.appointment.start + 1).isBetween(appointment.start, appointment.end) ||
+                moment(appointmentUi.appointment.end + 1).isBetween(appointment.start, appointment.end)
+            ) &&
+            appointmentUi.conflictFilterWhitelist.find(item => item === appointment.calendar_id) &&
+            appointment.appointment_id !== appointmentUi.appointment.appointment_id
+    )
+    
     const showInformation = appointmentUi.appointment.appointment_title === "" ||
         appointmentUi.appointment.calendar_id === ""
 
@@ -228,13 +260,16 @@ function mapStateToProps(state) {
         myCalendars: calendarData.filter(calendar => calendar.owner_id === currentUser),
         savedCalendars: calendarData.filter(calendar => calendar.visibility === 2 && calendar.owner_id !== currentUser),
         appointment: appointmentUi.appointment,
-        showInformation
+        showInformation,
+        conflictFilterWhitelist: appointmentUi.conflictFilterWhitelist,
+        conflicts
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        setEditAppointmentInputField: (name, value) => { dispatch(actions.setEditAppointmentInputField(name, value)) }
+        setEditAppointmentInputField: (name, value) => { dispatch(actions.setEditAppointmentInputField(name, value)) },
+        toggleEditAppointmentConflictFilterWhitelist: proxy => { dispatch(actions.toggleEditAppointmentConflictFilterWhitelist(proxyToValue(proxy))) }
     }
 }
 
