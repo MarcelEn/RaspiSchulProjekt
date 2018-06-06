@@ -10,7 +10,7 @@ const getDurationText = (start, end) => {
     const startMoment = moment(start);
     const endMoment = moment(end);
     if (startMoment.format("YYYY-MM-DD") === endMoment.format("YYYY-MM-DD")) {
-        return startMoment.format("DD.MM.YYYY hh:mm") + "-" + endMoment.format("hh:mm")
+        return startMoment.format("DD.MM.YYYY HH:mm") + "-" + endMoment.format("HH:mm")
     }
 }
 

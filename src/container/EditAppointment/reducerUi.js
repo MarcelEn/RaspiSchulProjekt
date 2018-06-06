@@ -1,15 +1,16 @@
+import moment from 'moment';
 import {
     actionNames
 } from '../../actions';
 
 export default (state = {
     appointment: {
-        appointment_description: null,
-        appointment_title: null,
+        appointment_description: "",
+        appointment_title: "",
         appointment_id: null,
-        calendar_id: null,
-        end: null,
-        start: null
+        calendar_id: "",
+        end: moment(moment().format("YYYY-MM-DD")).valueOf(),
+        start: moment(moment().format("YYYY-MM-DD")).valueOf()
     },
     conflictFilterWhitelist: []
 }, action) => {

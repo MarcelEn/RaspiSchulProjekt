@@ -141,8 +141,13 @@ router.post('/appointment', function (req, res, next) {
     }
 });
 
+let addCount = 1;
 router.put('/appointment', function (req, res, next) {
-    res.sendStatus(201);
+    res.send(JSON.stringify(
+        {
+            appointment_id: "50004" + ++addCount
+        }
+    ));
 });
 
 router.delete('/appointment/:id', function (req, res, next) {

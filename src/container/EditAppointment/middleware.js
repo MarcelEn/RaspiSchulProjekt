@@ -9,6 +9,9 @@ import {
     getTodayInMilliseconds
 } from '../../globalFunctions';
 import {
+    appointmentInit
+} from '../../constants';
+import {
     actions
 } from '../../actions';
 import {
@@ -22,14 +25,7 @@ export function* applyInitToEditAppointment(action) {
         case null:
             return;
         case undefined:
-            editingAppointmentData = {
-                appointment_description: "",
-                appointment_title: "",
-                appointment_id: null,
-                calendar_id: "",
-                end: getTodayInMilliseconds(),
-                start: getTodayInMilliseconds()
-            }
+            editingAppointmentData = appointmentInit
             break;
         default:
             const appointmentData = yield select(selectAppointmentData);
@@ -49,6 +45,17 @@ export function* submitEditAppointmentData(action) {
         try {
             yield call(API.modifyAppointment(appointmentData));
             yield put(actions.updateAppointmentData(appointmentData));
+            yield put(actions.setEditAppointmentSuccess(true));
+        } catch (error) {
+            yield put(actions.setEditAppointmentError(true));
+        }
+    } else {
+        try {
+            const response = yield call(API.addAppointment(appointmentData));
+            yield put(actions.addAppointmentData([{
+                ...appointmentData,
+                ...response.data
+            }]));
             yield put(actions.setEditAppointmentSuccess(true));
         } catch (error) {
             yield put(actions.setEditAppointmentError(true));

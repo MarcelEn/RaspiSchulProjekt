@@ -2,12 +2,12 @@ import React from 'react';
 import style from './style_module.css';
 import moment from 'moment';
 import VerticalHourLegend from '../VerticalHourLegend/VerticalHourLegend';
-import { getTodayInMilliseconds, getDayProgressionInPercent, getColorOfLetter } from '../../globalFunctions'
+import {getDayProgressionInPercent, getColorOfLetter } from '../../globalFunctions'
 import Appointment from './Appointment';
 import { millisecondsOfDay } from '../../constants';
 
 
-const getTopMargin = date => (date - getTodayInMilliseconds()) / millisecondsOfDay * 100 + "%"
+const getTopMargin = date => (date - moment(moment(date).format("YYYY-MM-DD")).valueOf()) / millisecondsOfDay * 100 + "%"
 
 const getHeight = (start, end) => {
     return (end - start) / millisecondsOfDay * 100 + "%"

@@ -22,8 +22,11 @@ take a look at registry username search bug
 look at TODO comment in App middleware
 remove in managecalendar middleware deletion all appointments of calendar
 make appointment loading more smart and not just fetch the whole calendar
+    -> fetch conflict filter
 improve appointment adjusting (make it more smart)
 lock mobileView (with message coming soon)
 filter search calendar (do not show own calendars)
 move applyInitToEditAppointment listning on SET_POPUP_ID
 fix bug: appoint accross multple days
+remove edit button if dont have previlegues
+in general look at the position and createn of appointments there are some strange bugs

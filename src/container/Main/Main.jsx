@@ -6,7 +6,7 @@ import Calendar from 'react-calendar';
 import style from './style_module.css';
 
 import { actions } from '../../actions';
-import { popupId } from '../../constants';
+import { popupId, appointmentInit } from '../../constants';
 import { proxyToValue } from '../../globalFunctions';
 import CalendarView from '../CalendarView/CalendarView';
 class Main extends Component {
@@ -81,14 +81,24 @@ class Main extends Component {
                             bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.MANAGE_CALENDAR) }}
                         >
-                            bearbeiten
+                            Kalender bearbeiten
+                        </Button>
+                        <Button
+                            className={style.large + ' ' + style.marginBottom}
+                            bsStyle="primary"
+                            onClick={() => { this.props.setPopupId(popupId.ADD_CALENDAR) }}
+                            >
+                            Kalender suchen
                         </Button>
                         <Button
                             className={style.large}
                             bsStyle="primary"
-                            onClick={() => { this.props.setPopupId(popupId.ADD_CALENDAR) }}
+                            onClick={() => { 
+                                this.props.initNewEditAppointment();
+                                this.props.setPopupId(popupId.EDIT_APPOINTMENT) 
+                            }}
                         >
-                            suchen
+                            Termin erstellen
                         </Button>
                         <hr />
                         <Button
@@ -122,6 +132,7 @@ function mapDispatchToProps(dispatch) {
         setPopupId: id => { dispatch(actions.setPopupId(id)) },
         toggleMainCalendarFilter: calendarId => { dispatch(actions.toggleMainCalendarFilter(calendarId)) },
         setCalendarViewDateOfMonday: day => { dispatch(actions.setCalendarViewDateOfMonday(day)) },
+        initNewEditAppointment: () => { dispatch(actions.setEditAppointmentAppointmentData(appointmentInit)) },
     }
 }
 
