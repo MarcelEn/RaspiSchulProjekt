@@ -133,6 +133,17 @@ router.get('/appointment', function (req, res, next) {
     ));
 });
 
+router.post('/appointment', function (req, res, next) {
+    if(req.body.appointment_id !== "500031"){
+        res.sendStatus(201);
+    }else{
+        res.sendStatus(403);
+    }
+});
+
+router.put('/appointment', function (req, res, next) {
+    res.sendStatus(201);
+});
 
 router.delete('/appointment/:id', function (req, res, next) {
     res.sendStatus(204);
