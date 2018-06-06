@@ -1,17 +1,10 @@
-import moment from 'moment';
 import {
     actionNames
 } from '../../actions';
+import {appointmentInit} from '../../constants';
 
 export default (state = {
-    appointment: {
-        appointment_description: "",
-        appointment_title: "",
-        appointment_id: null,
-        calendar_id: "",
-        end: moment(moment().format("YYYY-MM-DD")).valueOf(),
-        start: moment(moment().format("YYYY-MM-DD")).valueOf()
-    },
+    appointment: appointmentInit,
     conflictFilterWhitelist: []
 }, action) => {
     switch (action.type) {

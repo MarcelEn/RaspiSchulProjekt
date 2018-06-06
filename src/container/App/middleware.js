@@ -13,7 +13,6 @@ import {
 import axios from 'axios';
 
 import {
-    selectCalendarData,
     selectUserId,
     selectActiveCalendar
 } from '../../globalFunctions';

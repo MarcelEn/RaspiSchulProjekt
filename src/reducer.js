@@ -9,7 +9,6 @@ import registrationData from './container/Registration/reducerData';
 import registrationUi from './container/Registration/reducerUi';
 import addCalendarData from './container/AddCalendar/reducerData';
 import addCalendarUi from './container/AddCalendar/reducerUi';
-import mainData from './container/Main/reducerData';
 import mainUi from './container/Main/reducerUi';
 import manageCalendarData from './container/ManageCalendar/reducerData';
 import manageCalendarUi from './container/ManageCalendar/reducerUi';
@@ -22,7 +21,6 @@ const data = combineReducers({
     loginData,
     registrationData,
     addCalendarData,
-    mainData,
     manageCalendarData,
     editAppointmentData
 });

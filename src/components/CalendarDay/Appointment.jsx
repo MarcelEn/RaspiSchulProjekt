@@ -1,6 +1,5 @@
 import React from 'react';
 import style from './style_module.css';
-import moment from 'moment';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 

@@ -5,8 +5,7 @@ import {
 } from 'redux-saga/effects';
 import API from './../../apiConnector';
 import {
-    selectAppointmentData,
-    getTodayInMilliseconds
+    selectAppointmentData
 } from '../../globalFunctions';
 import {
     appointmentInit

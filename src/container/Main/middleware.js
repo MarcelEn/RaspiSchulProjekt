@@ -1,8 +1,6 @@
 import {
-    put,
-    call
+    put
 } from 'redux-saga/effects';
-import API from './../../apiConnector';
 import {
     actions
 } from './../../actions';

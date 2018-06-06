@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Collapse } from 'react-bootstrap';
+import { Col, Collapse } from 'react-bootstrap';
 
 import CollapseArrow from '../CollapseArrow/CollapseArrow';
 import ListCard from '../ListCard/ListCard';
