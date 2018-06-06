@@ -112,6 +112,17 @@ router.post('/calendar', function (req, res, next) {
     res.sendStatus(201);
 });
 
+let calendarCount = 1;
+router.put('/calendar', function (req, res, next) {
+    if (req.body.calendar_title === "error") {
+        res.sendStatus(403);
+    } else {
+        res.send(JSON.stringify({
+            calendar_id: "50404" + ++calendarCount
+        }));
+    }
+});
+
 router.get('/appointment', function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(
@@ -134,20 +145,18 @@ router.get('/appointment', function (req, res, next) {
 });
 
 router.post('/appointment', function (req, res, next) {
-    if(req.body.appointment_id !== "500031"){
+    if (req.body.appointment_id !== "500031") {
         res.sendStatus(201);
-    }else{
+    } else {
         res.sendStatus(403);
     }
 });
 
 let addCount = 1;
 router.put('/appointment', function (req, res, next) {
-    res.send(JSON.stringify(
-        {
-            appointment_id: "50004" + ++addCount
-        }
-    ));
+    res.send(JSON.stringify({
+        appointment_id: "50004" + ++addCount
+    }));
 });
 
 router.delete('/appointment/:id', function (req, res, next) {
