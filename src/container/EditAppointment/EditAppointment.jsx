@@ -8,8 +8,9 @@ import { actions } from '../../actions';
 import style from './style_module.css';
 import { Grid, FormGroup, PageHeader, Form, FormControl, Col, Button, Alert, Collapse } from 'react-bootstrap';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
-import { selectUserId, selectCalendarData, selectEditAppointmentUi, selectAppointmentData, proxyToName, proxyToValue } from '../../globalFunctions';
+import { selectUserId, selectCalendarData, selectEditAppointmentUi, selectAppointmentData, selectEditAppointmentData, proxyToName, proxyToValue } from '../../globalFunctions';
 import TimeSelect from '../../components/TimeSelect/TimeSelect';
+import LoadingButton from '../../components/LoadingButton/LoadingButton';
 
 class EditAppointment extends Component {
     constructor(props) {
@@ -216,7 +217,14 @@ class EditAppointment extends Component {
                             </Alert>
                         </Col>
                     </Collapse>
-                    <Collapse in={false}>
+                    <Collapse in={this.props.editAppointmentData.success}>
+                        <Col sm={5} smOffset={4}>
+                            <Alert bsStyle="success">
+                                Die Daten wurden erfolgreich gespeichert.
+                            </Alert>
+                        </Col>
+                    </Collapse>
+                    <Collapse in={this.props.editAppointmentData.error}>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="danger">
                                 <b>Whoops! </b>
@@ -227,13 +235,15 @@ class EditAppointment extends Component {
                         </Col>
                     </Collapse>
                     <HorizontalFormElement>
-                        <Button
-                            disabled={this.props.showInformation}
-                            onClick={this.props.submitEditAppointmentData}
-                            bsStyle="success"
-                        >
-                            Speichern
-                        </Button>
+                        <LoadingButton loading={this.props.editAppointmentData.loading}>
+                            <Button
+                                disabled={this.props.showInformation}
+                                onClick={this.props.submitEditAppointmentData}
+                                bsStyle="success"
+                            >
+                                Speichern
+                            </Button>
+                        </LoadingButton>
                     </HorizontalFormElement>
                 </Form>
             </Grid>
@@ -246,6 +256,8 @@ function mapStateToProps(state) {
     const calendarData = selectCalendarData(state);
     const appointmentUi = selectEditAppointmentUi(state)
     const appointmentData = selectAppointmentData(state);
+    const editAppointmentData = selectEditAppointmentData(state);
+    
     const conflicts = appointmentData.filter(
         appointment =>
             (
@@ -268,7 +280,8 @@ function mapStateToProps(state) {
         showInformation,
         conflictFilterWhitelist: appointmentUi.conflictFilterWhitelist,
         conflicts,
-        invalidStartEnd
+        invalidStartEnd,
+        editAppointmentData
     }
 }
 

@@ -53,6 +53,8 @@ export const selectAppointmentData = store => store.data.appData.appointmentData
 
 export const selectEditAppointmentUi = store => store.ui.editAppointmentUi
 
+export const selectEditAppointmentData = store => store.data.editAppointmentData
+
 export const selectSavedCalendars = store => store.data.appData.savedCalendars
 
 export const selectUserId = store => store.data.appData.userId
