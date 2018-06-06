@@ -13,6 +13,8 @@ const apiPaths = {
     sendRegistrationData: path.resolve(apiPrefix, version, 'account', 'registrierung'),
     searchUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?q=' + username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
+    //TODO: This path is wrong
+    userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
     validateToken: path.resolve(apiPrefix, version, 'account', 'login', 'token'),
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
@@ -22,7 +24,7 @@ const apiPaths = {
     searchAppointmentsByCalendarId: calendarId => path.resolve(apiPrefix, version, 'rest', 'appointment?calendar_id=' + calendarId),
     deleteAppointmentById: appointmentId => path.resolve(apiPrefix, version, 'rest', 'appointment', appointmentId),
     addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
-    changePassword: path.resolve(apiPrefix, version, 'authentification', 'password'),
+    changePassword: path.resolve(apiPrefix, version, 'authentification', 'password')
 }
 
 
@@ -67,12 +69,12 @@ export default {
                 id => axios.get(apiPaths.getUser(id))
             )
         )
-        .then((...responses) => {
-            resolve(responses)
-        })
-        .catch(e => {
-            reject(e);
-        })
+            .then((...responses) => {
+                resolve(responses)
+            })
+            .catch(e => {
+                reject(e);
+            })
     ),
     fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
@@ -85,5 +87,6 @@ export default {
     changePassword: (oldPassword, newPassword) => () => axios.post(apiPaths.changePassword, {
         old_password_hash: generateHash(oldPassword),
         new_password_hash: generateHash(newPassword)
-    })
+    }),
+    updateUserData: userData => () => axios.post(apiPaths.userData, userData),
 }

@@ -75,7 +75,7 @@ class UserSettings extends Component {
                             name="mail"
                         />
                     </HorizontalFormElement>
-                    <Collapse in>
+                    <Collapse in={this.props.userDataSuccess}>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="success">
                                 <b>Erfolg! </b>
@@ -85,7 +85,7 @@ class UserSettings extends Component {
                             </Alert>
                         </Col>
                     </Collapse>
-                    <Collapse in>
+                    <Collapse in={this.props.userDataError}>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="danger">
                                 <b>Fehler! </b>
@@ -96,11 +96,13 @@ class UserSettings extends Component {
                         </Col>
                     </Collapse>
                     <Col sm={5} smOffset={4}>
-                        <LoadingButton>
+                        <LoadingButton loading={this.props.userDataLoading}>
                             <Button
                                 onClick={this.props.handleUserDataSubmit}
                                 className={style.large}
-                                bsStyle="success">
+                                bsStyle="success"
+                                disabled={this.props.disableSubmitUserData}
+                            >
                                 Nutzerdaten senden
                             </Button>
                         </LoadingButton>
@@ -252,9 +254,15 @@ function mapStateToProps(state) {
         userSettingsUi.oldPassword === "" ||
         userSettingsUi.newPassword === ""
 
+    const disableSubmitUserData = userSettingsUi.userName === "" ||
+        userSettingsUi.firstName === "" ||
+        userSettingsUi.lastName === "" ||
+        userSettingsUi.mail === ""
+
     return {
         ...selectUserSettingsData(state),
-        ...selectUserSettingsUi(state),
+        ...userSettingsUi,
+        disableSubmitUserData,
         disableSubmitPassword
     }
 

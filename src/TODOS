@@ -33,3 +33,5 @@ in general look at the position and createn of appointments there are some stran
 add username search in usersettings
 usersetting - userdata
 on clean no cache i have the appointments after refresh
+implement username lookup in add kalendar befor fetch users again
+add delete account option

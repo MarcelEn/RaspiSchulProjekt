@@ -56,37 +56,33 @@ export function* initUserSettings(action) {
     yield put(actions.setUserSettingsInputField("lastName", userData.last_name))
     yield put(actions.setUserSettingsInputField("userName", userData.user_name))
     yield put(actions.setUserSettingsInputField("mail", userData.mail))
+
     yield put(actions.setUserSettingsDataState("userDataIsAvailable", true))
-    // yield put(actions.setUserSettingsDataState("userDataLoading", true))
-    // yield put(actions.setUserSettingsDataState("userDataError", false))
-    // yield put(actions.setUserSettingsDataState("userDataSuccess", false))
-
-    // const useInput = yield select(selectUserSettingsUi);
-    // try {
-    //     // yield call(API.changeuserData(useInput.olduserData, useInput.newuserData))
-    //     yield put(actions.setUserSettingsDataState("userDataSuccess", true))
-    // } catch (error) {
-    //     yield put(actions.setUserSettingsDataState("userDataError", true))
-
-    // }
-
-    // yield put(actions.setUserSettingsDataState("userDataLoading", false))
 }
 
 export function* submitUserSettingsUserData(action) {
-    console.log(action)
-    // yield put(actions.setUserSettingsDataState("userDataLoading", true))
-    // yield put(actions.setUserSettingsDataState("userDataError", false))
-    // yield put(actions.setUserSettingsDataState("userDataSuccess", false))
+    yield put(actions.setUserSettingsDataState("userDataLoading", true))
+    yield put(actions.setUserSettingsDataState("userDataError", false))
+    yield put(actions.setUserSettingsDataState("userDataSuccess", false))
 
-    // const useInput = yield select(selectUserSettingsUi);
-    // try {
-    //     // yield call(API.changeuserData(useInput.olduserData, useInput.newuserData))
-    //     yield put(actions.setUserSettingsDataState("userDataSuccess", true))
-    // } catch (error) {
-    //     yield put(actions.setUserSettingsDataState("userDataError", true))
+    const userInput = yield select(selectUserSettingsUi);
+    const userData = {
+        user_name: userInput.userName,
+        first_name: userInput.firstName,
+        last_name: userInput.lastName,
+        mail: userInput.mail,
+    }
 
-    // }
+    try {
+        yield call(API.updateUserData(userData))
+        yield put(actions.addUserData({
+            ...userData,
+            user_id: yield select(selectUserId)
+        }))
+        yield put(actions.setUserSettingsDataState("userDataSuccess", true))
+    } catch (error) {
+        yield put(actions.setUserSettingsDataState("userDataError", true))
+    }
 
-    // yield put(actions.setUserSettingsDataState("userDataLoading", false))
+    yield put(actions.setUserSettingsDataState("userDataLoading", false))
 }
