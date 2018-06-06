@@ -10,7 +10,7 @@ export default (state = {
     oldPassword: "",
     newPassword: "",
     newPasswordRepeat: "",
-    profileImage: ""
+    profileImage: null
 }, action) => {
     switch (action.type) {
         case actionNames.SET_USER_SETTINGS_INPUT_FIELD:

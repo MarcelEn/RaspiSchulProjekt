@@ -20,7 +20,7 @@ class UserSettings extends Component {
         this.props.initUserSettings()
     }
     render() {
-        if (this.props.init) {
+        if (!this.props.userDataIsAvailable) {
             return (
                 <Grid>
                     <PageHeader>
@@ -52,7 +52,7 @@ class UserSettings extends Component {
                         <FormControl
                             type="text"
                             placeholder="Vorname"
-                            value={this.props.first_name}
+                            value={this.props.firstName}
                             onChange={this.handleChange}
                             name="firstName"
                         />
@@ -61,7 +61,7 @@ class UserSettings extends Component {
                         <FormControl
                             type="text"
                             placeholder="Nachname"
-                            value={this.props.last_name}
+                            value={this.props.lastName}
                             onChange={this.handleChange}
                             name="lastName"
                         />
@@ -120,7 +120,7 @@ class UserSettings extends Component {
                         <FormControl
                             type="password"
                             placeholder="altes Passwort"
-                            value={this.props.user_name}
+                            value={this.props.oldPassword}
                             onChange={this.handleChange}
                             name="oldPassword"
                         />
@@ -130,7 +130,7 @@ class UserSettings extends Component {
                         <FormControl
                             type="password"
                             placeholder="neues Passwort"
-                            value={this.props.user_name}
+                            value={this.props.newPassword}
                             onChange={this.handleChange}
                             name="newPassword"
                         />
@@ -139,7 +139,7 @@ class UserSettings extends Component {
                         <FormControl
                             type="password"
                             placeholder="neues Passwort wiederholen"
-                            value={this.props.user_name}
+                            value={this.props.newPasswordRepeat}
                             onChange={this.handleChange}
                             name="newPasswordRepeat"
                         />
@@ -208,7 +208,6 @@ class UserSettings extends Component {
                     <HorizontalFormElement>
                         <FormControl
                             type="file"
-                            value={this.props.user_name}
                             onChange={this.handleChange}
                             name="profileImage"
                         />
@@ -241,9 +240,7 @@ class UserSettings extends Component {
                             </Button>
                         </LoadingButton>
                     </Col>
-
                 </Form>
-
             </Grid>
         );
     }
@@ -255,17 +252,10 @@ function mapStateToProps(state) {
         userSettingsUi.oldPassword === "" ||
         userSettingsUi.newPassword === ""
 
-    const userData = selectUserData(state).find(user => user.user_id === selectUserId(state))
-    const init =  userData ? false : true
-    //here i stoped
-    if (!init && userSettingsUi.userName === null) {
-        userSettingsUi = userData
-    }
     return {
         ...selectUserSettingsData(state),
-        ...userSettingsUi,
-        disableSubmitPassword,
-        init
+        ...selectUserSettingsUi(state),
+        disableSubmitPassword
     }
 
 }

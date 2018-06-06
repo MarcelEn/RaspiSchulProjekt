@@ -5,7 +5,8 @@ import {
 export default (state = {
     passwordSuccess: false,
     passwordError: false,
-    passwordLoading: false
+    passwordLoading: false,
+    userDataIsAvailable: false
 }, action) => {
     switch (action.type) {
         case actionNames.SET_USER_SETTINGS_DATA_STATE:

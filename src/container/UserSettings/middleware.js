@@ -37,14 +37,26 @@ export function* submitUserSettingsPasswordChange(action) {
 //     newPasswordRepeat: null,
 //     profileImage: undefined
 
+
+
 export function* initUserSettings(action) {
     const userId = yield select(selectUserId);
     let userData = (yield select(selectUserData)).find(user => user.user_id === userId)
 
-    if(!userData){
-        yield put(actions.fetchUserDataById([userId]));
+    if (!userData) {
+        try {
+            const response = yield call(API.fetchUserDataById([userId]));
+            for (let i = 0; i < response[0].length; i++) {
+                yield put(actions.addUserData(response[0][i].data))
+            }
+            userData = response[0][0].data;
+        } catch (error) { }
     }
-
+    yield put(actions.setUserSettingsInputField("firstName", userData.first_name))
+    yield put(actions.setUserSettingsInputField("lastName", userData.last_name))
+    yield put(actions.setUserSettingsInputField("userName", userData.user_name))
+    yield put(actions.setUserSettingsInputField("mail", userData.mail))
+    yield put(actions.setUserSettingsDataState("userDataIsAvailable", true))
     // yield put(actions.setUserSettingsDataState("userDataLoading", true))
     // yield put(actions.setUserSettingsDataState("userDataError", false))
     // yield put(actions.setUserSettingsDataState("userDataSuccess", false))
