@@ -7,6 +7,7 @@ import {actionNames as manageCalendarNames, actions as manageCalendarActions} fr
 import {actionNames as calendarViewNames, actions as calendarViewActions} from './container/CalendarView/actions';
 import {actionNames as editAppointmentNames, actions as editAppointmentActions} from './container/EditAppointment/actions';
 import {actionNames as createCalendarNames, actions as createCalendarActions} from './container/CreateCalendar/actions';
+import {actionNames as userSettingsNames, actions as userSettingsActions} from './container/UserSettings/actions';
 
 export const actionNames = {
     ...loginNames,
@@ -17,7 +18,8 @@ export const actionNames = {
     ...manageCalendarNames,
     ...calendarViewNames,
     ...editAppointmentNames,
-    ...createCalendarNames
+    ...createCalendarNames,
+    ...userSettingsNames
 }
 
 export const actions = {
@@ -29,5 +31,6 @@ export const actions = {
     ...manageCalendarActions,
     ...calendarViewActions,
     ...editAppointmentActions,
-    ...createCalendarActions
+    ...createCalendarActions,
+    ...userSettingsActions
 }

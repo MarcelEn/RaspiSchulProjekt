@@ -2,8 +2,8 @@ import path from 'path';
 import axios from 'axios';
 import hash from 'hash.js';
 
-const generateHash = string => hash.sha256().update(string).digest('hex');
 
+const generateHash = string => hash.sha256().update(string).digest('hex');
 const version = '0.0.1';
 const apiPrefix = 'api';
 
@@ -22,6 +22,7 @@ const apiPaths = {
     searchAppointmentsByCalendarId: calendarId => path.resolve(apiPrefix, version, 'rest', 'appointment?calendar_id=' + calendarId),
     deleteAppointmentById: appointmentId => path.resolve(apiPrefix, version, 'rest', 'appointment', appointmentId),
     addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
+    changePassword: path.resolve(apiPrefix, version, 'authentification', 'password'),
 }
 
 
@@ -81,4 +82,8 @@ export default {
     modifyAppointment: appointmentData => () => axios.post(apiPaths.addOrModifyAppointment, appointmentData),
     addAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),
     createCalendar: calendarData => () => axios.put(apiPaths.updateOrAddCalendarData, calendarData),
+    changePassword: (oldPassword, newPassword) => () => axios.post(apiPaths.changePassword, {
+        old_password_hash: generateHash(oldPassword),
+        new_password_hash: generateHash(newPassword)
+    })
 }

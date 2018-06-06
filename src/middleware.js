@@ -51,7 +51,15 @@ import {
     submitCreateCalendar
 } from './container/CreateCalendar/middleware';
 
+
+import {
+    submitUserSettingsPasswordChange
+} from './container/UserSettings/middleware';
+
 function* mySaga() {
+    //UserSettings
+    yield takeLatest(actionNames.SUBMIT_USER_SETTINGS_PASSWORD_CHANGE, submitUserSettingsPasswordChange)
+
     //CreateCalendar
     yield takeLatest(actionNames.SUBMIT_CREATE_CALENDAR, submitCreateCalendar)
 

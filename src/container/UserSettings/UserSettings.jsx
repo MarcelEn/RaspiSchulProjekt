@@ -6,11 +6,15 @@ import style from './style_module.css';
 import { actions } from '../../actions';
 import { Grid, PageHeader, Form, Col, FormControl, FormGroup, ControlLabel, Collapse, Alert, Button } from 'react-bootstrap';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
-import { getUserImageUrlByUsername } from '../../globalFunctions';
+import { getUserImageUrlByUsername, proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi } from '../../globalFunctions';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
 class UserSettings extends Component {
     constructor(props) {
         super(props);
+        this.handleChange = this.handleChange.bind(this)
+    }
+    handleChange(proxy) {
+        this.props.setUserSettingsInputField(proxyToName(proxy), proxyToValue(proxy))
     }
     render() {
         return (
@@ -24,39 +28,38 @@ class UserSettings extends Component {
                         <FormControl
                             type="text"
                             placeholder="Nutzername"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
-                            name="username"
+                            value={this.props.userName}
+                            onChange={this.handleChange}
+                            name="userName"
                         />
                     </HorizontalFormElement>
                     <HorizontalFormElement label="Vorname">
                         <FormControl
                             type="text"
                             placeholder="Vorname"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
-                            name="firstname"
+                            value={this.props.first_name}
+                            onChange={this.handleChange}
+                            name="firstName"
                         />
                     </HorizontalFormElement>
                     <HorizontalFormElement label="Nachname">
                         <FormControl
                             type="text"
                             placeholder="Nachname"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
-                            name="lastname"
+                            value={this.props.last_name}
+                            onChange={this.handleChange}
+                            name="lastName"
                         />
                     </HorizontalFormElement>
                     <HorizontalFormElement label="E-Mail">
                         <FormControl
                             type="text"
                             placeholder="E-Mail"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
+                            value={this.props.mail}
+                            onChange={this.handleChange}
                             name="mail"
                         />
                     </HorizontalFormElement>
-
                     <Collapse in>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="success">
@@ -80,7 +83,7 @@ class UserSettings extends Component {
                     <Col sm={5} smOffset={4}>
                         <LoadingButton>
                             <Button className={style.large} bsStyle="success">
-                                neues Passwort senden
+                                asdfasfd
                             </Button>
                         </LoadingButton>
                     </Col>
@@ -99,9 +102,9 @@ class UserSettings extends Component {
                         <FormControl
                             type="password"
                             placeholder="altes Passwort"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
-                            name="old_password"
+                            value={this.props.user_name}
+                            onChange={this.handleChange}
+                            name="oldPassword"
                         />
                     </HorizontalFormElement>
 
@@ -109,31 +112,40 @@ class UserSettings extends Component {
                         <FormControl
                             type="password"
                             placeholder="neues Passwort"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
-                            name="new_password"
+                            value={this.props.user_name}
+                            onChange={this.handleChange}
+                            name="newPassword"
                         />
                     </HorizontalFormElement>
                     <HorizontalFormElement>
                         <FormControl
                             type="password"
                             placeholder="neues Passwort wiederholen"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
-                            name="new_password_repeat"
+                            value={this.props.user_name}
+                            onChange={this.handleChange}
+                            name="newPasswordRepeat"
                         />
                     </HorizontalFormElement>
-                    <Collapse in>
+                    <Collapse in={this.props.newPassword !== this.props.newPasswordRepeat && this.props.newPassword !== ""}>
+                        <Col sm={5} smOffset={4}>
+                            <Alert bsStyle="danger">
+                                <p>
+                                    Die Passwörter stimmen nicht überein
+                                </p>
+                            </Alert>
+                        </Col>
+                    </Collapse>
+                    <Collapse in={this.props.passwordSuccess}>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="success">
                                 <b>Erfolg! </b>
                                 <p>
                                     Das Passwort wurde erfolgreich geändert.
-                                    </p>
+                                </p>
                             </Alert>
                         </Col>
                     </Collapse>
-                    <Collapse in>
+                    <Collapse in={this.props.passwordError}>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="danger">
                                 <b>Fehler! </b>
@@ -144,9 +156,14 @@ class UserSettings extends Component {
                         </Col>
                     </Collapse>
                     <Col sm={5} smOffset={4}>
-                        <LoadingButton>
-                            <Button className={style.large} bsStyle="success">
-                                neues Passwort senden
+                        <LoadingButton loading={this.props.passwordLoading}>
+                            <Button
+                                className={style.large}
+                                bsStyle="success"
+                                disabled={this.props.disableSubmitPassword}
+                                onClick={this.props.handlePasswordSubmit}
+                            >
+                                neues Passwort speichern
                             </Button>
                         </LoadingButton>
                     </Col>
@@ -173,12 +190,12 @@ class UserSettings extends Component {
                     <HorizontalFormElement>
                         <FormControl
                             type="file"
-                            // value={props.calendarData.calendar_title}
-                            // onChange={props.handleEditInput}
+                            value={this.props.user_name}
+                            onChange={this.handleChange}
                             name="profileImage"
                         />
                     </HorizontalFormElement>
-                    
+
                     <Collapse in>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="success">
@@ -215,13 +232,22 @@ class UserSettings extends Component {
 }
 
 function mapStateToProps(state) {
+    const userSettingsUi = selectUserSettingsUi(state);
+    const disableSubmitPassword = userSettingsUi.newPassword !== userSettingsUi.newPasswordRepeat ||
+        userSettingsUi.oldPassword === "" ||
+        userSettingsUi.newPassword === ""
     return {
+        ...selectUserSettingsData(state),
+        ...userSettingsUi,
+        disableSubmitPassword
     }
 
 }
 
 function mapDispatchToProps(dispatch) {
     return {
+        setUserSettingsInputField: (name, value) => { dispatch(actions.setUserSettingsInputField(name, value)) },
+        handlePasswordSubmit: () => {dispatch(actions.submitUserSettingsPasswordChange())}
     }
 }
 

@@ -52,6 +52,10 @@ export function getCookie(cname) {
     return undefined;
 }
 
+export const selectUserSettingsUi = store => store.ui.userSettingsUi
+
+export const selectUserSettingsData = store => store.data.userSettingsData
+
 export const selectCreateCalendarUi = store => store.ui.createCalendarUi
 
 export const selectCreateCalendarData = store => store.data.createCalendarData
