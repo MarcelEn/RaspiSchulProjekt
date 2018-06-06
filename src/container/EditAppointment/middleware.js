@@ -10,7 +10,10 @@ import {
 } from '../../globalFunctions';
 import {
     actions
-} from './../../actions';
+} from '../../actions';
+import {
+    selectEditAppointmentUi
+} from '../../globalFunctions';
 
 export function* applyInitToEditAppointment(action) {
     let editingAppointmentData;
@@ -33,4 +36,17 @@ export function* applyInitToEditAppointment(action) {
             editingAppointmentData = appointmentData.find(appointment => appointment.appointment_id === action.payload)
     }
     yield put(actions.setEditAppointmentAppointmentData(editingAppointmentData));
+}
+
+export function* submitEditAppointmentData(action) {
+    const appointmentData = (yield select(selectEditAppointmentUi)).appointment;
+    
+    if(appointmentData.appointment_id){
+        try {
+            yield call(API.modifyAppointment(appointmentData));
+            yield put(actions.updateAppointmentData(appointmentData));
+        } catch (error) {
+            
+        }
+    }
 }

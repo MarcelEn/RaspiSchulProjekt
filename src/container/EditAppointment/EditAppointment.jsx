@@ -106,7 +106,7 @@ class EditAppointment extends Component {
                             }
                         </FormControl>
                     </HorizontalFormElement>
-                    <HorizontalFormElement label="Start*">
+                    <HorizontalFormElement validationState={this.props.invalidStartEnd ? 'error' : ''} label="Start*">
                         <Col xs={6}>
                             <FormControl
                                 type="date"
@@ -131,7 +131,7 @@ class EditAppointment extends Component {
                             />
                         </Col>
                     </HorizontalFormElement>
-                    <HorizontalFormElement label="Ende*">
+                    <HorizontalFormElement validationState={this.props.invalidStartEnd ? 'error' : ''} label="Ende*">
                         <Col xs={6}>
                             <FormControl
                                 type="date"
@@ -179,10 +179,10 @@ class EditAppointment extends Component {
                             {
                                 this.props.conflicts.map(
                                     (conflict, index) =>
-                                        <Alert bsStyle="danger">
+                                        <Alert key={"conflict-" + index} bsStyle="danger">
                                             <b>{conflict.appointment_title}</b><br />
                                             @
-                                        {moment(conflict.start).format("DD-MM-YYYY HH:mm")}
+                                            {moment(conflict.start).format("DD-MM-YYYY HH:mm")}
                                             {" - "}
                                             {moment(conflict.end).format("DD-MM-YYYY HH:mm")}
                                         </Alert>
@@ -227,7 +227,11 @@ class EditAppointment extends Component {
                         </Col>
                     </Collapse>
                     <HorizontalFormElement>
-                        <Button bsStyle="success">
+                        <Button
+                            disabled={this.props.showInformation}
+                            onClick={this.props.submitEditAppointmentData}
+                            bsStyle="success"
+                        >
                             Speichern
                         </Button>
                     </HorizontalFormElement>
@@ -251,9 +255,10 @@ function mapStateToProps(state) {
             appointmentUi.conflictFilterWhitelist.find(item => item === appointment.calendar_id) &&
             appointment.appointment_id !== appointmentUi.appointment.appointment_id
     )
-    
+    const invalidStartEnd = appointmentUi.appointment.start >= appointmentUi.appointment.end
     const showInformation = appointmentUi.appointment.appointment_title === "" ||
-        appointmentUi.appointment.calendar_id === ""
+        appointmentUi.appointment.calendar_id === "" ||
+        invalidStartEnd
 
     return {
         calendarData,
@@ -262,14 +267,16 @@ function mapStateToProps(state) {
         appointment: appointmentUi.appointment,
         showInformation,
         conflictFilterWhitelist: appointmentUi.conflictFilterWhitelist,
-        conflicts
+        conflicts,
+        invalidStartEnd
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         setEditAppointmentInputField: (name, value) => { dispatch(actions.setEditAppointmentInputField(name, value)) },
-        toggleEditAppointmentConflictFilterWhitelist: proxy => { dispatch(actions.toggleEditAppointmentConflictFilterWhitelist(proxyToValue(proxy))) }
+        toggleEditAppointmentConflictFilterWhitelist: proxy => { dispatch(actions.toggleEditAppointmentConflictFilterWhitelist(proxyToValue(proxy))) },
+        submitEditAppointmentData: () => { dispatch(actions.submitEditAppointmentData()) },
     }
 }
 

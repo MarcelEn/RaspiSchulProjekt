@@ -11,6 +11,7 @@ add filtering for owncalendar with localstorage loading - done
 refactor seperation of dump part in smart components - done
 finish managecalendar component - done
     -> add delete option - done
+EditAppointment add submit middleware - done
 
 
 main
@@ -25,4 +26,3 @@ improve appointment adjusting (make it more smart)
 lock mobileView (with message coming soon)
 filter search calendar (do not show own calendars)
 move applyInitToEditAppointment listning on SET_POPUP_ID
-EditAppointment add submit middleware

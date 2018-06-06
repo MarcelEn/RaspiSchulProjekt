@@ -14,6 +14,7 @@ export const actionNames = {
     ADD_USER_DATA: 'ADD_USER_DATA',
     ADD_CALENDAR_DATA: 'ADD_CALENDAR_DATA',
     ADD_APPOINTMENT_DATA: 'ADD_APPOINTMENT_DATA',
+    UPDATE_APPOINTMENT_DATA: 'UPDATE_APPOINTMENT_DATA',
     REMOVE_APPOINTMENT_DATA_BY_ID: 'REMOVE_APPOINTMENT_DATA_BY_ID',
     REMOVE_CALENDAR_DATA_BY_ID: 'REMOVE_CALENDAR_DATA_BY_ID',
     FETCH_USER_DATA_BY_ID: 'FETCH_USER_DATA_BY_ID',
@@ -75,6 +76,10 @@ export const actions = {
     }),
     addAppointmentData: appointmentData => ({
         type: actionNames.ADD_APPOINTMENT_DATA,
+        payload: appointmentData
+    }),
+    updateAppointmentData: appointmentData => ({
+        type: actionNames.UPDATE_APPOINTMENT_DATA,
         payload: appointmentData
     }),
     removeAppointmentDatabyId: appointmentId => ({

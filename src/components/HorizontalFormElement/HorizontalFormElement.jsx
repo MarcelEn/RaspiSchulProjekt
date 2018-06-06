@@ -2,7 +2,7 @@ import React from 'react';
 import { FormGroup, ControlLabel, Col } from 'react-bootstrap';
 
 const HorizontalFormElement = props => (
-    <FormGroup>
+    <FormGroup validationState={props.validationState ? props.validationState : null}>
         {
             props.label ?
                 <Col componentClass={ControlLabel} smOffset={2} sm={2}>

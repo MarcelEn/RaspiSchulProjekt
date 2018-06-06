@@ -100,6 +100,16 @@ export default (state = {
                     ...newAppointmentData
                 ]
             }
+        case actionNames.UPDATE_APPOINTMENT_DATA:
+            return {
+                ...state,
+                appointmentData: state.appointmentData.map(
+                    appointment =>
+                    appointment.appointment_id === action.payload.appointment_id ?
+                    action.payload :
+                    appointment
+                )
+            }
         case actionNames.REMOVE_APPOINTMENT_DATA_BY_ID:
             const appointmentData = state.appointmentData.filter(
                 appointment => appointment.appointment_id !== action.payload
