@@ -112,6 +112,10 @@ router.post('/calendar', function (req, res, next) {
     res.sendStatus(201);
 });
 
+router.post('/user_data', function (req, res, next) {
+    res.sendStatus(201);
+});
+
 let calendarCount = 1;
 router.put('/calendar', function (req, res, next) {
     if (req.body.calendar_title === "error") {
