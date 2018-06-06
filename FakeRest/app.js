@@ -8,6 +8,7 @@ var helmet = require('helmet');
 
 var account = require('./routes/account');
 var rest = require('./routes/rest');
+var authentification = require('./routes/authentification');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(function(reg,res,next){
 
 app.use('/api/0.0.1/account', account);
 app.use('/api/0.0.1/rest', rest);
+app.use('/api/0.0.1/authentification', authentification);
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
