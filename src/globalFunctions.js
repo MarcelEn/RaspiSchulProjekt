@@ -29,6 +29,13 @@ export const proxyToValue = proxy => proxy.target.value;
 
 export const proxyToName = proxy => proxy.target.name;
 
+export const nameValueToProxy = (name, value) => ({
+    target: {
+        name,
+        value
+    }
+})
+
 export function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -44,6 +51,10 @@ export function getCookie(cname) {
     }
     return undefined;
 }
+
+export const selectCreateCalendarUi = store => store.ui.createCalendarUi
+
+export const selectCreateCalendarData = store => store.data.createCalendarData
 
 export const selectUsers = store => store.data.appData.userData
 

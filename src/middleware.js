@@ -47,7 +47,14 @@ import {
     submitEditAppointmentData
 } from './container/EditAppointment/middleware';
 
+import {
+    submitCreateCalendar
+} from './container/CreateCalendar/middleware';
+
 function* mySaga() {
+    //CreateCalendar
+    yield takeLatest(actionNames.SUBMIT_CREATE_CALENDAR, submitCreateCalendar)
+
     //EditAppointment
     yield takeLatest(actionNames.TOGGLE_CALENDARVIEW_DETAILED_APPOINTMENT_ID, applyInitToEditAppointment)
     yield takeLatest(actionNames.SUBMIT_EDIT_APPOINTMENT_DATA, submitEditAppointmentData)

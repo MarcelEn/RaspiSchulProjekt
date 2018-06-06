@@ -17,11 +17,11 @@ const apiPaths = {
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
     addOrRemoveSavedCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved', calendarId),
-    updateCalendarData: path.resolve(apiPrefix, version, 'rest', 'calendar'),
+    updateOrAddCalendarData: path.resolve(apiPrefix, version, 'rest', 'calendar'),
     deleteCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', calendarId),
     searchAppointmentsByCalendarId: calendarId => path.resolve(apiPrefix, version, 'rest', 'appointment?calendar_id=' + calendarId),
     deleteAppointmentById: appointmentId => path.resolve(apiPrefix, version, 'rest', 'appointment', appointmentId),
-    AddOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
+    addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
 }
 
 
@@ -55,7 +55,7 @@ export default {
         () => axios.get(apiPaths.sendAddCalendarSearch(searchString, userId))
     ),
     updateCalendarData: calendarData => (
-        () => axios.post(apiPaths.updateCalendarData, calendarData)
+        () => axios.post(apiPaths.updateOrAddCalendarData, calendarData)
     ),
     deleteCalendar: calendarId => (
         () => axios.delete(apiPaths.deleteCalendar(calendarId))
@@ -78,6 +78,7 @@ export default {
     addSavedCalendar: calendarId => () => axios.put(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     searchAppointmentsByCalendarId: calendarId => axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId)),
     deleteAppointmentById: appointmentId => () => axios.delete(apiPaths.deleteAppointmentById(appointmentId)),
-    modifyAppointment: appointmentData => () => axios.post(apiPaths.AddOrModifyAppointment, appointmentData),
-    addAppointment: appointmentData => () => axios.put(apiPaths.AddOrModifyAppointment, appointmentData),
+    modifyAppointment: appointmentData => () => axios.post(apiPaths.addOrModifyAppointment, appointmentData),
+    addAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),
+    createCalendar: calendarData => () => axios.put(apiPaths.updateOrAddCalendarData, calendarData),
 }

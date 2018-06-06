@@ -15,6 +15,8 @@ import manageCalendarUi from './container/ManageCalendar/reducerUi';
 import calendarViewUi from './container/CalendarView/reducerUi';
 import editAppointmentUi from './container/EditAppointment/reducerUi';
 import editAppointmentData from './container/EditAppointment/reducerData';
+import createCalendarUi from './container/CreateCalendar/reducerUi';
+import createCalendarData from './container/CreateCalendar/reducerData';
 
 const data = combineReducers({
     appData,
@@ -22,7 +24,8 @@ const data = combineReducers({
     registrationData,
     addCalendarData,
     manageCalendarData,
-    editAppointmentData
+    editAppointmentData,
+    createCalendarData
 });
 
 const ui = combineReducers({
@@ -33,7 +36,8 @@ const ui = combineReducers({
     mainUi,
     manageCalendarUi,
     calendarViewUi,
-    editAppointmentUi
+    editAppointmentUi,
+    createCalendarUi
 })
 
 export default combineReducers({
