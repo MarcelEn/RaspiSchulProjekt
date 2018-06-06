@@ -64,7 +64,7 @@ class EditAppointment extends Component {
             <Grid>
                 <FormGroup>
                     <PageHeader>
-                        Termin bearbeiten
+                        Termin {this.props.appointment.appointment_id ? 'bearbeiten' : 'erstellen'}
                     </PageHeader>
                 </FormGroup>
                 <Form horizontal>
@@ -257,7 +257,7 @@ function mapStateToProps(state) {
     const appointmentUi = selectEditAppointmentUi(state)
     const appointmentData = selectAppointmentData(state);
     const editAppointmentData = selectEditAppointmentData(state);
-    
+
     const conflicts = appointmentData.filter(
         appointment =>
             (
