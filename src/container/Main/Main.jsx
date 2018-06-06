@@ -81,15 +81,23 @@ class Main extends Component {
                             bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.MANAGE_CALENDAR) }}
                         >
-                            Kalender bearbeiten
+                            bearbeiten
                         </Button>
                         <Button
                             className={style.large + ' ' + style.marginBottom}
                             bsStyle="primary"
+                            onClick={() => { this.props.setPopupId(popupId.CREATE_CALENDAR) }}
+                        >
+                            erstellen
+                        </Button>
+                        <Button
+                            className={style.large}
+                            bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.ADD_CALENDAR) }}
                             >
-                            Kalender suchen
+                            suchen
                         </Button>
+                        <hr />
                         <Button
                             className={style.large}
                             bsStyle="primary"

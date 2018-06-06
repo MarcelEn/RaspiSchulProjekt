@@ -18,6 +18,7 @@ import AddCalendar from '../AddCalendar/AddCalendar';
 import ManageCalendar from '../ManageCalendar/ManageCalendar';
 import UserSettings from '../UserSettings/UserSettings';
 import EditAppointment from '../EditAppointment/EditAppointment';
+import CreateCalendar from '../CreateCalendar/CreateCalendar';
 
 
 class App extends Component {
@@ -60,6 +61,9 @@ class App extends Component {
                                     </Popup>
                                     <Popup id={popupId.EDIT_APPOINTMENT}>
                                         <EditAppointment />
+                                    </Popup>
+                                    <Popup id={popupId.CREATE_CALENDAR}>
+                                        <CreateCalendar />
                                     </Popup>
                                 </PopupWrapper>
                             </Wrapper>
