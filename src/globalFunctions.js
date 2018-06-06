@@ -74,6 +74,8 @@ export const selectSavedCalendars = store => store.data.appData.savedCalendars
 
 export const selectUserId = store => store.data.appData.userId
 
+export const selectUserData = store => store.data.appData.userData
+
 export const selectEditingCalendar = store => store.ui.manageCalendarUi.editingCalendar
 
 export const selectActiveCalendar = store => store.ui.mainUi.activeCalendars

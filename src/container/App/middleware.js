@@ -62,6 +62,7 @@ export function* fetchUserDataById(action) {
         for (let i = 0; i < response[0].length; i++) {
             yield put(actions.addUserData(response[0][i].data))
         }
+        console.log("here")
     } catch (error) {}
 }
 

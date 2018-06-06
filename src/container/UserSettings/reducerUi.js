@@ -3,14 +3,14 @@ import {
 } from '../../actions';
 
 export default (state = {
-    userName: "",
-    firstName: "",
-    lastName: "",
-    mail: "",
+    userName: null,
+    firstName: null,
+    lastName: null,
+    mail: null,
     oldPassword: "",
     newPassword: "",
     newPasswordRepeat: "",
-    profileImage: undefined
+    profileImage: ""
 }, action) => {
     switch (action.type) {
         case actionNames.SET_USER_SETTINGS_INPUT_FIELD:

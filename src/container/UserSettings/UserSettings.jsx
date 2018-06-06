@@ -6,7 +6,7 @@ import style from './style_module.css';
 import { actions } from '../../actions';
 import { Grid, PageHeader, Form, Col, FormControl, FormGroup, ControlLabel, Collapse, Alert, Button } from 'react-bootstrap';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
-import { getUserImageUrlByUsername, proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi } from '../../globalFunctions';
+import { getUserImageUrlByUsername, proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi, selectUserId, selectUserData } from '../../globalFunctions';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
 class UserSettings extends Component {
     constructor(props) {
@@ -16,7 +16,22 @@ class UserSettings extends Component {
     handleChange(proxy) {
         this.props.setUserSettingsInputField(proxyToName(proxy), proxyToValue(proxy))
     }
+    componentWillMount() {
+        this.props.initUserSettings()
+    }
     render() {
+        if (this.props.init) {
+            return (
+                <Grid>
+                    <PageHeader>
+                        Einstellungen
+                </PageHeader>
+                    <Col sm={5} smOffset={4}>
+                        <LoadingButton loading />
+                    </Col>
+                </Grid>
+            )
+        }
         return (
             <Grid>
                 <PageHeader>
@@ -82,8 +97,11 @@ class UserSettings extends Component {
                     </Collapse>
                     <Col sm={5} smOffset={4}>
                         <LoadingButton>
-                            <Button className={style.large} bsStyle="success">
-                                asdfasfd
+                            <Button
+                                onClick={this.props.handleUserDataSubmit}
+                                className={style.large}
+                                bsStyle="success">
+                                Nutzerdaten senden
                             </Button>
                         </LoadingButton>
                     </Col>
@@ -232,14 +250,22 @@ class UserSettings extends Component {
 }
 
 function mapStateToProps(state) {
-    const userSettingsUi = selectUserSettingsUi(state);
+    let userSettingsUi = selectUserSettingsUi(state);
     const disableSubmitPassword = userSettingsUi.newPassword !== userSettingsUi.newPasswordRepeat ||
         userSettingsUi.oldPassword === "" ||
         userSettingsUi.newPassword === ""
+
+    const userData = selectUserData(state).find(user => user.user_id === selectUserId(state))
+    const init =  userData ? false : true
+    //here i stoped
+    if (!init && userSettingsUi.userName === null) {
+        userSettingsUi = userData
+    }
     return {
         ...selectUserSettingsData(state),
         ...userSettingsUi,
-        disableSubmitPassword
+        disableSubmitPassword,
+        init
     }
 
 }
@@ -247,7 +273,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         setUserSettingsInputField: (name, value) => { dispatch(actions.setUserSettingsInputField(name, value)) },
-        handlePasswordSubmit: () => {dispatch(actions.submitUserSettingsPasswordChange())}
+        handlePasswordSubmit: () => { dispatch(actions.submitUserSettingsPasswordChange()) },
+        handleUserDataSubmit: () => { dispatch(actions.submitUserSettingsUserData()) },
+        initUserSettings: () => { dispatch(actions.initUserSettings()) }
     }
 }
 

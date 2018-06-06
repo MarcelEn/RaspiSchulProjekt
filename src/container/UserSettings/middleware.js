@@ -8,7 +8,7 @@ import {
     actions
 } from './../../actions';
 import {
-    selectUserSettingsUi
+    selectUserSettingsUi, selectUserId, selectUserData
 } from '../../globalFunctions';
 
 export function* submitUserSettingsPasswordChange(action) {
@@ -26,4 +26,55 @@ export function* submitUserSettingsPasswordChange(action) {
     }
 
     yield put(actions.setUserSettingsDataState("passwordLoading", false))
+}
+
+// userName: null,
+//     firstName: null,
+//     lastName: null,
+//     mail: null,
+//     oldPassword: null,
+//     newPassword: null,
+//     newPasswordRepeat: null,
+//     profileImage: undefined
+
+export function* initUserSettings(action) {
+    const userId = yield select(selectUserId);
+    let userData = (yield select(selectUserData)).find(user => user.user_id === userId)
+
+    if(!userData){
+        yield put(actions.fetchUserDataById([userId]));
+    }
+
+    // yield put(actions.setUserSettingsDataState("userDataLoading", true))
+    // yield put(actions.setUserSettingsDataState("userDataError", false))
+    // yield put(actions.setUserSettingsDataState("userDataSuccess", false))
+
+    // const useInput = yield select(selectUserSettingsUi);
+    // try {
+    //     // yield call(API.changeuserData(useInput.olduserData, useInput.newuserData))
+    //     yield put(actions.setUserSettingsDataState("userDataSuccess", true))
+    // } catch (error) {
+    //     yield put(actions.setUserSettingsDataState("userDataError", true))
+
+    // }
+
+    // yield put(actions.setUserSettingsDataState("userDataLoading", false))
+}
+
+export function* submitUserSettingsUserData(action) {
+    console.log(action)
+    // yield put(actions.setUserSettingsDataState("userDataLoading", true))
+    // yield put(actions.setUserSettingsDataState("userDataError", false))
+    // yield put(actions.setUserSettingsDataState("userDataSuccess", false))
+
+    // const useInput = yield select(selectUserSettingsUi);
+    // try {
+    //     // yield call(API.changeuserData(useInput.olduserData, useInput.newuserData))
+    //     yield put(actions.setUserSettingsDataState("userDataSuccess", true))
+    // } catch (error) {
+    //     yield put(actions.setUserSettingsDataState("userDataError", true))
+
+    // }
+
+    // yield put(actions.setUserSettingsDataState("userDataLoading", false))
 }
