@@ -53,7 +53,7 @@ $app->put('/rest/appointment', function ($requ, $resp, $args) {
         return $resp->withStatus(UNAUTHORIZED);
     }
 
-    $app = CalendarModel::fromArray($requ->getParsedBody());
+    $app = CalendarModel::byArray($requ->getParsedBody());
     $app_old = CalendarModel::get($cal->calendar_id);
     $calId = $app->calendar_id;
 	$calId_old = $app_old->calendar_id;
