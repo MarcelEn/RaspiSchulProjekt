@@ -14,6 +14,7 @@ $app->put('/authentification/register', function ($requ, $resp, $args) {
     if (is_null($user_id)) {
         return $resp->withStatus(400);
     }
+    Token::set($user_id, 0);
     $resp->getBody()->write($user_id);
     return $resp;
 });
