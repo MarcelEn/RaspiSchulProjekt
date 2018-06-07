@@ -8,9 +8,9 @@ const version = '1.0';
 const apiPrefix = 'api';
 
 const apiPaths = {
-    sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login', 'loginData'),
+    sendRegistrationData: path.resolve(apiPrefix, version, 'authentification', 'register'),
+    sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login'),
     sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
-    sendRegistrationData: path.resolve(apiPrefix, version, 'authentification', 'registrierung'),
     searchUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?q=' + username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
@@ -34,20 +34,20 @@ export default {
     ),
     sendLoginData: loginData => (
         () => axios.post(apiPaths.sendLoginData, {
-            loginName: loginData.username,
-            passwort: generateHash(loginData.password)
+            user_name: loginData.username,
+            passwort_hash: generateHash(loginData.password)
         })
     ),
     sendLogout: () => (
         () => axios.delete(apiPaths.sendLogout)
     ),
     sendRegistrationData: registrationData => (
-        () => axios.post(apiPaths.sendRegistrationData, {
-            loginName: registrationData.username,
-            vorname: registrationData.firstname,
-            nachname: registrationData.lastname,
-            password: generateHash(registrationData.password),
-            email: registrationData.email
+        () => axios.put(apiPaths.sendRegistrationData, {
+            user_name: registrationData.username,
+            first_name: registrationData.firstname,
+            last_name: registrationData.lastname,
+            password_hash: generateHash(registrationData.password),
+            mail: registrationData.mail
         })
     ),
     searchUsername: username => (
