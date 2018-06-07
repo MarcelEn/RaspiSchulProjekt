@@ -13,7 +13,6 @@ finish managecalendar component - done
     -> add delete option - done
 EditAppointment add submit middleware - done
 login -> does not load userId - done
-calendar loading init => does not fetch all appointments (doch schon aber nur die aktiven) - done
 
 
 main
@@ -41,6 +40,10 @@ remove localfiltering if init does not give calendar id
 validate datatypes of responses and clien -> most important ids! (appointment arent positioning correctly because of that)
 
 //wedding:
+in general: convert all ids to strings
+calendar loading init => does not fetch all appointments (doch schon aber nur die aktiven)
+    -> no response statuscode 200
+
 termin -> nicht löschbar
 savedCalendar -> makes a post instead of delete
 userSettings -> fetch init does not work

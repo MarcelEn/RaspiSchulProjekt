@@ -89,12 +89,12 @@ class EditAppointment extends Component {
                                         </option>
                                 )
                             }
-                            {
+                            {/* {
                                 this.props.savedCalendars.length > 0 ?
                                     <hr />
                                     :
                                     ''
-                            }
+                            } */}
                             {
                                 this.props.savedCalendars.map(
                                     (calendar, index) =>
