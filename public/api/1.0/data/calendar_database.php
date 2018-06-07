@@ -15,7 +15,7 @@ class CalendarDatabase extends Database {
             $servername, 
             $username, 
             $password, 
-            'CalendarManagement_012'
+            'CalendarManagement_013'
         );
 	  }
 
