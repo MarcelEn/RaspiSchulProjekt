@@ -34,7 +34,7 @@ export function* validateAppToken(action) {
 
     try {
         const response = yield call(API.validateAppToken());
-        yield put(actions.setUserId(response.data.user_id));
+        yield put(actions.setUserId(response.data));
         yield put(actions.setAppTokenLoading(false))
         yield put(actions.setAppTokenIsValidated(true))
     } catch (error) {

@@ -22,11 +22,16 @@ export function* submitCreateCalendar(action) {
     yield put(actions.setCreateCalendarDataState("success", false))
     const calendarData = yield select(selectCreateCalendarUi);
     try {
-        const response = yield call(API.createCalendar(calendarData))
+        const owner_id = yield select(selectUserId);
+        console.log(owner_id)
+        const response = yield call(API.createCalendar({
+            ...calendarData,
+            owner_id
+        }))
         yield put(actions.addCalendarData([{
             ...calendarData,
-            ...response.data,
-            owner_id: yield(select(selectUserId))
+            calendar_id: response.data,
+            owner_id
         }]))
         yield put(actions.setCreateCalendarDataState("success", true))
     } catch (error) {

@@ -35,7 +35,8 @@ export default {
     sendLoginData: loginData => (
         () => axios.post(apiPaths.sendLoginData, {
             user_name: loginData.username,
-            passwort_hash: generateHash(loginData.password)
+            password_hash: generateHash(loginData.password),
+            long_time: loginData.stayLoggedIn ? 1 : 0
         })
     ),
     sendLogout: () => (
@@ -58,7 +59,7 @@ export default {
         () => axios.get(apiPaths.sendAddCalendarSearch(searchString, userId))
     ),
     updateCalendarData: calendarData => (
-        () => axios.post(apiPaths.updateOrAddCalendarData, calendarData)
+        () => axios.put(apiPaths.updateOrAddCalendarData, calendarData)
     ),
     deleteCalendar: calendarId => (
         () => axios.delete(apiPaths.deleteCalendar(calendarId))
@@ -69,12 +70,12 @@ export default {
                 id => axios.get(apiPaths.getUser(id))
             )
         )
-            .then((...responses) => {
-                resolve(responses)
-            })
-            .catch(e => {
-                reject(e);
-            })
+        .then((...responses) => {
+            resolve(responses)
+        })
+        .catch(e => {
+            reject(e);
+        })
     ),
     fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
@@ -83,7 +84,7 @@ export default {
     deleteAppointmentById: appointmentId => () => axios.delete(apiPaths.deleteAppointmentById(appointmentId)),
     modifyAppointment: appointmentData => () => axios.post(apiPaths.addOrModifyAppointment, appointmentData),
     addAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),
-    createCalendar: calendarData => () => axios.put(apiPaths.updateOrAddCalendarData, calendarData),
+    createCalendar: calendarData => () => axios.post(apiPaths.updateOrAddCalendarData, calendarData),
     changePassword: (oldPassword, newPassword) => () => axios.post(apiPaths.changePassword, {
         old_password_hash: generateHash(oldPassword),
         new_password_hash: generateHash(newPassword)
