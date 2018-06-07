@@ -4,7 +4,7 @@ require_once 'class/token_class.php';
 require_once 'class/calendar_class.php';
 require_once 'class/appointment_class.php';
 
-$app->get('/appointment/{id}', function ($requ, $resp, $args) {
+$app->get('/rest/appointment/{id}', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTHORITED);
     }
@@ -29,7 +29,7 @@ $app->get('/appointment/{id}', function ($requ, $resp, $args) {
     return $resp;
 });
 
-$app->post('/appointment', function ($requ, $resp, $args) {
+$app->post('/rest/appointment', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTORIZED);
     }
@@ -48,7 +48,7 @@ $app->post('/appointment', function ($requ, $resp, $args) {
 	return $resp->withStatus(CREATED);
 });
 
-$app->put('/appointment', function ($requ, $resp, $args) {
+$app->put('/rest/appointment', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTORIZED);
     }
@@ -78,7 +78,7 @@ $app->put('/appointment', function ($requ, $resp, $args) {
     return $resp->withStatus(CREATED);
 });
 
-$app->delete('/appointment/{id}', function ($requ, $resp, $args) {
+$app->delete('/rest/appointment/{id}', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTORIZED);
     }
@@ -100,7 +100,7 @@ $app->delete('/appointment/{id}', function ($requ, $resp, $args) {
     return $resp->withStatus(500);
 });
 
-$app->get('/appointment', function ($requ, $resp, $args) {
+$app->get('/rest/appointment', function ($requ, $resp, $args) {
 	if (!Token::validate()) {
         return $resp->withStatus(UNAUTHORITED);
     }

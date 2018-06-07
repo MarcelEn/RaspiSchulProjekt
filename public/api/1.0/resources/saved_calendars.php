@@ -4,7 +4,7 @@ require_once 'lib/json_array.php';
 require_once 'class/calendar_class.php';
 require_once 'class/saved_calendar_class.php';
 
-$app->get('/calendar/saved', function ($requ, $resp, $args) {
+$app->get('/rest/calendar/saved', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTHORIZED);
     }
@@ -15,7 +15,7 @@ $app->get('/calendar/saved', function ($requ, $resp, $args) {
     return $resp;
 });
 
-$app->post('/calendar/saved/{id}', function ($requ, $resp, $args) {
+$app->post('/rest/calendar/saved/{id}', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTHORIZED);
     }
@@ -34,7 +34,7 @@ $app->post('/calendar/saved/{id}', function ($requ, $resp, $args) {
     return $resp;
 });
 
-$app->delete('/calendar/saved/{id}', function ($requ, $resp, $args) {
+$app->delete('/rest/calendar/saved/{id}', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTHORIZED);
     }

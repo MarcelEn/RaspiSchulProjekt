@@ -3,7 +3,7 @@ require_once 'class/token_class.php';
 require_once 'class/user_class.php';
 require_once 'lib/json_array.php';
 
-$app->get('/user/{id}', function ($request, $response, $args) {
+$app->get('/rest/user/{id}', function ($request, $response, $args) {
     if (!Token::validate()) {
         return $response->withStatus(UNAUTHORIZED);
     }
@@ -18,7 +18,7 @@ $app->get('/user/{id}', function ($request, $response, $args) {
 
 });
 
-$app->delete('/user/{id}', function ($request, $response, $args) {
+$app->delete('/rest/user/{id}', function ($request, $response, $args) {
     if (!Token::validate()) {
         return $response->withStatus(UNAUTHORIZED);
     }
@@ -40,7 +40,7 @@ $app->delete('/user/{id}', function ($request, $response, $args) {
 	return $response->withStatus(500);
 });
 
-$app->get('/user', function ($requ, $resp, $args) {
+$app->get('/rest/user', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $response->withStatus(UNAUTHORIZED);
     }
