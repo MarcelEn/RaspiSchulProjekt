@@ -47,7 +47,7 @@ export default {
             first_name: registrationData.firstname,
             last_name: registrationData.lastname,
             password_hash: generateHash(registrationData.password),
-            mail: registrationData.mail
+            mail: registrationData.email
         })
     ),
     searchUsername: username => (
