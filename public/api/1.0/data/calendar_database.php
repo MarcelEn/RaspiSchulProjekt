@@ -29,14 +29,14 @@ class CalendarDatabase extends Database {
 		        first_name VARCHAR(50), 
 		        last_name VARCHAR(50), 
 		        mail VARCHAR(50), 
-		        password_hash VARCHAR(50),
+		        password_hash VARCHAR(100),
                 UNIQUE (user_name))
         ';
 		$q2 = '
             CREATE TABLE Calendar(
 		        calendar_id INT AUTO_INCREMENT PRIMARY KEY,
-		        calendar_title VARCHAR(50),
-		        calendar_description VARCHAR(500),
+		        calendar_title VARCHAR(100),
+		        calendar_description VARCHAR(10000),
 		        owner_id INT,
 		        visibility INT,
                 FOREIGN KEY (owner_id) REFERENCES User(user_id))
@@ -47,8 +47,8 @@ class CalendarDatabase extends Database {
 		        start TIMESTAMP,
 		        end TIMESTAMP,
 		        calendar_id INT,
-		        appointment_title VARCHAR(50),
-		        appointment_description VARCHAR(500),
+		        appointment_title VARCHAR(100),
+		        appointment_description VARCHAR(10000),
                 FOREIGN KEY (calendar_id) REFERENCES Calendar(calendar_id)
             )
         ';
