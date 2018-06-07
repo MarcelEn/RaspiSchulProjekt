@@ -117,7 +117,8 @@ class User {
 	    $database = CalendarDatabase::getStd();
 	    $sql = $database->prepare("SELECT * FROM User WHERE user_name like ?");
 
-	    $sql->bind_param("s", "%$name%");
+            $name = "%$name%";
+	    $sql->bind_param("s", $name);
 
         $sql->execute();
         $result = $sql->get_result();
