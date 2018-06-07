@@ -31,7 +31,7 @@ $app->get('/rest/appointment/{id}', function ($requ, $resp, $args) {
 
 $app->post('/rest/appointment', function ($requ, $resp, $args) {
     if (!Token::validate()) {
-        return $resp->withStatus(UNAUTORIZED);
+        return $resp->withStatus(UNAUTHORIZED);
     }
 
     $app = Appointment::fromArray($requ->getParsedBody());
@@ -50,7 +50,7 @@ $app->post('/rest/appointment', function ($requ, $resp, $args) {
 
 $app->put('/rest/appointment', function ($requ, $resp, $args) {
     if (!Token::validate()) {
-        return $resp->withStatus(UNAUTORIZED);
+        return $resp->withStatus(UNAUTHORIZED);
     }
 
     $app = CalendarModel::fromArray($requ->getParsedBody());
@@ -80,7 +80,7 @@ $app->put('/rest/appointment', function ($requ, $resp, $args) {
 
 $app->delete('/rest/appointment/{id}', function ($requ, $resp, $args) {
     if (!Token::validate()) {
-        return $resp->withStatus(UNAUTORIZED);
+        return $resp->withStatus(UNAUTHORIZED);
     }
 
     $app = CalendarModel::get($args['id']);
@@ -106,7 +106,7 @@ $app->get('/rest/appointment', function ($requ, $resp, $args) {
     }
 
     $after = $requ->getQueryParam('after', NULL);
-	$before = $requ->getQueryParam('before', NULL);
+    $before = $requ->getQueryParam('before', NULL);
     $calId = $requ->getQueryParam('calendar_id', NULL);
     $cal = CalendarModel::get($calId);
 
