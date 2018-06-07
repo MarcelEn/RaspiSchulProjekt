@@ -11,7 +11,7 @@ const apiPaths = {
     sendRegistrationData: path.resolve(apiPrefix, version, 'authentification', 'register'),
     sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login'),
     sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
-    searchUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?q=' + username),
+    searchUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?name=' + username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
     userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
@@ -65,7 +65,9 @@ export default {
         () => axios.delete(apiPaths.deleteCalendar(calendarId))
     ),
     fetchUserDataById: userId => () => new Promise(
-        (resolve, reject) => axios.all(
+        (resolve, reject) => {
+        console.log(userId)
+        return axios.all(
             userId.map(
                 id => axios.get(apiPaths.getUser(id))
             )
@@ -76,10 +78,11 @@ export default {
         .catch(e => {
             reject(e);
         })
+    }
     ),
     fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
-    addSavedCalendar: calendarId => () => axios.put(apiPaths.addOrRemoveSavedCalendar(calendarId)),
+    addSavedCalendar: calendarId => () => axios.post(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     searchAppointmentsByCalendarId: calendarId => axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId)),
     deleteAppointmentById: appointmentId => () => axios.delete(apiPaths.deleteAppointmentById(appointmentId)),
     modifyAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),

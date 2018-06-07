@@ -41,3 +41,6 @@ add delete account option
 //wedding:
 calendar loading init => does not fetch all appointments
 login -> does not load userId
+termin -> nicht löschbar
+savedCalendar -> makes a post instead of delete
+userSettings -> fetch init does not work
