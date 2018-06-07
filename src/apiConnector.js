@@ -8,14 +8,14 @@ const version = '1.0';
 const apiPrefix = 'api';
 
 const apiPaths = {
-    sendLoginData: path.resolve(apiPrefix, version, 'account', 'login', 'loginData'),
-    sendLogout: path.resolve(apiPrefix, version, 'account', 'logout'),
-    sendRegistrationData: path.resolve(apiPrefix, version, 'account', 'registrierung'),
+    sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login', 'loginData'),
+    sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
+    sendRegistrationData: path.resolve(apiPrefix, version, 'authentification', 'registrierung'),
     searchUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?q=' + username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
     userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
-    validateToken: path.resolve(apiPrefix, version, 'account', 'login', 'token'),
+    validateToken: path.resolve(apiPrefix, version, 'authentification', 'login', 'token'),
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
     addOrRemoveSavedCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved', calendarId),
