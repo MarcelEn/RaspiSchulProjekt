@@ -15,7 +15,7 @@ const apiPaths = {
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
     userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
-    validateToken: path.resolve(apiPrefix, version, 'authentification', 'login', 'token'),
+    validateToken: path.resolve(apiPrefix, version, 'authentification', 'test_token'),
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
     addOrRemoveSavedCalendar: calendarId => path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved', calendarId),
@@ -30,7 +30,7 @@ const apiPaths = {
 
 export default {
     validateAppToken: () => (
-        () => axios.post(apiPaths.validateToken)
+        () => axios.get(apiPaths.validateToken)
     ),
     sendLoginData: loginData => (
         () => axios.post(apiPaths.sendLoginData, {

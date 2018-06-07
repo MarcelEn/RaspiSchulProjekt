@@ -7,7 +7,7 @@ import {
 } from '../../globalFunctions';
 
 export default (state = {
-    tokenIsSet: getCookie('accessToken') ? true : false,
+    tokenIsSet: getCookie('token') ? true : false,
     firstInit: false,
     userData: [],
     calendarData: [],
