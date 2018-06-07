@@ -14,6 +14,8 @@ export function* sendRegistrationData(action) {
     try {
 
         yield call(API.sendRegistrationData(action.payload));
+        const response = yield call(API.whoAmI);
+        yield put(actions.setUserId(response.data));
         yield put(actions.setRegistrationLoading(false));
         yield put(actions.setAppTokenIsValidated(true));
         yield put(actions.setAppTokenIsSet(true));

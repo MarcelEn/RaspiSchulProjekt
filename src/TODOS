@@ -12,6 +12,7 @@ refactor seperation of dump part in smart components - done
 finish managecalendar component - done
     -> add delete option - done
 EditAppointment add submit middleware - done
+login -> does not load userId
 
 
 main
@@ -40,7 +41,6 @@ add delete account option
 
 //wedding:
 calendar loading init => does not fetch all appointments
-login -> does not load userId
 termin -> nicht löschbar
 savedCalendar -> makes a post instead of delete
 userSettings -> fetch init does not work

@@ -13,7 +13,8 @@ export function* sendLoginData (action) {
 
     try {
 
-        const response = yield call(API.sendLoginData(action.payload));
+        yield call(API.sendLoginData(action.payload));
+        const response = yield call(API.whoAmI);
         yield put(actions.setUserId(response.data));
         yield put(actions.setLoginLoading(false));
         yield put(actions.setAppTokenIsValidated(true));

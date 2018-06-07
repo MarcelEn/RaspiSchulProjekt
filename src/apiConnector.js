@@ -8,6 +8,7 @@ const version = '1.0';
 const apiPrefix = 'api';
 
 const apiPaths = {
+    whoAmI: path.resolve(apiPrefix, version, 'me'),
     sendRegistrationData: path.resolve(apiPrefix, version, 'authentification', 'register'),
     sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login'),
     sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
@@ -54,7 +55,7 @@ export default {
     searchUsername: username => (
         () => axios.get(apiPaths.searchUsername(username))
     ),
-
+    
     sendAddCalendarSearch: (searchString, userId) => (
         () => axios.get(apiPaths.sendAddCalendarSearch(searchString, userId))
     ),
@@ -66,21 +67,22 @@ export default {
     ),
     fetchUserDataById: userId => () => new Promise(
         (resolve, reject) => {
-        console.log(userId)
-        return axios.all(
-            userId.map(
-                id => axios.get(apiPaths.getUser(id))
+            console.log(userId)
+            return axios.all(
+                userId.map(
+                    id => axios.get(apiPaths.getUser(id))
+                )
             )
-        )
-        .then((...responses) => {
-            resolve(responses)
-        })
-        .catch(e => {
-            reject(e);
-        })
-    }
+            .then((...responses) => {
+                resolve(responses)
+            })
+            .catch(e => {
+                reject(e);
+            })
+        }
     ),
     fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars),
+    whoAmI: () => axios.get(apiPaths.whoAmI),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     addSavedCalendar: calendarId => () => axios.post(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     searchAppointmentsByCalendarId: calendarId => axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId)),
