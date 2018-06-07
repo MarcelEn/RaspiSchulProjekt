@@ -35,3 +35,9 @@ usersetting - userdata
 on clean no cache i have the appointments after refresh
 implement username lookup in add kalendar befor fetch users again
 add delete account option
+
+
+
+//wedding:
+calendar loading init => does not fetch all appointments
+login -> does not load userId

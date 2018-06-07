@@ -82,8 +82,8 @@ export default {
     addSavedCalendar: calendarId => () => axios.put(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     searchAppointmentsByCalendarId: calendarId => axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId)),
     deleteAppointmentById: appointmentId => () => axios.delete(apiPaths.deleteAppointmentById(appointmentId)),
-    modifyAppointment: appointmentData => () => axios.post(apiPaths.addOrModifyAppointment, appointmentData),
-    addAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),
+    modifyAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),
+    addAppointment: appointmentData => () => axios.post(apiPaths.addOrModifyAppointment, appointmentData),
     createCalendar: calendarData => () => axios.post(apiPaths.updateOrAddCalendarData, calendarData),
     changePassword: (oldPassword, newPassword) => () => axios.post(apiPaths.changePassword, {
         old_password_hash: generateHash(oldPassword),

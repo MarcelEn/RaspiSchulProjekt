@@ -53,7 +53,7 @@ export function* submitEditAppointmentData(action) {
             const response = yield call(API.addAppointment(appointmentData));
             yield put(actions.addAppointmentData([{
                 ...appointmentData,
-                ...response.data
+                appointment_id: response.data
             }]));
             yield put(actions.setEditAppointmentSuccess(true));
         } catch (error) {
