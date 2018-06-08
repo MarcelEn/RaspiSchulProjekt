@@ -25,7 +25,8 @@ const apiPaths = {
     searchAppointmentsByCalendarId: calendarId => path.resolve(apiPrefix, version, 'rest', 'appointment?calendar_id=' + calendarId),
     deleteAppointmentById: appointmentId => path.resolve(apiPrefix, version, 'rest', 'appointment', appointmentId),
     addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
-    changePassword: path.resolve(apiPrefix, version, 'authentification', 'password')
+    changePassword: path.resolve(apiPrefix, version, 'authentification', 'password'),
+    uploadProfileImage: path.resolve(apiPrefix, version, 'user_data', 'picture'),
 }
 
 
@@ -94,6 +95,7 @@ export default {
         new_password_hash: generateHash(newPassword)
     }),
     updateUserData: userData => () => axios.post(apiPaths.userData, userData),
+    uploadProfileImage: (data, config) => () => axios.put(apiPaths.uploadProfileImage, data, config)
 }
 
 const responseParser = (response) => {

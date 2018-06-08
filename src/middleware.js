@@ -55,11 +55,13 @@ import {
 import {
     submitUserSettingsPasswordChange,
     submitUserSettingsUserData,
-    initUserSettings
+    initUserSettings,
+    uploadUserSettingsProfileImage
 } from './container/UserSettings/middleware';
 
 function* mySaga() {
     //UserSettings
+    yield takeLatest(actionNames.UPLOAD_USER_SETTINGS_PROFILE_IMAGE, uploadUserSettingsProfileImage)
     yield takeLatest(actionNames.SUBMIT_USER_SETTINGS_PASSWORD_CHANGE, submitUserSettingsPasswordChange)
     yield takeLatest(actionNames.INIT_USER_SETTINGS, initUserSettings)
     yield takeLatest(actionNames.SUBMIT_USER_SETTINGS_USER_DATA, submitUserSettingsUserData)

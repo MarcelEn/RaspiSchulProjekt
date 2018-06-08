@@ -209,13 +209,14 @@ class UserSettings extends Component {
                     </HorizontalFormElement>
                     <HorizontalFormElement>
                         <FormControl
+                            id="profileImage"
                             type="file"
                             onChange={this.handleChange}
                             name="profileImage"
                         />
                     </HorizontalFormElement>
 
-                    <Collapse in>
+                    <Collapse in={this.props.profileImageSuccess}>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="success">
                                 <b>Erfolg! </b>
@@ -225,7 +226,7 @@ class UserSettings extends Component {
                             </Alert>
                         </Col>
                     </Collapse>
-                    <Collapse in>
+                    <Collapse in={this.props.profileImageError}>
                         <Col sm={5} smOffset={4}>
                             <Alert bsStyle="danger">
                                 <b>Fehler! </b>
@@ -236,8 +237,12 @@ class UserSettings extends Component {
                         </Col>
                     </Collapse>
                     <Col sm={5} smOffset={4}>
-                        <LoadingButton>
-                            <Button className={style.large} bsStyle="success">
+                        <LoadingButton loading={this.props.profileImageLoading}>
+                            <Button
+                                onClick={this.props.uploadUserSettingsProfileImage}
+                                disabled={!this.props.profileImage}
+                                className={style.large}
+                                bsStyle="success">
                                 Bild hochladen
                             </Button>
                         </LoadingButton>
@@ -273,7 +278,8 @@ function mapDispatchToProps(dispatch) {
         setUserSettingsInputField: (name, value) => { dispatch(actions.setUserSettingsInputField(name, value)) },
         handlePasswordSubmit: () => { dispatch(actions.submitUserSettingsPasswordChange()) },
         handleUserDataSubmit: () => { dispatch(actions.submitUserSettingsUserData()) },
-        initUserSettings: () => { dispatch(actions.initUserSettings()) }
+        initUserSettings: () => { dispatch(actions.initUserSettings()) },
+        uploadUserSettingsProfileImage: () => { dispatch(actions.uploadUserSettingsProfileImage()) },
     }
 }
 

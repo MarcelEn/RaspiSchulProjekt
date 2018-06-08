@@ -8,7 +8,9 @@ import {
     actions
 } from './../../actions';
 import {
-    selectUserSettingsUi, selectUserId, selectUserData
+    selectUserSettingsUi,
+    selectUserId,
+    selectUserData
 } from '../../globalFunctions';
 
 export function* submitUserSettingsPasswordChange(action) {
@@ -28,15 +30,29 @@ export function* submitUserSettingsPasswordChange(action) {
     yield put(actions.setUserSettingsDataState("passwordLoading", false))
 }
 
-// userName: null,
-//     firstName: null,
-//     lastName: null,
-//     mail: null,
-//     oldPassword: null,
-//     newPassword: null,
-//     newPasswordRepeat: null,
-//     profileImage: undefined
+export function* uploadUserSettingsProfileImage(action) {
+    yield put(actions.setUserSettingsDataState("profileImageLoading", true))
+    yield put(actions.setUserSettingsDataState("profileImageError", false))
+    yield put(actions.setUserSettingsDataState("profileImageSuccess", false))
+    const profileImage = document.getElementById("profileImage").files[0]
+    const formData = new FormData();
+    formData.append('file', profileImage);
 
+    const config = {
+        onUploadProgress: function (progressEvent) {
+            // Maybe add progressbar
+            // console.log(Math.round((progressEvent.loaded * 100) / progressEvent.total));
+        }
+    };
+
+    try {
+        yield call(API.uploadProfileImage(formData, config))
+        yield put(actions.setUserSettingsDataState("profileImageSuccess", true))
+    } catch (error) {
+        yield put(actions.setUserSettingsDataState("profileImageError", true))
+    }
+    yield put(actions.setUserSettingsDataState("profileImageLoading", false))
+}
 
 
 export function* initUserSettings(action) {
@@ -50,7 +66,7 @@ export function* initUserSettings(action) {
                 yield put(actions.addUserData(response[0][i].data))
             }
             userData = response[0][0].data;
-        } catch (error) { }
+        } catch (error) {}
     }
     yield put(actions.setUserSettingsInputField("firstName", userData.first_name))
     yield put(actions.setUserSettingsInputField("lastName", userData.last_name))

@@ -41,6 +41,8 @@ implement username lookup in add kalendar befor fetch users again
 add delete account option
 remove localfiltering if init does not give calendar id
 validate datatypes of responses and clien -> most important ids! (appointment arent positioning correctly because of that)
+add remove profileImage
+
 
 //wedding:
 in general: convert all ids to strings

@@ -3,7 +3,8 @@ export const actionNames = {
     SUBMIT_USER_SETTINGS_PASSWORD_CHANGE: 'SUBMIT_USER_SETTING_PASSWORD_CHANGE',
     SUBMIT_USER_SETTINGS_USER_DATA: 'SUBMIT_USER_SETTING_USER_DATA',
     SET_USER_SETTINGS_DATA_STATE: 'SET_USER_SETTING_DATA_STATE',
-    INIT_USER_SETTINGS: 'INIT_USER_SETTINGS'
+    INIT_USER_SETTINGS: 'INIT_USER_SETTINGS',
+    UPLOAD_USER_SETTINGS_PROFILE_IMAGE: 'UPLOAD_USER_SETTINGS_PROFILE_IMAGE'
 }
 
 export const actions = {
@@ -29,5 +30,8 @@ export const actions = {
     }),
     initUserSettings: () => ({
         type: actionNames.INIT_USER_SETTINGS
-    })
+    }),
+    uploadUserSettingsProfileImage: () => ({
+        type: actionNames.UPLOAD_USER_SETTINGS_PROFILE_IMAGE
+    }),
 }
