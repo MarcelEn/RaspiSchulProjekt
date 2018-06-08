@@ -27,8 +27,10 @@ const apiPaths = {
     addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
     changePassword: path.resolve(apiPrefix, version, 'authentification', 'password'),
     uploadProfileImage: path.resolve(apiPrefix, version, 'user_data', 'picture'),
+    getUserImageUrlByUsername: userName => path.resolve(apiPrefix, version, 'user_data', 'picture', userName),
 }
 
+export const getUserImageUrlByUsername = apiPaths.getUserImageUrlByUsername
 
 export default {
     validateAppToken: () => (

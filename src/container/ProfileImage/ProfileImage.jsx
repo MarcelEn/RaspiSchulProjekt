@@ -4,7 +4,7 @@ import { Image } from 'react-bootstrap';
 
 import style from '../../components/LetterImage/style_module.css';
 import hide from './style_module.css';
-import { getUserImageUrlByUsername } from '../../globalFunctions';
+import { getUserImageUrlByUsername } from '../../apiConnector';
 import LetterImage from '../../components/LetterImage/LetterImage';
 
 class ProfileImage extends Component {

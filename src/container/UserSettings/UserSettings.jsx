@@ -6,7 +6,8 @@ import style from './style_module.css';
 import { actions } from '../../actions';
 import { Grid, PageHeader, Form, Col, FormControl, FormGroup, ControlLabel, Collapse, Alert, Button } from 'react-bootstrap';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
-import { getUserImageUrlByUsername, proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi, selectUserId, selectUserData } from '../../globalFunctions';
+import { getUserImageUrlByUsername } from '../../apiConnector';
+import { proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi } from '../../globalFunctions';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
 class UserSettings extends Component {
     constructor(props) {

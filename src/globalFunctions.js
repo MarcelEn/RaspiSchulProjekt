@@ -89,7 +89,6 @@ export const getTodayInMilliseconds = () => moment(moment().format("YYYY-MM-DD")
 
 
 //TODO: define media links
-export const getUserImageUrlByUsername = username => '/' + username + '.jpg';
 
 export const getColorOfLetter = (firstletter, lastletter) => {
     const combinedIndex =
