@@ -56,11 +56,6 @@ $app->put('/rest/appointment', function ($requ, $resp, $args) {
     $app = CalendarModel::byArray($requ->getParsedBody());
     $app_old = CalendarModel::get($cal->calendar_id);
     $calId = $app->calendar_id;
-	$calId_old = $app_old->calendar_id;
-
-    if (!is_null($app_old) && $calId != $calId_old) {
-        return $resp->withStatus(FORBIDDEN);
-    }
 
     $cal = CalendarModel::get($calId);
 	$owner = $cal->owner_id;
