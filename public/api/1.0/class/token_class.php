@@ -30,7 +30,7 @@ class Token {
         if($this->used == 1 && $this->getAge() > 600) {
             return true;
         }
-        if($this->long_time == 0 && $this->getAge() > 43200){
+        if($this->long_time == 0 && $this->getAge() > 7200){
             return true;
         }
         return false;
