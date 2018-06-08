@@ -87,7 +87,7 @@ export default {
     whoAmI: () => parser(axios.get(apiPaths.whoAmI)),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     addSavedCalendar: calendarId => () => axios.post(apiPaths.addOrRemoveSavedCalendar(calendarId)),
-    searchAppointmentsByCalendarId: (calendarId, after, before) => axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId, after, before)),
+    searchAppointmentsByCalendarId: (calendarId, after, before) => parser(axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId, after, before))),
     deleteAppointmentById: appointmentId => () => parser(axios.delete(apiPaths.deleteAppointmentById(appointmentId))),
     modifyAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),
     addAppointment: appointmentData => () => parser(axios.post(apiPaths.addOrModifyAppointment, appointmentData)),
