@@ -9,6 +9,7 @@ import { actions } from '../../actions';
 import { popupId, appointmentInit } from '../../constants';
 import { proxyToValue } from '../../globalFunctions';
 import CalendarView from '../CalendarView/CalendarView';
+import LoadingButton from '../../components/LoadingButton/LoadingButton';
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -41,9 +42,9 @@ class Main extends Component {
         return (
             <div className={style.rowHeightCorrection}>
                 <Col className={style.sideBarWrapper} xs={12} sm={3} lg={2}>
-                    <Calendar 
-                    className={style.calendar} 
-                    onClickDay={this.props.setCalendarViewDateOfMonday}
+                    <Calendar
+                        className={style.calendar}
+                        onClickDay={this.props.setCalendarViewDateOfMonday}
                     />
 
                     <div className={style.textCentering}>
@@ -94,16 +95,16 @@ class Main extends Component {
                             className={style.large}
                             bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.ADD_CALENDAR) }}
-                            >
+                        >
                             suchen
                         </Button>
                         <hr />
                         <Button
                             className={style.large}
                             bsStyle="primary"
-                            onClick={() => { 
+                            onClick={() => {
                                 this.props.initNewEditAppointment();
-                                this.props.setPopupId(popupId.EDIT_APPOINTMENT) 
+                                this.props.setPopupId(popupId.EDIT_APPOINTMENT)
                             }}
                         >
                             Termin erstellen
@@ -116,6 +117,16 @@ class Main extends Component {
                         >
                             Einstellungen
                         </Button>
+                        <hr />
+                        <LoadingButton loading={this.props.logoutLoading}>
+                            <Button
+                                className={style.large}
+                                bsStyle={this.props.logoutError ? 'danger' : 'primary'}
+                                onClick={this.props.sendLogout}
+                            >
+                                Logout
+                        </Button>
+                        </LoadingButton>
                     </div>
                 </Col>
                 <Col className={style.calendarView} xs={12} sm={9} lg={10}>
@@ -132,6 +143,8 @@ function mapStateToProps(state) {
         userId: state.data.appData.userId,
         calendarData: state.data.appData.calendarData,
         savedCalendars: state.data.appData.savedCalendars,
+        logoutLoading: state.data.appData.logoutLoading,
+        logoutError: state.data.appData.logoutError
     };
 }
 
@@ -141,6 +154,7 @@ function mapDispatchToProps(dispatch) {
         toggleMainCalendarFilter: calendarId => { dispatch(actions.toggleMainCalendarFilter(calendarId)) },
         setCalendarViewDateOfMonday: day => { dispatch(actions.setCalendarViewDateOfMonday(day)) },
         initNewEditAppointment: () => { dispatch(actions.setEditAppointmentAppointmentData(appointmentInit)) },
+        sendLogout: () => { dispatch(actions.sendLogout()) }
     }
 }
 

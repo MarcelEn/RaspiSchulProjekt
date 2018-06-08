@@ -8,7 +8,7 @@ export const actionNames = {
 
     SEND_LOGOUT: 'SEND_LOGOUT',
     SET_LOGOUT_LOADING: 'SET_LOGOUT_LOADING',
-
+    SET_LOGOUT_ERROR: 'SET_LOGOUT_ERROR',
 
     //shared data:
     ADD_USER_DATA: 'ADD_USER_DATA',
@@ -61,6 +61,10 @@ export const actions = {
     }),
     setLogoutLoading: status => ({
         type: actionNames.SET_LOGOUT_LOADING,
+        payload: status
+    }),
+    setLogoutError: status => ({
+        type: actionNames.SET_LOGOUT_ERROR,
         payload: status
     }),
 

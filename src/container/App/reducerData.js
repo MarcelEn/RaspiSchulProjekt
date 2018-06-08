@@ -17,6 +17,7 @@ export default (state = {
     tokenLoading: false,
     tokenError: false,
     logoutLoading: false,
+    logoutError: false,
     userId: null
 }, action) => {
     switch (action.type) {
@@ -44,6 +45,11 @@ export default (state = {
             return {
                 ...state,
                 logoutLoading: action.payload
+            }
+        case actionNames.SET_LOGOUT_ERROR:
+            return {
+                ...state,
+                logoutError: action.payload
             }
         case actionNames.UPDATE_SAVED_CALENDARS:
             return {

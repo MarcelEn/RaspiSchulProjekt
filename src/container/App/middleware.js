@@ -46,13 +46,14 @@ export function* validateAppToken(action) {
 
 export function* sendLogout(action) {
     yield put(actions.setLogoutLoading(true))
+    yield put(actions.setLogoutError(false))
     try {
         yield call(API.sendLogout());
+        yield put(actions.setAppTokenIsSet(false));
+        yield put(actions.setAppTokenIsValidated(false));
     } catch (error) {
-
+        yield put(actions.setLogoutError(true))
     }
-    yield put(actions.setAppTokenIsSet(false));
-    yield put(actions.setAppTokenIsValidated(false));
     yield put(actions.setLogoutLoading(false));
 }
 
