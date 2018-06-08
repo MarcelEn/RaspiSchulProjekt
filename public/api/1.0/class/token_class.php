@@ -16,9 +16,9 @@ class Token {
     public static function byArray($array)
     {
         $token = new Token(
-                $array['token'], 
-                $array['user_id'], 
-                $array['active'], 
+                $array['token'],
+                $array['user_id'],
+                $array['active'],
                 $array['long_time'],
                 $array['used'],
                 DateTime::createFromFormat(SQL_TIMESTAMP, $array['created'])
@@ -45,7 +45,17 @@ class Token {
         $sql->execute();
     }
 
-    public static function validate() 
+    public function deleteAllTokens($uid){
+      $database = CalendarDatabase::getStd();
+      $sql = $database->prepare(
+          'DELETE FROM AccessToken WHERE user_id=?'
+      );
+      $sql->bind_pram('i', $uid);
+      $success = $sql->execute();
+      return $success;
+    }
+
+    public static function validate()
     {
           $token = Token::get($_COOKIE["token"]);
           if (!is_null($token) && !$token->isOutdated()) {
@@ -55,13 +65,13 @@ class Token {
           return false;
     }
 
-    private function getAge() 
+    private function getAge()
     {
         $age = time() - $this->created->getTimestamp();
         return $age;
     }
 
-    private static function genNewActiveToken($token, $user_id, $long_time) 
+    private static function genNewActiveToken($token, $user_id, $long_time)
     {
         if (!is_null($token)) {
             $database = CalendarDatabase::getStd();
@@ -83,14 +93,14 @@ class Token {
     public function write() {
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare(
-            'INSERT INTO AccessToken (token, user_id, active, long_time, used, created) 
+            'INSERT INTO AccessToken (token, user_id, active, long_time, used, created)
             VALUES (?, ?, ?, ?, ?, ?)'
         );
         $sqlTimestamp = $this->created->format(SQL_TIMESTAMP);
         $sql->bind_param(
-            'iiiiis', 
-            $this->token, 
-            $this->user_id, 
+            'iiiiis',
+            $this->token,
+            $this->user_id,
             $this->long_time,
             $this->active,
             $this->used,
@@ -99,7 +109,7 @@ class Token {
         return $sql->execute();
     }
 
-    public static function validateUser($user) 
+    public static function validateUser($user)
     {
         if($user == Token::getUID()) {
             return true;
@@ -116,7 +126,7 @@ class Token {
         return $token->user_id;
     }
 
-    private static function get($token) 
+    private static function get($token)
     {
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare("SELECT * FROM AccessToken WHERE token = ?");
@@ -130,7 +140,6 @@ class Token {
             $row = $result->fetch_assoc();
             return Token::byArray($row);
         }
-        
         return null;
     }
 

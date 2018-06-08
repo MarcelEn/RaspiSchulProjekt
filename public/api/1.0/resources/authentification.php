@@ -40,6 +40,17 @@ $app->post('/authentification/login', function ($requ, $resp, $args) {
     return $resp->withStatus(200);
 });
 
+$app->delete('/authentification/logout', function ($requ, $resp, $args) {
+    if (!Token::validate()) {
+        return $resp->withStatus(UNAUTHORISED);
+    }
+    $uid = Token::getUID();
+    if (Token::deleteAllTokens($uid)) {
+        return $resp->withStatus(NO_CONTENT);
+    }
+    return $resp->withStatus(500);
+});
+
 $app->post('/authentification/password', function ($requ, $resp, $args) {
     $data = $requ->getParsedBody();
     $user_id = Token::getUID();
