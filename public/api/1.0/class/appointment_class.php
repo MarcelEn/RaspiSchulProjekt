@@ -56,10 +56,13 @@ class Appointment {
 		    appointment_title, appointment_description) VALUES (?, ?, ?, ?, ?)"
         );
 
+        $startTime = $this->start->format(SQL_TIMESTAMP);
+        $endTime = $this->end->format(SQL_TIMESTAMP);
+
         $sql->bind_param(
             "ssiss", 
-            $this->start->format(SQL_TIMESTAMP), 
-	        $this->end->format(SQL_TIMESTAMP), 
+            $startTime, 
+	        $endTime, 
             $this->calendar_id, 
 	        $this->appointment_title, 
             $this->appointment_description
