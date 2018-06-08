@@ -53,7 +53,7 @@ export default {
         })
     ),
     searchUsername: username => (
-        () => axios.get(apiPaths.searchUsername(username))
+        () => parser(axios.get(apiPaths.searchUsername(username)))
     ),
 
     sendAddCalendarSearch: (searchString, userId) => (
