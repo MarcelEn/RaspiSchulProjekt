@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import style from './style_module.css';
 
 import { actions } from '../../actions';
-import { Grid, PageHeader, Form, Col, FormControl, FormGroup, ControlLabel, Collapse, Alert, Button } from 'react-bootstrap';
+import { Grid, PageHeader, Form, Col, FormControl, Collapse, Alert, Button } from 'react-bootstrap';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
 import { getUserImageUrlByUsername } from '../../apiConnector';
 import { proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi } from '../../globalFunctions';

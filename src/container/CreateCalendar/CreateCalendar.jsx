@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import style from './style_module.css';
 import ReactQuill from 'react-quill';
 import { formats, modules } from '../../constants';
 import { actions } from '../../actions';
 import { proxyToValue, proxyToName, selectCreateCalendarData, selectCreateCalendarUi, nameValueToProxy } from '../../globalFunctions';
 import { Grid, PageHeader, Col, ControlLabel, FormGroup, Form, FormControl, OverlayTrigger, Radio, Tooltip, Collapse, Alert, Button } from 'react-bootstrap';
-import { PropagateLoader } from 'react-spinners';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
 
 class ManageCalendar extends Component {
