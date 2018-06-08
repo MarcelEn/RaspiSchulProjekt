@@ -35,6 +35,11 @@ $app->post('/rest/appointment', function ($requ, $resp, $args) {
     }
 
     $app = Appointment::fromArray($requ->getParsedBody());
+
+    if($app->start > $app->end) {
+        return $resp->withStatus(400);
+    }
+
     $cal = CalendarModel::get($app->calendar_id);
     $owner = $cal->owner_id;
 
