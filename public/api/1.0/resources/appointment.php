@@ -83,13 +83,19 @@ $app->delete('/rest/appointment/{id}', function ($requ, $resp, $args) {
         return $resp->withStatus(UNAUTHORIZED);
     }
 
-    $app = CalendarModel::get($args['id']);
+    $app = Appointment::get($args['id']);
 
     if (is_null($app)) {
         return $resp->withStatus(NOT_FOUND);
     }
 
-    if (!Token::validateUser($app->owner_id)){
+    $cal = CalendarModel::get($app->calendar_id);
+
+    if (is_null($cal)) {
+        return $resp->withStatus(NOT_FOUND);
+    }
+
+    if (!Token::validateUser($cal->owner_id)){
         return $resp->withStatus(FORBIDDEN);
     }
 
