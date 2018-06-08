@@ -1,0 +1,15 @@
+.LockMobileView {
+    top: -200%;
+    position: absolute;
+    z-index: 9999;
+    background: white;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .LockMobileView {
+        top: 0;
+    }
+}

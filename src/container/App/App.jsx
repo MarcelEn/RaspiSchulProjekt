@@ -19,6 +19,7 @@ import ManageCalendar from '../ManageCalendar/ManageCalendar';
 import UserSettings from '../UserSettings/UserSettings';
 import EditAppointment from '../EditAppointment/EditAppointment';
 import CreateCalendar from '../CreateCalendar/CreateCalendar';
+import LockMobileView from '../../components/LockMobileView/LockMobileView';
 
 
 class App extends Component {
@@ -42,6 +43,7 @@ class App extends Component {
                         :
                         this.props.data.tokenIsValidated ?
                             <Wrapper>
+                                <LockMobileView />
                                 <Main />
                                 <PopupWrapper
                                     closePopup={this.props.closePopup}
