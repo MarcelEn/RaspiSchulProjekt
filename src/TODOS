@@ -40,7 +40,10 @@ add delete account option
 
 
 //wedding:
-calendar loading init => does not fetch all appointments
+in general: convert all ids to strings
+calendar loading init => does not fetch all appointments (doch schon aber nur die aktiven)
+    -> no response statuscode 200
+
 termin -> nicht löschbar
 savedCalendar -> makes a post instead of delete
 userSettings -> fetch init does not work
