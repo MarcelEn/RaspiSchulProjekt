@@ -14,7 +14,6 @@ import {
     selectUsers,
     selectSavedCalendars
 } from '../../globalFunctions'
-import { parseCalendarResponseData } from '../../quickFixes';
 
 
 export function* sendAddCalendarSearch(action) {
@@ -46,7 +45,7 @@ export function* sendAddCalendarSearch(action) {
             userId = userSearchResponse.data.find(user => user.user_name === action.payload.username).user_id;
         }
         const response = yield call(API.sendAddCalendarSearch(action.payload.titleOrId, userId))
-        yield put(actions.addCalendarData(parseCalendarResponseData(response.data)))
+        yield put(actions.addCalendarData(response.data))
         yield put(actions.applyAddCalendarResponse(response.data.map(calendar => calendar.calendar_id)))
 
     } catch (error) {

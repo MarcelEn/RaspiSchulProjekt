@@ -16,7 +16,6 @@ import {
     selectUserId,
     selectActiveCalendar
 } from '../../globalFunctions';
-import { parseCalendarResponseData } from '../../quickFixes';
 
 const createMultipleRequests = requests => () => new Promise(
     (resolve, reject) => {
@@ -73,7 +72,7 @@ export function* fetchRemoteDataInit(action) {
     yield(function* () {
         try {
             const savedCalendarsResponse = yield call(API.fetchSavedCalendars)
-            yield put(actions.addCalendarData(parseCalendarResponseData(savedCalendarsResponse.data)))
+            yield put(actions.addCalendarData(savedCalendarsResponse.data))
             yield put(actions.updateSavedCalendars(
                 savedCalendarsResponse.data.map(calendar => calendar.calendar_id+"")
             ))
@@ -84,7 +83,7 @@ export function* fetchRemoteDataInit(action) {
         try {
             const userId = yield select(selectUserId);
             const calendarsResponse = yield call(API.sendAddCalendarSearch('', userId));
-            yield put(actions.addCalendarData(parseCalendarResponseData(calendarsResponse.data)));
+            yield put(actions.addCalendarData(calendarsResponse.data));
         } catch (error) {}
     })();
 

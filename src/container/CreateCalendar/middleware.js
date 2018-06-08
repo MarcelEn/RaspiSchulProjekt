@@ -14,7 +14,6 @@ import {
     selectCreateCalendarUi,
     selectUserId
 } from '../../globalFunctions'
-import { parseCalendarResponseData } from '../../quickFixes';
 
 
 export function* submitCreateCalendar(action) {
@@ -29,11 +28,11 @@ export function* submitCreateCalendar(action) {
             ...calendarData,
             owner_id
         }))
-        yield put(actions.addCalendarData(parseCalendarResponseData([{
+        yield put(actions.addCalendarData([{
             ...calendarData,
             calendar_id: response.data,
             owner_id
-        }])))
+        }]))
         yield put(actions.setCreateCalendarDataState("success", true))
     } catch (error) {
         yield put(actions.setCreateCalendarDataState("error", true))
