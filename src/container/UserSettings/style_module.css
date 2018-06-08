@@ -3,10 +3,5 @@
 }
 
 .profileImage{
-    height: 150px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px gray;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    padding-left: calc(50% - 25px);
 }

@@ -6,9 +6,11 @@ import style from './style_module.css';
 import { actions } from '../../actions';
 import { Grid, PageHeader, Form, Col, FormControl, Collapse, Alert, Button } from 'react-bootstrap';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
-import { getUserImageUrlByUsername } from '../../apiConnector';
 import { proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi } from '../../globalFunctions';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
+import ProfileImage from '../ProfileImage/ProfileImage';
+
+
 class UserSettings extends Component {
     constructor(props) {
         super(props);
@@ -202,11 +204,14 @@ class UserSettings extends Component {
 
 
                     <HorizontalFormElement label="Profilbild">
-                        <img
-                            alt="profileimage"
-                            src={getUserImageUrlByUsername('liposselt')}
-                            className={style.profileImage}
-                        />
+                        <div className={style.profileImage}>
+                            <ProfileImage
+                                username={this.props.userName}
+                                firstname={this.props.firstName}
+                                lastname={this.props.lastName}
+
+                            />
+                        </div>
                     </HorizontalFormElement>
                     <HorizontalFormElement>
                         <FormControl
