@@ -50,7 +50,7 @@ class Token {
       $sql = $database->prepare(
           'DELETE FROM AccessToken WHERE user_id=?'
       );
-      $sql->bind_pram('i', $uid);
+      $sql->bind_param('i', $uid);
       $success = $sql->execute();
       return $success;
     }
