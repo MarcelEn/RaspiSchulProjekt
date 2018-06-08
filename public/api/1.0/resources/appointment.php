@@ -11,7 +11,7 @@ $app->get('/rest/appointment/{id}', function ($requ, $resp, $args) {
 
     $app = Appointment::get($args["id"]);
 
-    if (is_unll($app)) {
+    if (is_null($app)) {
         return $resp->withStatus(NOT_FOUND);
     }
 
@@ -120,7 +120,6 @@ $app->get('/rest/appointment', function ($requ, $resp, $args) {
 	if (!Token::validateUser($owner) && $visibility == V_PRIVATE) {
         return $resp->withStatus(FORBIDDEN);
     }
-		
 	$json = arrayToJSON(
         Appointment::searchAppointments($after, $before, $calId)
     );

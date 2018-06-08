@@ -131,10 +131,8 @@ class Appointment {
         }
 
         $database = CalendarDatabase::getStd();
-        $beforeTS = new DateTime();
-        $beforeTS->setTimestamp($before);
-        $afterTS = new DateTime();
-        $afterTS->setTimestamp($after);
+        $beforeTS = convertTimestampToDateTime($before);
+        $afterTS = convertTimestampToDateTime($after);
 
         $sql = $database->prepare(
             "SELECT * FROM Appointment" . 
@@ -142,6 +140,7 @@ class Appointment {
         );
 
         $sql->bind_param(
+            'iss',
             $calId, 
             $afterTS->format(SQL_TIMESTAMP), 
 	        $beforeTS->format(SQL_TIMESTAMP)
@@ -150,15 +149,17 @@ class Appointment {
         $sql->execute();
         $result = $sql->get_result();
 
-        while ($row = $result->fetch_assoc()) {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
 	        array_push($resultArray, new Appointment(
-		        $row['appointment_id'], 
-		        DateTime::createFromFormat(SQL_TIMESTAMP, $row['start']), 
-		        DateTime::createFromFormat(SQL_TIMESTAMP, $row['end']), 
-		        $row['calendar_id'], 
-		        $row['appointment_title'], 
-		        $row['appointment_description'])
-            );
+		    $row['appointment_id'], 
+		    DateTime::createFromFormat(SQL_TIMESTAMP, $row['start']), 
+	       	    DateTime::createFromFormat(SQL_TIMESTAMP, $row['end']), 
+        	    $row['calendar_id'], 
+		    $row['appointment_title'], 
+		    $row['appointment_description'])
+                );
+            }
         }
 
         return $resultArray;
