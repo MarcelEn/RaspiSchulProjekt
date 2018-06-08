@@ -30,18 +30,18 @@ class Token {
         if($this->used == 1 && $this->getAge() > 600) {
             return true;
         }
-        if($this->long_time == 0 && $this->getAge() > 43200){
+        if($this->long_time == 0 && $this->getAge() > 7200){
             return true;
         }
         return false;
     }
 
-    public function setUsed() {
+    public function setUsed($used) {
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare(
-            'UPDATE AccessToken SET used = 1 WHERE token = ?'
+            'UPDATE AccessToken SET used = ? WHERE token = ?'
         );
-        $sql->bind_param('i', $this->token);
+        $sql->bind_param('ii', $used, $this->token);
         $sql->execute();
     }
 
@@ -142,8 +142,9 @@ class Token {
 
     private function reset()
     {
-            $this->setUsed();
+            $this->setUsed(1);
             $newToken = self::getActiveToken($this->user_id, $this->long_time);
+            $newToken->setUsed(0);
             setcookie("token", $newToken->token, 0, '/');
     }
 

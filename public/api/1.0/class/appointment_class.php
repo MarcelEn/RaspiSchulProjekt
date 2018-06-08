@@ -1,6 +1,7 @@
 <?php
 
 require_once 'data/calendar_database.php';
+require_once 'lib/timestamp_converter.php';
 
 class Appointment {
 
@@ -56,10 +57,13 @@ class Appointment {
 		    appointment_title, appointment_description) VALUES (?, ?, ?, ?, ?)"
         );
 
+        $startTime = $this->start->format(SQL_TIMESTAMP);
+        $endTime = $this->end->format(SQL_TIMESTAMP);
+
         $sql->bind_param(
             "ssiss", 
-            $this->start->format(SQL_TIMESTAMP), 
-	        $this->end->format(SQL_TIMESTAMP), 
+            $startTime, 
+	        $endTime, 
             $this->calendar_id, 
 	        $this->appointment_title, 
             $this->appointment_description
@@ -162,10 +166,13 @@ class Appointment {
 
     function toJSON() 
     {
+        $start = convertDateTimeToTimestamp($this->start);
+        $end = convertDateTimeToTimestamp($this->end);
+        
         $array = array(
             'appointment_id' => $this->appointment_id,
-            'start' => $this->start->getTimestamp(),
-            'end' => $this->end->getTimestamp(),
+            'start' => $start,
+            'end' => $end,
             'calendar_id' => $this->calendar_id,
             'appointment_title' => $this->appointment_title,
             'appointment_description' => $this->appointment_description
@@ -176,13 +183,13 @@ class Appointment {
 
     static function fromArray($array)
     {
-        $start=new DateTime();
-        $end=new DateTime();
+        $start=convertTimestampToDateTime($array["start"]);
+        $end=convertTimestampToDateTime($array["end"]);
 
         return new Appointment(
             $array["appointment_id"],
-            $start->setTimestamp($array["start"]),
-            $end->setTimestamp($array["end"]),
+            $start,
+            $end,
             $array["calendar_id"],
             $array["appointment_title"],
             $array["appointment_description"]
