@@ -75,7 +75,7 @@ export function* fetchRemoteDataInit(action) {
             const savedCalendarsResponse = yield call(API.fetchSavedCalendars)
             yield put(actions.addCalendarData(savedCalendarsResponse.data))
             yield put(actions.updateSavedCalendars(
-                savedCalendarsResponse.data.map(calendar => calendar.calendar_id+"")
+                savedCalendarsResponse.data.map(calendar => calendar.calendar_id + "")
             ))
         } catch (error) {}
     })();
@@ -94,10 +94,10 @@ export function* fetchRemoteDataInit(action) {
             const responses = yield call(
                 createMultipleRequests(
                     activeCalendars
-                    .map(calendarId => API.searchAppointmentsByCalendarId(calendarId))
+                    .map(calendarId => API.searchAppointmentsByCalendarId(calendarId, 0, new Date().valueOf() * 2))
                 )
             )
-            for(let i = 0; i < responses[0].length; i ++){
+            for (let i = 0; i < responses[0].length; i++) {
                 yield put(actions.addAppointmentData(responses[0][i].data))
             }
         } catch (error) {}
