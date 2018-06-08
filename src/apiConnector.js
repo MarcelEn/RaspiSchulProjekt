@@ -31,7 +31,7 @@ const apiPaths = {
 
 export default {
     validateAppToken: () => (
-        () => axios.get(apiPaths.validateToken)
+        () => parser(axios.get(apiPaths.validateToken))
     ),
     sendLoginData: loginData => (
         () => axios.post(apiPaths.sendLoginData, {
@@ -55,9 +55,9 @@ export default {
     searchUsername: username => (
         () => axios.get(apiPaths.searchUsername(username))
     ),
-    
+
     sendAddCalendarSearch: (searchString, userId) => (
-        () => axios.get(apiPaths.sendAddCalendarSearch(searchString, userId))
+        () => parser(axios.get(apiPaths.sendAddCalendarSearch(searchString, userId)))
     ),
     updateCalendarData: calendarData => (
         () => axios.put(apiPaths.updateOrAddCalendarData, calendarData)
@@ -67,32 +67,77 @@ export default {
     ),
     fetchUserDataById: userId => () => new Promise(
         (resolve, reject) => {
-            console.log(userId)
             return axios.all(
-                userId.map(
-                    id => axios.get(apiPaths.getUser(id))
+                    userId.map(
+                        id => axios.get(apiPaths.getUser(id))
+                    )
                 )
-            )
-            .then((...responses) => {
-                resolve(responses)
-            })
-            .catch(e => {
-                reject(e);
-            })
+                .then((...responses) => {
+                    resolve(responses)
+                })
+                .catch(e => {
+                    reject(e);
+                })
         }
     ),
-    fetchSavedCalendars: () => axios.get(apiPaths.fetchSavedCalendars),
-    whoAmI: () => axios.get(apiPaths.whoAmI),
+    fetchSavedCalendars: () => parser(axios.get(apiPaths.fetchSavedCalendars)),
+    whoAmI: () => parser(axios.get(apiPaths.whoAmI)),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     addSavedCalendar: calendarId => () => axios.post(apiPaths.addOrRemoveSavedCalendar(calendarId)),
     searchAppointmentsByCalendarId: calendarId => axios.get(apiPaths.searchAppointmentsByCalendarId(calendarId)),
-    deleteAppointmentById: appointmentId => () => axios.delete(apiPaths.deleteAppointmentById(appointmentId)),
+    deleteAppointmentById: appointmentId => () => parser(axios.delete(apiPaths.deleteAppointmentById(appointmentId))),
     modifyAppointment: appointmentData => () => axios.put(apiPaths.addOrModifyAppointment, appointmentData),
-    addAppointment: appointmentData => () => axios.post(apiPaths.addOrModifyAppointment, appointmentData),
+    addAppointment: appointmentData => () => parser(axios.post(apiPaths.addOrModifyAppointment, appointmentData)),
     createCalendar: calendarData => () => axios.post(apiPaths.updateOrAddCalendarData, calendarData),
     changePassword: (oldPassword, newPassword) => () => axios.post(apiPaths.changePassword, {
         old_password_hash: generateHash(oldPassword),
         new_password_hash: generateHash(newPassword)
     }),
     updateUserData: userData => () => axios.post(apiPaths.userData, userData),
+}
+
+const responseParser = (response) => {
+    let parsedResponse = {};
+
+    Object.keys(response).forEach(
+        key => {
+            if (key === 'visibility' || key === 'start' || key === 'end') {
+                parsedResponse[key] = response[key];
+                return;
+            }
+            parsedResponse[key] = response[key] + ""
+        }
+    )
+
+    return parsedResponse;
+}
+
+const parser = promise => {
+    return new Promise(
+        (resolve, reject) => {
+            promise
+                .then(response => {
+                    if (typeof response.data !== "object") {
+                        resolve({
+                            ...response,
+                            data: response.data + ""
+                        })
+                    } else if (response.data.length) {
+                        resolve({
+                            ...response,
+                            data: response.data.map(
+                                res => responseParser(res)
+                            )
+                        })
+
+                    } else {
+                        resolve({
+                            ...response,
+                            data: responseParser(response.data)
+                        })
+                    }
+                })
+                .catch(e => reject(e))
+        }
+    )
 }

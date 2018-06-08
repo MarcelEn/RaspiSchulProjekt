@@ -41,21 +41,17 @@ export function* submitUserSettingsPasswordChange(action) {
 
 export function* initUserSettings(action) {
     const userId = yield select(selectUserId);
-    console.log(userId)
     let userData = (yield select(selectUserData)).find(user => user.user_id === userId)
 
     if (!userData) {
         try {
-            console.log("gonna fetch user data")
             const response = yield call(API.fetchUserDataById([userId]));
-            console.log(response)
             for (let i = 0; i < response[0].length; i++) {
                 yield put(actions.addUserData(response[0][i].data))
             }
             userData = response[0][0].data;
         } catch (error) { }
     }
-    console.log(userData)
     yield put(actions.setUserSettingsInputField("firstName", userData.first_name))
     yield put(actions.setUserSettingsInputField("lastName", userData.last_name))
     yield put(actions.setUserSettingsInputField("userName", userData.user_name))

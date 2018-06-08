@@ -23,7 +23,6 @@ export function* submitCreateCalendar(action) {
     const calendarData = yield select(selectCreateCalendarUi);
     try {
         const owner_id = yield select(selectUserId);
-        console.log(owner_id)
         const response = yield call(API.createCalendar({
             ...calendarData,
             owner_id
