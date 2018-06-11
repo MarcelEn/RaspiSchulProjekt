@@ -207,9 +207,8 @@ class UserSettings extends Component {
                         <div className={style.profileImage}>
                             <ProfileImage
                                 username={this.props.userName}
-                                firstname={this.props.firstName}
-                                lastname={this.props.lastName}
-
+                                firstname={this.props.firstName === '' ? ' ' : this.props.firstName}
+                                lastname={this.props.lastName === '' ? ' ' : this.props.lastName}
                             />
                         </div>
                     </HorizontalFormElement>
