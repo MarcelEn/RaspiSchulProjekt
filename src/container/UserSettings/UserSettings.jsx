@@ -272,13 +272,14 @@ class UserSettings extends Component {
                             </Button>
                         </LoadingButton>
                     </Col>
+                    <HorizontalFormElement />
                     <Col sm={5} smOffset={4}>
                         <LoadingButton loading={this.props.deleteProfileImageLoading}>
                             <Button
                                 onClick={this.props.deleteUserSettingsProfileImage}
                                 className={style.large}
                                 bsStyle="danger">
-                                    Bild löschen 
+                                Bild löschen
                             </Button>
                         </LoadingButton>
                     </Col>

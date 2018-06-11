@@ -58,3 +58,7 @@ updating appointments response with 201 but does not affect the database
 searching username (example on blur in registration) response with 500
 
 delete calendar response with 500
+
+search calendar search_string only does not work
+
+appointment refacoring is false => start and end is 0 (backend)
