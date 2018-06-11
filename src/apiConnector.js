@@ -68,7 +68,7 @@ export default {
     deleteCalendar: calendarId => (
         () => axios.delete(apiPaths.deleteCalendar(calendarId))
     ),
-    fetchUserDataById: userId => () => new Promise(
+    fetchUserDataById: userId => () => parser(new Promise(
         (resolve, reject) => {
             return axios.all(
                     userId.map(
@@ -76,13 +76,13 @@ export default {
                     )
                 )
                 .then((...responses) => {
-                    resolve(parser(responses))
+                    resolve(responses)
                 })
                 .catch(e => {
                     reject(e);
                 })
         }
-    ),
+    )),
     fetchSavedCalendars: () => parser(axios.get(apiPaths.fetchSavedCalendars)),
     whoAmI: () => parser(axios.get(apiPaths.whoAmI)),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
@@ -117,29 +117,38 @@ const responseParser = (response) => {
     return parsedResponse;
 }
 
+const parse = response => {
+    if (typeof response.data !== "object") {
+        return {
+            ...response,
+            data: response.data + ""
+        }
+    } else if (response.data.length) {
+        return {
+            ...response,
+            data: response.data.map(
+                res => responseParser(res)
+            )
+        }
+
+    } else {
+        return {
+            ...response,
+            data: responseParser(response.data)
+        }
+    }
+
+}
+
 const parser = promise => {
     return new Promise(
         (resolve, reject) => {
             promise
                 .then(response => {
-                    if (typeof response.data !== "object") {
-                        resolve({
-                            ...response,
-                            data: response.data + ""
-                        })
-                    } else if (response.data.length) {
-                        resolve({
-                            ...response,
-                            data: response.data.map(
-                                res => responseParser(res)
-                            )
-                        })
-
+                    if (response.length) {
+                        resolve(response.map(res => parse(res)))
                     } else {
-                        resolve({
-                            ...response,
-                            data: responseParser(response.data)
-                        })
+                        resolve(parse(response))
                     }
                 })
                 .catch(e => reject(e))
