@@ -1,5 +1,7 @@
 <?php
 
+//TODO: repair DELETE
+
 require_once 'data/calendar_database.php';
 
 class CalendarModel {
@@ -108,8 +110,9 @@ class CalendarModel {
 		$sql = $database->prepare(
             "DELETE FROM Calendar WHERE calendar_id = ?"
         );
-		$sql->bind_param("i", $this->calendar_id);
-        return $sql->execute();
+	$sql->bind_param("i", $this->calendar_id);
+        $success = $sql->execute();
+        return $success;
     }
 
 	public static function getByUserAndSearch($user_id, $search) 

@@ -34,7 +34,7 @@ $app->post('/rest/appointment', function ($requ, $resp, $args) {
         return $resp->withStatus(UNAUTHORIZED);
     }
 
-    $app = Appointment::fromArray($requ->getParsedBody());
+    $app = Appointment::byArray($requ->getParsedBody());
 
     if($app->start > $app->end) {
         return $resp->withStatus(400);
