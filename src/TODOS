@@ -50,3 +50,5 @@ calendar loading init => does not fetch all appointments (doch schon aber nur di
     -> no response statuscode 200
 
 not reproduceable => search calendar (userSetting changed something => add calendar => search user) => fetching loop
+
+UserSettings username .... request 404

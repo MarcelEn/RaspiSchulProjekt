@@ -102,3 +102,18 @@ export function* submitUserSettingsUserData(action) {
 
     yield put(actions.setUserSettingsDataState("userDataLoading", false))
 }
+
+export function* deleteUserSettingsProfileImage(action) {
+    yield put(actions.setUserSettingsDataState("deleteProfileImageLoading", true))
+    yield put(actions.setUserSettingsDataState("deleteProfileImageError", false))
+    yield put(actions.setUserSettingsDataState("deleteProfileImageSuccess", false))
+
+    try {
+        yield call(API.deleteProfileImage)
+        yield put(actions.setUserSettingsDataState("deleteProfileImageSuccess", true))
+    } catch (error) {
+        yield put(actions.setUserSettingsDataState("deleteProfileImageError", true))
+    }
+
+    yield put(actions.setUserSettingsDataState("deleteProfileImageLoading", false))
+}
