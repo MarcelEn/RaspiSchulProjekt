@@ -52,3 +52,7 @@ calendar loading init => does not fetch all appointments (doch schon aber nur di
 not reproduceable => search calendar (userSetting changed something => add calendar => search user) => fetching loop
 
 UserSettings username .... request 404
+
+updating appointments response with 201 but does not affect the database
+
+searching username (example on blur in registration) response with 500

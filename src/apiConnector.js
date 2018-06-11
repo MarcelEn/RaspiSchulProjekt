@@ -76,7 +76,7 @@ export default {
                     )
                 )
                 .then((...responses) => {
-                    resolve(responses)
+                    resolve(parser(responses))
                 })
                 .catch(e => {
                     reject(e);
