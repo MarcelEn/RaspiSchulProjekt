@@ -13,6 +13,7 @@ export const actionNames = {
     //shared data:
     ADD_USER_DATA: 'ADD_USER_DATA',
     ADD_CALENDAR_DATA: 'ADD_CALENDAR_DATA',
+    UPDATE_CALENDAR_DATA: 'UPDATE_CALENDAR_DATA',
     ADD_APPOINTMENT_DATA: 'ADD_APPOINTMENT_DATA',
     UPDATE_APPOINTMENT_DATA: 'UPDATE_APPOINTMENT_DATA',
     REMOVE_APPOINTMENT_DATA_BY_ID: 'REMOVE_APPOINTMENT_DATA_BY_ID',
@@ -76,6 +77,10 @@ export const actions = {
     }),
     addCalendarData: calendarData => ({
         type: actionNames.ADD_CALENDAR_DATA,
+        payload: calendarData
+    }),
+    updateCalendarData: calendarData => ({
+        type: actionNames.UPDATE_CALENDAR_DATA,
         payload: calendarData
     }),
     addAppointmentData: appointmentData => ({

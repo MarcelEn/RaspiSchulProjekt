@@ -23,6 +23,7 @@ export function* saveManageCalendarEditing(action) {
 
     try {
         yield call(API.updateCalendarData(newCalendarData))
+        yield put(actions.updateCalendarData(newCalendarData))
         yield put(actions.setManageCalendarSuccess(true))
     } catch (error) {
         yield put(actions.setManageCalendarError(true))
