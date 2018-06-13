@@ -78,6 +78,8 @@ const CalendarDetails = props => (
                 <Col
                     xs={2}
                 >
+                {
+                    props.selectAble ?
                     <Button
                         onClick={props.handleSelection}
                         value={props.calendarData.calendar_id}
@@ -87,6 +89,9 @@ const CalendarDetails = props => (
                             props.selected ? '-' : '+'
                         }
                     </Button>
+                    :
+                    ''
+                }
                 </Col>
             </div>
         }

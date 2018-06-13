@@ -60,7 +60,7 @@
 
 .weekDay {
     position: relative;
-    z-index: 1000;
+    z-index: 4;
     height: 100%;
     background: #337ab7;
     color: white;
