@@ -275,7 +275,7 @@ function mapStateToProps(state) {
     return {
         calendarData,
         myCalendars: calendarData.filter(calendar => calendar.owner_id === currentUser),
-        savedCalendars: calendarData.filter(calendar => calendar.visibility !== 2 && calendar.owner_id !== currentUser),
+        savedCalendars: calendarData.filter(calendar => calendar.visibility === 2 && calendar.owner_id !== currentUser),
         appointment: appointmentUi.appointment,
         showInformation,
         conflictFilterWhitelist: appointmentUi.conflictFilterWhitelist,
