@@ -19,8 +19,8 @@ $app->put('/authentification/register', function ($requ, $resp, $args) {
     return $resp;
 });
 
-$app->get('/authentification/username/{id}', function ($requ, $resp, $args) {
-    $userInDatabase = User::get($args['id']);
+$app->get('/authentification/username/{name}', function ($requ, $resp, $args) {
+    $userInDatabase = User::getByExactName($args['name']);
     if(!is_null($userInDatabase)) {
         return $resp->withStatus(200);   
     }

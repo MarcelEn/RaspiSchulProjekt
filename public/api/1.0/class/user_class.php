@@ -37,9 +37,9 @@ class User {
     public static function get($id)
     {		
         $database = CalendarDatabase::getStd();
-	    $sql = $database->prepare("SELECT * FROM User WHERE user_id = ?");
+	$sql = $database->prepare("SELECT * FROM User WHERE user_id = ?");
 
-	    $sql->bind_param("i", $id);
+	$sql->bind_param("i", $id);
 
         $sql->execute();
         $result = $sql->get_result();
@@ -54,8 +54,8 @@ class User {
 
     public function checkPassword($password)
     {
-        $passwordHash = hashPassword($password);
-        if($this->password_hash == $passwordHash) {
+	$equals = checkPassword($password, $this->password_hash);
+        if($equals) {
             return true;    
         }
         return false;
@@ -96,20 +96,45 @@ class User {
             $this->mail,
             $this->password_hash);
 
-        if ($sql->execute() === true){
+        if ($sql->execute()){
 			return $database->getInsertId();
+		}
+		return null;
+    }
+
+    public function put()
+    {
+        $database = CalendarDatabase::getStd();
+        $sql = $database->prepare(
+            "UPDATE User SET " .
+                "first_name=?, last_name=?, " .
+                "mail=? WHERE user_id=?"
+        );
+
+        $sql->bind_param(
+            "ssss", 
+            $this->first_name, 
+            $this->last_name,
+            $this->mail, 
+			$this->user_id
+        );
+
+        $success = $sql->execute();
+        if ($success) {
+		    return $this->user_id;
 		}
 		return null;
     }
 
     public function delete()
     {
+        Token::deleteAllTokens($this->user_id);
+	CalendarModel::deleteAllCalendars($this->user_id);
         $database = CalendarDatabase::getStd();
-	    $sql = $database->prepare("DELETE FROM User WHERE user_id = ?");
-
-	    $sql->bind_param("i", $id);
-
-        return $sql->execute() === true;
+	$sql = $database->prepare("DELETE FROM User WHERE user_id = ?");
+	$sql->bind_param("i", $this->user_id);
+        $success = $sql->execute();
+        return $success;
     }
 
     public static function getByName($name) 

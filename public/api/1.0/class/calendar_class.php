@@ -106,6 +106,7 @@ class CalendarModel {
 
     public function delete() 
     {
+        Appointment::deleteAllAppointments($this->calendar_id);
         $database = CalendarDatabase::getStd();
 		$sql = $database->prepare(
             "DELETE FROM Calendar WHERE calendar_id = ?"
@@ -113,6 +114,20 @@ class CalendarModel {
 	$sql->bind_param("i", $this->calendar_id);
         $success = $sql->execute();
         return $success;
+    }
+
+    public static function deleteAllCalendars($uid) {
+        $database = CalendarDatabase::getStd();
+        $sqlString = "SELECT * FROM Calendar" . 
+			" WHERE owner_id = ?";
+        $sql = $database->prepare($sqlString);
+        $sql->bind_param('i', $uid);
+        $sql->execute();
+        $result = $sql->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $calendar = CalendarModel::byArray($row);
+            $calendar->delete();
+		}
     }
 
 	public static function getByUserAndSearch($user_id, $search) 

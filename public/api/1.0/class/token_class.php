@@ -45,7 +45,7 @@ class Token {
         $sql->execute();
     }
 
-    public function deleteAllTokens($uid){
+    public static function deleteAllTokens($uid){
       $database = CalendarDatabase::getStd();
       $sql = $database->prepare(
           'DELETE FROM AccessToken WHERE user_id=?'

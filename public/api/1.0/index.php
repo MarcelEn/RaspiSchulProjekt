@@ -19,6 +19,8 @@ define("V_PRIVATE", 0);
 define("V_PROTECTED", 1);
 define("V_PUBLIC", 2);
 
+define("NO_LOGIN_MESSAGE", "You are not logged in");
+
 require 'resources/user.php';
 require 'resources/saved_calendars.php';
 require 'resources/calendar.php';

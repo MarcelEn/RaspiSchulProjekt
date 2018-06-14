@@ -118,10 +118,24 @@ class Appointment {
     {
         $deleteStatement = "DELETE FROM Appointment WHERE appointment_id = ?";
         $database = CalendarDatabase::getStd();
-        $sql = $database->prepare($deleteStatemet);
+        $sql = $database->prepare($deleteStatement);
         $sql->bind_param("i", $this->appointment_id);
 
         return $sql->execute();
+    }
+
+    public static function deleteAllAppointments($calendar_id) {
+        $database = CalendarDatabase::getStd();
+        $sqlString = "SELECT * FROM Appointment" . 
+			" WHERE calendar_id = ?";
+        $sql = $database->prepare($sqlString);
+        $sql->bind_param('i', $calendar_id);
+        $sql->execute();
+        $result = $sql->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $appointment = Appointment::byArray($row);
+            $appointment->delete();
+		}
     }
 
 	static function searchAppointments($after, $before, $calId) 
