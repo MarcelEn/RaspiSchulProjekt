@@ -44,6 +44,7 @@ remove localfiltering if init does not give calendar id
 validate datatypes of responses and clien -> most important ids! (appointment arent positioning correctly because of that)
 add remove profileImage
 
+uncaught at i Error: t.payload.filter is not a function
 
 //wedding:
 in general: convert all ids to strings
