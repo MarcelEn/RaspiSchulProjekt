@@ -31,7 +31,7 @@ $app->post('/authentification/login', function ($requ, $resp, $args) {
     $loginData = $requ->getParsedBody();
     $user = User::getByExactName($loginData['user_name']);
     if(is_null($user)) {
-        return $resp->withStatus(400);
+        return $resp->withStatus(404);
     }
     if(!$user->checkPassword($loginData['password_hash'])) {
         return $resp->withStatus(400);

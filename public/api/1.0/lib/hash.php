@@ -2,7 +2,7 @@
 function hashPassword($password)
 {
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
-    return $password;
+    return $password_hash;
 }
 
 function checkPassword($password, $password_hash)

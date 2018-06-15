@@ -55,7 +55,7 @@ class User {
 
     public function checkPassword($password)
     {
-    $equals = checkPassword($password, $this->password_hash);
+    	$equals = checkPassword($password, $this->password_hash);
         if($equals) {
             return true;
         }
@@ -186,7 +186,8 @@ class User {
 
     public function hashPassword()
     {
-        $this->password_hash = hashPassword($this->password_hash);
+        $hash = hashPassword($this->password_hash);
+        $this->password_hash = $hash;
     }
 
     public function toJSON()
