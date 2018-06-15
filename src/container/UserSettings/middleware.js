@@ -62,15 +62,12 @@ export function* initUserSettings(action) {
     if (!userData) {
         try {
             const response = yield call(API.fetchUserDataById([userId]));
-            console.log(response)
+
             for (let i = 0; i < response[0].length; i++) {
                 yield put(actions.addUserData(response[0][i].data))
             }
             userData = response[0][0].data;
-        } catch (error) {
-            console.log(error)
-            return;
-        }
+        } catch (error) {}
     }
     yield put(actions.setUserSettingsInputField("firstName", userData.first_name))
     yield put(actions.setUserSettingsInputField("lastName", userData.last_name))

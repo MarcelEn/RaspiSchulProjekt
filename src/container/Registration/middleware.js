@@ -31,15 +31,13 @@ export function* lookupRegistrationUsername(action) {
     yield put(actions.setRegistrationUsernameInUse(false));
 
     try {
-
         const response = yield call(API.searchUsername(action.payload));
 
-        for (let i = 0; i < response.data.length; i++) {
-            yield put(actions.addUserData(response.data[i]))
+        if(response.status === 200){
+            yield put(actions.setRegistrationUsernameInUse(true));
+        }else{
+            yield put(actions.setRegistrationUsernameInUse(false));
         }
 
-        if (response.data[0] === action.payload) {
-            yield put(actions.setRegistrationUsernameInUse(true));
-        }
     } catch (error) {}
 }
