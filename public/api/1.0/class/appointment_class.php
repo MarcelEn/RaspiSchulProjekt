@@ -25,8 +25,8 @@ class Appointment {
     {
         $start = DateTime::createFromFormat(SQL_TIMESTAMP, $array['start']);
         $end = DateTime::createFromFormat(SQL_TIMESTAMP, $array['end']);
-        $array['start'] = $start->getTimestamp(); 
-        $array['end'] =  $end->getTimestamp();
+        $array['start'] = $start->getTimestamp()*1000; 
+        $array['end'] =  $end->getTimestamp()*1000;
         $appointment = Appointment::byArray($array);
         return $appointment;
     }
@@ -56,7 +56,7 @@ class Appointment {
 
         $result = $sql->get_result();
         if ($row = $result->fetch_assoc()) {
-            $appointment = Appointment::byArray($row);
+            $appointment = Appointment::bySQLArray($row);
             return $appointment;
         }
 

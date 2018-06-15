@@ -1,8 +1,9 @@
 <?php
 
-function convertTimestampToDateTime($timestamp)
+function convertTimestampToDateTime($timestampUX)
 {
-    $timestamp = (int) $timestamp/1000;
+    $timestamp = $timestampUX/1000;
+    $timestamp = (int) $timestamp;
     $dateTime = new DateTime();
     $dateTime->setTimestamp($timestamp);
     return $dateTime;
@@ -11,7 +12,7 @@ function convertTimestampToDateTime($timestamp)
 function convertDateTimeToTimestamp($dateTime)
 {
     $timestamp = $dateTime->getTimestamp();
-    $timestamp = $timestamp * 1000;
-    return $timestamp;
+    $result = $timestamp * 1000;
+    return $result;
 }
 ?>
