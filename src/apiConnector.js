@@ -12,7 +12,7 @@ const apiPaths = {
     sendRegistrationData: path.resolve(apiPrefix, version, 'authentification', 'register'),
     sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login'),
     sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
-    searchUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?name=' + username),
+    searchUsername: username => path.resolve(apiPrefix, version, 'authentification', 'username' , username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
     userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
