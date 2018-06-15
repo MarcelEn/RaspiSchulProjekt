@@ -111,7 +111,8 @@ class Token {
 
     public static function validateUser($user)
     {
-        if($user == Token::getUID()) {
+	$userByToken = Token::getUID();
+        if($user == $userByToken) {
             return true;
         }
         return false;

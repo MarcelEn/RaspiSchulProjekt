@@ -27,7 +27,6 @@ $app->post('/rest/calendar', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTHORIZED);
     }
-
     $cal = CalendarModel::byArray($requ->getParsedBody());
 
     if (!Token::validateUser($cal->owner_id)) {
