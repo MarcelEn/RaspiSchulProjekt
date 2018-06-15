@@ -108,7 +108,7 @@ $app->delete('/rest/appointment/{id}', function ($requ, $resp, $args) {
 
 $app->get('/rest/appointment', function ($requ, $resp, $args) {
     if (!Token::validate()) {
-        return $resp->withStatus(UNAUTHORITED);
+        return $resp->withStatus(UNAUTHORISED);
     }
 
     $after = $requ->getQueryParam('after', NULL);
