@@ -261,8 +261,8 @@ function mapStateToProps(state) {
     const conflicts = appointmentData.filter(
         appointment =>
             (
-                moment(appointmentUi.appointment.start + 1).isBetween(appointment.start, appointment.end) ||
-                moment(appointmentUi.appointment.end + 1).isBetween(appointment.start, appointment.end)
+                moment(appointment.start).isBetween(appointmentUi.appointment.start - 1, appointmentUi.appointment.end + 1) ||
+                moment(appointment.end).isBetween(appointmentUi.appointment.start - 1, appointmentUi.appointment.end + 1)
             ) &&
             appointmentUi.conflictFilterWhitelist.find(item => item === appointment.calendar_id) &&
             appointment.appointment_id !== appointmentUi.appointment.appointment_id
