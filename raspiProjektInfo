@@ -1,0 +1,64 @@
+nano /etc/apt/sources.list
+=> deb http://repozytorium.mati75.eu/raspbian jessie-backports main contrib non-free
+
+database:
+
+CREATE USER 'php'@'localhost' IDENTIFIED BY 'php';
+
+CREATE DATABASE CalendarManagement_013;
+
+GRANT ALL PRIVILEGES ON CalendarManagement_013 . * TO 'php'@'localhost';
+
+
+
+
+create cert:
+
+openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+
+Pakete:
+nginx php7.0 php7.0-fpm php7.0-mysql
+
+
+
+Server config:
+server {
+            listen 80;
+            listen [::]:80;
+            server_name localhost;
+            return 301 https://$server_name$request_uri;
+}
+
+
+server {
+
+        listen 443 ssl;
+        listen [::]:443 ssl;
+
+        server_name localhost;
+
+        ssl_certificate /home/raspi/certs/cert.pem;
+        ssl_certificate_key /home/raspi/certs/key.pem;
+        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers         HIGH:!aNULL:!MD5;
+
+        root /var/www/html/;
+
+        index index.php;
+	
+	rewrite /api/1.0/* /api/1.0/index.php break;
+	rewrite /registration / break;
+	rewrite /login / break;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+        location ~ \.php$ {
+                try_files $uri =404;
+
+                include /etc/nginx/fastcgi.conf;
+
+                fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+        }
+}
