@@ -6,10 +6,10 @@ require_once 'lib/hash.php';
 class User {
 
     public function __construct(
-        $user_id, 
-        $user_name, 
-        $first_name, 
-        $last_name, 
+        $user_id,
+        $user_name,
+        $first_name,
+        $last_name,
         $mail,
         $password_hash
     ) {
@@ -22,7 +22,7 @@ class User {
     }
 
 
-    public static function byArray($array) 
+    public static function byArray($array)
     {
         return new User(
             $array["user_id"],
@@ -34,74 +34,78 @@ class User {
         );
     }
 
+    //TODO: change name to byId()
     public static function get($id)
-    {		
+    {
         $database = CalendarDatabase::getStd();
-	$sql = $database->prepare("SELECT * FROM User WHERE user_id = ?");
+        $sql = $database->prepare("SELECT * FROM User WHERE user_id = ?");
 
-	$sql->bind_param("i", $id);
+        $sql->bind_param("i", $id);
 
         $sql->execute();
         $result = $sql->get_result();
-		
-	    if ($row = $result->fetch_assoc()) {
-            $user = User::byArray($row);
-		    return $user;
-	    }
 
-	    return NULL;
+        if ($row = $result->fetch_assoc()) {
+            $user = User::byArray($row);
+            return $user;
+        }
+
+        return NULL;
     }
 
     public function checkPassword($password)
     {
-	$equals = checkPassword($password, $this->password_hash);
+    $equals = checkPassword($password, $this->password_hash);
         if($equals) {
-            return true;    
+            return true;
         }
         return false;
     }
 
+    //TODO: change name to setPassword()
     public function changePassword($password)
     {
         $this->password_hash = $password;
         $this->hashPassword();
         $database = CalendarDatabase::getStd();
-		$sql = $database->prepare(
+        $sql = $database->prepare(
             "UPDATE User SET password_hash = ? WHERE user_id = ?"
         );
 
-		$sql->bind_param(
-            "si", 
+        $sql->bind_param(
+            "si",
             $this->password_hash,
             $this->user_id
         );
 
         $success = $sql->execute();
-		return $success;
+        return $success;
     }
 
+    //TODO: change name to create()
     public function post()
     {
         $database = CalendarDatabase::getStd();
-		$sql = $database->prepare(
-            "INSERT INTO User (user_name, first_name, 
-                last_name, mail, password_hash) VALUES (?, ?, ?, ?, ?)"
+        $sql = $database->prepare(
+            "INSERT INTO User (user_name, first_name, " .
+                "last_name, mail, password_hash) VALUES (?, ?, ?, ?, ?)"
         );
 
-		$sql->bind_param(
-            "sssss", 
-            $this->user_name, 
-            $this->first_name, 
-            $this->last_name, 
+        $sql->bind_param(
+            "sssss",
+            $this->user_name,
+            $this->first_name,
+            $this->last_name,
             $this->mail,
             $this->password_hash);
 
         if ($sql->execute()){
-			return $database->getInsertId();
-		}
-		return null;
+            return $database->getInsertId();
+        }
+        return null;
     }
 
+    //change name to update()
     public function put()
     {
         $database = CalendarDatabase::getStd();
@@ -112,70 +116,72 @@ class User {
         );
 
         $sql->bind_param(
-            "ssss", 
-            $this->first_name, 
+            "ssss",
+            $this->first_name,
             $this->last_name,
-            $this->mail, 
-			$this->user_id
+            $this->mail,
+            $this->user_id
         );
 
         $success = $sql->execute();
         if ($success) {
-		    return $this->user_id;
-		}
-		return null;
+            return $this->user_id;
+        }
+        return null;
     }
 
     public function delete()
     {
         Token::deleteAllTokens($this->user_id);
-	CalendarModel::deleteAllCalendars($this->user_id);
+        CalendarModel::deleteAllCalendars($this->user_id);
         $database = CalendarDatabase::getStd();
-	$sql = $database->prepare("DELETE FROM User WHERE user_id = ?");
-	$sql->bind_param("i", $this->user_id);
+        $sql = $database->prepare("DELETE FROM User WHERE user_id = ?");
+        $sql->bind_param("i", $this->user_id);
         $success = $sql->execute();
         return $success;
     }
 
-    public static function getByName($name) 
+    //TODO: change name to search()
+    public static function getByName($name)
     {
-	    $database = CalendarDatabase::getStd();
-	    $sql = $database->prepare("SELECT * FROM User WHERE user_name like ?");
+        $database = CalendarDatabase::getStd();
+        $sql = $database->prepare("SELECT * FROM User WHERE user_name like ?");
 
-            $name = "%$name%";
-	    $sql->bind_param("s", $name);
+        $name = "%$name%";
+        $sql->bind_param("s", $name);
 
         $sql->execute();
         $result = $sql->get_result();
 
-	    $array = array();
+        $array = array();
 
-	    if ($result->num_rows > 0) {
-		    while ($row = $result->fetch_assoc()) {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
                 $user = User::byArray($row);
-			    array_push($array, $user);
-		    }
-	    }
+                array_push($array, $user);
+            }
+        }
 
-	    return $array;
+        return $array;
     }
 
-    public static function getByExactName($name) 
+    //TODO: change name to byName()
+    public static function getByExactName($name)
     {
-	    $database = CalendarDatabase::getStd();
-	    $sql = $database->prepare("SELECT * FROM User WHERE user_name = ?");
+        $database = CalendarDatabase::getStd();
+        $sql = $database->prepare("SELECT * FROM User WHERE user_name = ?");
 
-	    $sql->bind_param("s", $name);
+        $sql->bind_param("s", $name);
 
         $sql->execute();
         $result = $sql->get_result();
 
 
-	    if ($row = $result->fetch_assoc()) {
+        if ($row = $result->fetch_assoc()) {
             $user = User::byArray($row);
-		    return $user;
-	    }
-	    return null;
+            return $user;
+        }
+        return null;
     }
 
     public function hashPassword()
@@ -183,7 +189,7 @@ class User {
         $this->password_hash = hashPassword($this->password_hash);
     }
 
-    public function toJSON() 
+    public function toJSON()
     {
         $array = array(
             'user_id' => $this->user_id,

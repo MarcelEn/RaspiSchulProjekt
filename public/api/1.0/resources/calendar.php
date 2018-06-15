@@ -36,13 +36,13 @@ $app->post('/rest/calendar', function ($requ, $resp, $args) {
 
     $id = $cal->post();
 
-	if (is_null($id)) {
-		return $resp->withStatus(500);
-	}
+    if (is_null($id)) {
+        return $resp->withStatus(500);
+    }
 
-	$resp->getBody()->write($id);
+    $resp->getBody()->write($id);
 
-	return $resp->withStatus(CREATED);
+    return $resp->withStatus(CREATED);
 });
 
 $app->put('/rest/calendar', function ($requ, $resp, $args) {
@@ -57,19 +57,19 @@ $app->put('/rest/calendar', function ($requ, $resp, $args) {
       return $resp->withStatus(FORBIDDEN);
     }
 
-	$vis = $cal_old->visibility;
+    $vis = $cal_old->visibility;
 
     if (
-        !Token::validateUser($cal->owner_id) 
+        !Token::validateUser($cal->owner_id)
         && (is_null($cal_old) || $vis < V_PUBLIC)
     ) {
       return $resp->withStatus(FORBIDDEN);
     }
 
     $id = $cal->put();
-	$resp->getBody()->write($id);
+    $resp->getBody()->write($id);
 
-	return $resp->withStatus(CREATED);
+    return $resp->withStatus(CREATED);
 });
 
 $app->delete('/rest/calendar/{id}', function ($requ, $resp, $args) {
@@ -99,22 +99,22 @@ $app->get('/rest/calendar', function ($requ, $resp, $args) {
       return $response->withStatus(UNAUTHORIZED);
     }
 
-	$user = $requ->getQueryParam("user_id", null);
-	$search = $requ->getQueryParam("search_string", "");
-	$array = CalendarModel::getByUserAndSearch($user, $search);
+    $user = $requ->getQueryParam("user_id", null);
+    $search = $requ->getQueryParam("search_string", "");
+    $array = CalendarModel::getByUserAndSearch($user, $search);
 
-	$resultArray = array();
-	foreach ($array as $calendar) {
-		if (
-            Token::validate($calendar->owner_id) 
+    $resultArray = array();
+    foreach ($array as $calendar) {
+        if (
+            Token::validate($calendar->owner_id)
             || $calendar->visibility > V_PRIVATE
         ) {
-			array_push($resultArray, $calendar);
+            array_push($resultArray, $calendar);
         }
-	}
+    }
 
-	$json = arrayToJSON($array);
+    $json = arrayToJSON($array);
 
-	return $resp->getBody()->write($json);
+    return $resp->getBody()->write($json);
 });
 ?>

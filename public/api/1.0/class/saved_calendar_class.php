@@ -8,8 +8,8 @@ class SavedCalendar {
     {
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare(
-            "SELECT * FROM Calendar c INNER JOIN SavedCalendar s 
-            ON c.calendar_id = s.calendar_id  WHERE s.user_id = ?"
+            "SELECT * FROM Calendar c INNER JOIN SavedCalendar s " .
+            "ON c.calendar_id = s.calendar_id  WHERE s.user_id = ?"
         );
         $sql->bind_param('i', $uid);
         $sql->execute();
@@ -17,8 +17,8 @@ class SavedCalendar {
         $resultArray = array();
         while ($row = $result->fetch_assoc()) {
             $calendar = CalendarModel::byArray($row);
-			array_push($resultArray, $calendar);
-		}
+            array_push($resultArray, $calendar);
+        }
         return $resultArray;
     }
 
@@ -37,17 +37,17 @@ class SavedCalendar {
     {
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare(
-            "SELECT * FROM Calendar c INNER JOIN SavedCalendar s 
-            ON c.calendar_id = s.calendar_id  WHERE s.user_id = ? 
-            AND s.calendar_id = ?"
+            "SELECT * FROM Calendar c INNER JOIN SavedCalendar s " .
+            "ON c.calendar_id = s.calendar_id  WHERE s.user_id = ? " .
+            "AND s.calendar_id = ?"
         );
         $sql->bind_param('ii', $uid, $calendar_id);
         $sql->execute();
         $result = $sql->get_result();
         if ($row = $result->fetch_assoc()) {
-			$calendar = CalendarModel::byArray($row);
+            $calendar = CalendarModel::byArray($row);
             return $calendar;
-		}
+        }
         return null;
     }
 

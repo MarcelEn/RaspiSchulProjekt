@@ -60,7 +60,7 @@ class Token {
           $token = Token::get($_COOKIE["token"]);
           if (!is_null($token) && !$token->isOutdated()) {
                 $token->reset();
-              	return true;
+                return true;
           }
           return false;
     }

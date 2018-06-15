@@ -1,11 +1,11 @@
 <?php
-function arrayToJSON($array) 
+function arrayToJSON($array)
 {
-	$json = "[";
+    $json = "[";
     $first = true;
     foreach($array as $object) {
-		if(!$first) {
-    	$json = $json . ", ";
+        if(!$first) {
+        $json = $json . ", ";
     }
     $first = false;
     $json = $json . $object->toJSON();

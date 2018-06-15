@@ -6,11 +6,11 @@ require_once 'lib/timestamp_converter.php';
 class Appointment {
 
     function __construct(
-        $appointment_id, 
-        $start, 
-        $end, 
-        $calendar_id, 
-        $appointment_title, 
+        $appointment_id,
+        $start,
+        $end,
+        $calendar_id,
+        $appointment_title,
         $appointment_description
     ) {
         $this->appointment_id = (int)$appointment_id;
@@ -23,111 +23,117 @@ class Appointment {
     
     static function bySQLArray($array)
     {
-        $array['start'] = DateTime::createFromFormat(SQL_TIMESTAMP, $row['start']); 
-	    $array['end'] = DateTime::createFromFormat(SQL_TIMESTAMP, $row['end']);
-	    $appointment = Appointment::byArray($array);
-	    return $appointment;
+        $array['start'] = DateTime::createFromFormat(SQL_TIMESTAMP, $row['start']);
+        $array['end'] = DateTime::createFromFormat(SQL_TIMESTAMP, $row['end']);
+        $appointment = Appointment::byArray($array);
+        return $appointment;
     }
 
     static function byArray($array)
     {
-        $start=convertTimestampToDateTime($array["start"]);
-        $end=convertTimestampToDateTime($array["end"]);
+        $start=convertTimestampToDateTime($array['start']);
+        $end=convertTimestampToDateTime($array['end']);
         return new Appointment(
-            $array["appointment_id"],
+            $array['appointment_id'],
             $start,
             $end,
-            $array["calendar_id"],
-            $array["appointment_title"],
-            $array["appointment_description"]
+            $array['calendar_id'],
+            $array['appointment_title'],
+            $array['appointment_description']
         );
     }
 
-    static function get($id) 
+    //TODO: change name to byId()
+    static function get($id)
     {
-        $getStatement = "SELECT * FROM Appointment WHERE appointment_id = ?";
+        $getStatement = 'SELECT * FROM Appointment WHERE appointment_id = ?';
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare($getStatement);
-        $sql->bind_param("i", $id);
+        $sql->bind_param('i', $id);
         $sql->execute();
 
-        $result = $sql->get_result(); 
+        $result = $sql->get_result();
         if ($row = $result->fetch_assoc()) {
             $appointment = Appointment::byArray($row);
-	        return $appointment;
+            return $appointment;
         }
 
         return null;
     }
 
-    function post() 
+    //TODO: change name to create()
+    function post()
     {
-        $postStatement = "INSERT INTO Appointment (start, end, calendar_id, 
-		    appointment_title, appointment_description) VALUES (?, ?, ?, ?, ?)";
+        $postStatement =
+            'INSERT INTO Appointment (start, end, calendar_id, ' .
+            'appointment_title, appointment_description) VALUES (?, ?, ?, ?, ?)';
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare($postStatement);
         $startTime = $this->start->format(SQL_TIMESTAMP);
         $endTime = $this->end->format(SQL_TIMESTAMP);
         $sql->bind_param(
-            "ssiss", 
-            $startTime, 
-	        $endTime, 
-            $this->calendar_id, 
-	        $this->appointment_title, 
+            'ssiss',
+            $startTime,
+            $endTime,
+            $this->calendar_id,
+            $this->appointment_title,
             $this->appointment_description
         );
 
-        if ($sql->execute() === true) {
-	        return $database->getInsertId();
+        if ($sql->execute()) {
+            return $database->getInsertId();
         }
         return null;
     }
 
-    function put() 
+    //TODO: change name to update()
+    function put()
     {
-        $putStatement = "INSERT INTO Appointment (" .
-	            "appointment_id, start, end, calendar_id, appointment_title," . 
-	            "appointment_description" .
-            ") VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE " .
-	            "start=?, end=?, calendar_id=?, appointment_title=?," .
-	            "appointment_description=?";
+        $putStatement = 'INSERT INTO Appointment (' .
+                'appointment_id, start, end, calendar_id, appointment_title,' .
+                'appointment_description' .
+            ') VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE ' .
+                'start = ?, end = ?, calendar_id = ?, appointment_title = ?,' .
+                'appointment_description = ?';
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare($putStatement);
         $sql->bind_param(
-            "ississssiss", 
-            $this->appointment_id, 
-	        $this->start->format(SQL_TIMESTAMP), 
-            $this->end->format(SQL_TIMESTAMP), 
-	        $this->calendar_id, 
-            $this->appointment_title, 
-            $this->appointment_description, 
-	        $this->start->format(SQL_TIMESTAMP), 
-            $this->end->format(SQL_TIMESTAMP), 
-	        $this->calendar_id, 
-            $this->appointment_title, 
+            'ississssiss',
+            $this->appointment_id,
+            $this->start->format(SQL_TIMESTAMP),
+            $this->end->format(SQL_TIMESTAMP),
+            $this->calendar_id,
+            $this->appointment_title,
+            $this->appointment_description,
+            $this->start->format(SQL_TIMESTAMP),
+            $this->end->format(SQL_TIMESTAMP),
+            $this->calendar_id,
+            $this->appointment_title,
             $this->appointment_description
         );
         
-        if ($sql->execute() === true) {
-	        return $database->getInsertId();
+        if ($sql->execute()) {
+            return $database->getInsertId();
         }
         return false;
     }
 
-    function delete() 
+    function delete()
     {
-        $deleteStatement = "DELETE FROM Appointment WHERE appointment_id = ?";
+        $deleteStatement = 'DELETE FROM Appointment WHERE appointment_id = ?';
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare($deleteStatement);
-        $sql->bind_param("i", $this->appointment_id);
+        $sql->bind_param('i', $this->appointment_id);
 
         return $sql->execute();
     }
 
+    //TODO: change name to deleteByCalendar()
     public static function deleteAllAppointments($calendar_id) {
         $database = CalendarDatabase::getStd();
-        $sqlString = "SELECT * FROM Appointment" . 
-			" WHERE calendar_id = ?";
+        $sqlString =
+            'SELECT * FROM Appointment' .
+            ' WHERE calendar_id = ?';
         $sql = $database->prepare($sqlString);
         $sql->bind_param('i', $calendar_id);
         $sql->execute();
@@ -135,17 +141,19 @@ class Appointment {
         while ($row = $result->fetch_assoc()) {
             $appointment = Appointment::byArray($row);
             $appointment->delete();
-		}
+        }
     }
 
-	static function searchAppointments($after, $before, $calId) 
+    //TODO: change name to search()
+    static function searchAppointments($after, $before, $calId)
     {
-        $searchStatement = "SELECT * FROM Appointment" . 
-	        " WHERE calendar_id = ? AND start >= ? AND end <= ?";
+        $searchStatement =
+            'SELECT * FROM Appointment' .
+            ' WHERE calendar_id = ? AND start >= ? AND end <= ?';
         $resultArray = array();
 
         if (is_null($calId) || is_null($before) || is_null($after)) {
-	        return $resultArray;
+            return $resultArray;
         }
 
         $database = CalendarDatabase::getStd();
@@ -155,22 +163,22 @@ class Appointment {
         $sql = $database->prepare($searchStatement);
         $sql->bind_param(
             'iss',
-            $calId, 
-            $afterTS->format(SQL_TIMESTAMP), 
-	        $beforeTS->format(SQL_TIMESTAMP)
+            $calId,
+            $afterTS->format(SQL_TIMESTAMP),
+            $beforeTS->format(SQL_TIMESTAMP)
         );
         $sql->execute();
         $result = $sql->get_result();
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-	        array_push($resultArray, Appointment::bySQLArray($row));
+            array_push($resultArray, Appointment::bySQLArray($row));
             }
         }
         return $resultArray;
     }
 
-    function toJSON() 
+    function toJSON()
     {
         $start = convertDateTimeToTimestamp($this->start);
         $end = convertDateTimeToTimestamp($this->end);

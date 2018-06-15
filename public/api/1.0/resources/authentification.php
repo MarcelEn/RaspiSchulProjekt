@@ -22,7 +22,7 @@ $app->put('/authentification/register', function ($requ, $resp, $args) {
 $app->get('/authentification/username/{name}', function ($requ, $resp, $args) {
     $userInDatabase = User::getByExactName($args['name']);
     if(!is_null($userInDatabase)) {
-        return $resp->withStatus(200);   
+        return $resp->withStatus(200);
     }
     return $resp->withStatus(NO_CONTENT);
 });
