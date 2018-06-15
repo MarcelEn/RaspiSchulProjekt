@@ -6,7 +6,7 @@ require_once 'class/appointment_class.php';
 
 $app->get('/rest/appointment/{id}', function ($requ, $resp, $args) {
     if (!Token::validate()) {
-        return $resp->withStatus(UNAUTHORITED);
+        return $resp->withStatus(UNAUTHORIZED);
     }
 
     $app = Appointment::get($args["id"]);
