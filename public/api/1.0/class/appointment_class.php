@@ -23,8 +23,8 @@ class Appointment {
     
     static function bySQLArray($array)
     {
-        $array['start'] = DateTime::createFromFormat(SQL_TIMESTAMP, $row['start']);
-        $array['end'] = DateTime::createFromFormat(SQL_TIMESTAMP, $row['end']);
+        $array['start'] = DateTime::createFromFormat(SQL_TIMESTAMP, $array['start']);
+        $array['end'] = DateTime::createFromFormat(SQL_TIMESTAMP, $array['end']);
         $appointment = Appointment::byArray($array);
         return $appointment;
     }
