@@ -12,7 +12,10 @@ export default (state = {
     userDataError: false,
     profileImageLoading: false,
     profileImageSuccess: false,
-    profileImageError: false
+    profileImageError: false,
+    deleteProfileImageLoading: false,
+    deleteProfileImageSuccess: false,
+    deleteProfileImageError: false
 }, action) => {
     switch (action.type) {
         case actionNames.SET_USER_SETTINGS_DATA_STATE:

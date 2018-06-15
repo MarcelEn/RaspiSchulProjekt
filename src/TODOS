@@ -16,6 +16,7 @@ login -> does not load userId - done
 savedCalendar -> makes a post instead of delete - done
 termin -> nicht löschbar - done
 userSettings -> fetch init does not work - done
+lock mobileView (with message coming soon) - done
 
 
 main
@@ -28,7 +29,6 @@ remove in managecalendar middleware deletion all appointments of calendar
 make appointment loading more smart and not just fetch the whole calendar
     -> fetch conflict filter
 improve appointment adjusting (make it more smart)
-lock mobileView (with message coming soon)
 filter search calendar (do not show own calendars)
 move applyInitToEditAppointment listning on SET_POPUP_ID
 fix bug: appoint accross multple days
@@ -50,3 +50,17 @@ calendar loading init => does not fetch all appointments (doch schon aber nur di
     -> no response statuscode 200
 
 not reproduceable => search calendar (userSetting changed something => add calendar => search user) => fetching loop
+
+UserSettings username .... request 404 (backend)
+
+updating appointments response with 201 but does not affect the database (backend)
+
+searching username (example on blur in registration) response with 500 (backend)
+
+delete calendar response with 500 (backend)
+
+search calendar search_string only does not work (backend)
+
+appointment refacoring is false => start and end is 0 (backend)
+
+cant add appointment to others calendar (backend)

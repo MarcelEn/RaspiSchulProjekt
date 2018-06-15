@@ -207,9 +207,8 @@ class UserSettings extends Component {
                         <div className={style.profileImage}>
                             <ProfileImage
                                 username={this.props.userName}
-                                firstname={this.props.firstName}
-                                lastname={this.props.lastName}
-
+                                firstname={this.props.firstName === '' ? ' ' : this.props.firstName}
+                                lastname={this.props.lastName === '' ? ' ' : this.props.lastName}
                             />
                         </div>
                     </HorizontalFormElement>
@@ -242,6 +241,26 @@ class UserSettings extends Component {
                             </Alert>
                         </Col>
                     </Collapse>
+                    <Collapse in={this.props.deleteProfileImageSuccess}>
+                        <Col sm={5} smOffset={4}>
+                            <Alert bsStyle="success">
+                                <b>Erfolg! </b>
+                                <p>
+                                    Das Bild wurde erfolgreich gelöscht.
+                                </p>
+                            </Alert>
+                        </Col>
+                    </Collapse>
+                    <Collapse in={this.props.deleteProfileImageError}>
+                        <Col sm={5} smOffset={4}>
+                            <Alert bsStyle="danger">
+                                <b>Fehler! </b>
+                                <p>
+                                    Beim Löschen ist etwas schief gelaufen.
+                                </p>
+                            </Alert>
+                        </Col>
+                    </Collapse>
                     <Col sm={5} smOffset={4}>
                         <LoadingButton loading={this.props.profileImageLoading}>
                             <Button
@@ -250,6 +269,17 @@ class UserSettings extends Component {
                                 className={style.large}
                                 bsStyle="success">
                                 Bild hochladen
+                            </Button>
+                        </LoadingButton>
+                    </Col>
+                    <HorizontalFormElement />
+                    <Col sm={5} smOffset={4}>
+                        <LoadingButton loading={this.props.deleteProfileImageLoading}>
+                            <Button
+                                onClick={this.props.deleteUserSettingsProfileImage}
+                                className={style.large}
+                                bsStyle="danger">
+                                Bild löschen
                             </Button>
                         </LoadingButton>
                     </Col>
@@ -286,6 +316,7 @@ function mapDispatchToProps(dispatch) {
         handleUserDataSubmit: () => { dispatch(actions.submitUserSettingsUserData()) },
         initUserSettings: () => { dispatch(actions.initUserSettings()) },
         uploadUserSettingsProfileImage: () => { dispatch(actions.uploadUserSettingsProfileImage()) },
+        deleteUserSettingsProfileImage: () => { dispatch(actions.deleteUserSettingsProfileImage()) },
     }
 }
 

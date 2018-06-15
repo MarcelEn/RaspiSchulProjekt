@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Button, Collapse, Alert, Grid, PageHeader } fro
 import style from './style_module.css';
 
 import { actions } from '../../actions';
-import { proxyToValue, proxyToName } from '../../globalFunctions';
+import { proxyToValue, proxyToName, selectUserId } from '../../globalFunctions';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
 import CalendarDetails from '../../components/CalendarDetails/CalendarDetails';
 
@@ -113,6 +113,7 @@ class AddCalendar extends Component {
                                     handleDescriptionToggle={() => this.handleDescriptionToggle(index)}
                                     handleSelection={this.handleSelection}
                                     selected={this.props.savedCalendars.find(calendar => calendar === data.calendar_id)}
+                                    selectAble={this.props.userId !== data.owner_id}
                                     key={'addCalendar-' + index}
                                 />
                             ))
@@ -131,6 +132,7 @@ function mapStateToProps(state) {
         )
     )
     return {
+        userId: selectUserId(state),
         data: state.data.addCalendarData,
         searchResultsWithData,
         savedCalendars: state.data.appData.savedCalendars,

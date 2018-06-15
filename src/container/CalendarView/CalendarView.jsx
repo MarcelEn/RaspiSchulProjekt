@@ -69,7 +69,7 @@ class CalendarView extends Component {
                         week.map(
                             day =>
                                 <div key={day} className={style.weekDay}>
-                                    <b>{day}</b>
+                                    <div><b>{day}</b></div>
                                 </div>
                         )
                     }

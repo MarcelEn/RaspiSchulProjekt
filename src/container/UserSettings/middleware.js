@@ -62,11 +62,15 @@ export function* initUserSettings(action) {
     if (!userData) {
         try {
             const response = yield call(API.fetchUserDataById([userId]));
+            console.log(response)
             for (let i = 0; i < response[0].length; i++) {
                 yield put(actions.addUserData(response[0][i].data))
             }
             userData = response[0][0].data;
-        } catch (error) {}
+        } catch (error) {
+            console.log(error)
+            return;
+        }
     }
     yield put(actions.setUserSettingsInputField("firstName", userData.first_name))
     yield put(actions.setUserSettingsInputField("lastName", userData.last_name))
@@ -101,4 +105,19 @@ export function* submitUserSettingsUserData(action) {
     }
 
     yield put(actions.setUserSettingsDataState("userDataLoading", false))
+}
+
+export function* deleteUserSettingsProfileImage(action) {
+    yield put(actions.setUserSettingsDataState("deleteProfileImageLoading", true))
+    yield put(actions.setUserSettingsDataState("deleteProfileImageError", false))
+    yield put(actions.setUserSettingsDataState("deleteProfileImageSuccess", false))
+
+    try {
+        yield call(API.deleteProfileImage)
+        yield put(actions.setUserSettingsDataState("deleteProfileImageSuccess", true))
+    } catch (error) {
+        yield put(actions.setUserSettingsDataState("deleteProfileImageError", true))
+    }
+
+    yield put(actions.setUserSettingsDataState("deleteProfileImageLoading", false))
 }

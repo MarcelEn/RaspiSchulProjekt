@@ -95,6 +95,15 @@ export default (state = {
                     ...newCalendarData
                 ]
             }
+        case actionNames.UPDATE_CALENDAR_DATA:
+            return {
+                ...state,
+                calendarData: state.calendarData.map(
+                    calendar =>
+                    calendar.calendar_id === action.payload.calendar_id ?
+                    action.payload : calendar
+                )
+            }
         case actionNames.ADD_APPOINTMENT_DATA:
             const newAppointmentData = action.payload.filter(
                 appointment => !state.appointmentData.find(a => a.appointment_id === appointment.appointment_id)

@@ -26,7 +26,7 @@ const apiPaths = {
     deleteAppointmentById: appointmentId => path.resolve(apiPrefix, version, 'rest', 'appointment', appointmentId),
     addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
     changePassword: path.resolve(apiPrefix, version, 'authentification', 'password'),
-    uploadProfileImage: path.resolve(apiPrefix, version, 'user_data', 'picture'),
+    deleteOrUploadProfileImage: path.resolve(apiPrefix, version, 'user_data', 'picture'),
     getUserImageUrlByUsername: userName => path.resolve(apiPrefix, version, 'user_data', 'picture', userName),
 }
 
@@ -68,7 +68,7 @@ export default {
     deleteCalendar: calendarId => (
         () => axios.delete(apiPaths.deleteCalendar(calendarId))
     ),
-    fetchUserDataById: userId => () => new Promise(
+    fetchUserDataById: userId => () => parser(new Promise(
         (resolve, reject) => {
             return axios.all(
                     userId.map(
@@ -82,7 +82,7 @@ export default {
                     reject(e);
                 })
         }
-    ),
+    )),
     fetchSavedCalendars: () => parser(axios.get(apiPaths.fetchSavedCalendars)),
     whoAmI: () => parser(axios.get(apiPaths.whoAmI)),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),
@@ -97,7 +97,8 @@ export default {
         new_password_hash: generateHash(newPassword)
     }),
     updateUserData: userData => () => axios.post(apiPaths.userData, userData),
-    uploadProfileImage: (data, config) => () => axios.put(apiPaths.uploadProfileImage, data, config)
+    uploadProfileImage: (data, config) => () => axios.put(apiPaths.deleteOrUploadProfileImage, data, config),
+    deleteProfileImage: () => axios.delete(apiPaths.deleteOrUploadProfileImage)
 }
 
 const responseParser = (response) => {
@@ -116,29 +117,38 @@ const responseParser = (response) => {
     return parsedResponse;
 }
 
+const parse = response => {
+    if (typeof response.data !== "object") {
+        return {
+            ...response,
+            data: response.data + ""
+        }
+    } else if (response.data.length) {
+        return {
+            ...response,
+            data: response.data.map(
+                res => responseParser(res)
+            )
+        }
+
+    } else {
+        return {
+            ...response,
+            data: responseParser(response.data)
+        }
+    }
+
+}
+
 const parser = promise => {
     return new Promise(
         (resolve, reject) => {
             promise
                 .then(response => {
-                    if (typeof response.data !== "object") {
-                        resolve({
-                            ...response,
-                            data: response.data + ""
-                        })
-                    } else if (response.data.length) {
-                        resolve({
-                            ...response,
-                            data: response.data.map(
-                                res => responseParser(res)
-                            )
-                        })
-
+                    if (response.length) {
+                        resolve(response.map(res => parse(res)))
                     } else {
-                        resolve({
-                            ...response,
-                            data: responseParser(response.data)
-                        })
+                        resolve(parse(response))
                     }
                 })
                 .catch(e => reject(e))
