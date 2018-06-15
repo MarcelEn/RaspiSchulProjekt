@@ -17,6 +17,7 @@ savedCalendar -> makes a post instead of delete - done
 termin -> nicht löschbar - done
 userSettings -> fetch init does not work - done
 lock mobileView (with message coming soon) - done
+appointment refacoring is false => start and end is 0 (backend) - done
 
 
 main
@@ -60,7 +61,5 @@ searching username (example on blur in registration) response with 500 (backend)
 delete calendar response with 500 (backend)
 
 search calendar search_string only does not work (backend)
-
-appointment refacoring is false => start and end is 0 (backend)
 
 cant add appointment to others calendar (backend)
