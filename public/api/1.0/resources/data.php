@@ -27,4 +27,24 @@ $app->post('/data/profile_picture', function ($request, $response, $args) {
     }
 });
 
+$app->delete('/data/profile_picture', function ($request, $response, $args) {
+    if(!Token::validate())  {
+        return $response->withStatus(UNAUTHORIZED);
+    }
+    $target_dir = "/var/www/html/profile_picture/";
+    $target_file = $target_dir . Token::getUID();
+
+    $exists = file_exists($target_file);
+    if (!$exists) {
+        return $response->withStatus(NOT_FOUND);
+    }
+
+    $success = unlink($target_file);
+    if ($success) {
+        return $response->withStatus(NO_CONTENT);
+    }
+    return $respons->withStatus(500);
+
+});
+
 ?>
