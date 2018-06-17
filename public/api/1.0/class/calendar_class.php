@@ -130,7 +130,6 @@ class CalendarModel {
         }
     }
 
-    //TODO: change name to search()
     public static function search($user_id, $search)
     {
         $resultArray = array();
@@ -145,7 +144,7 @@ class CalendarModel {
             "SELECT * FROM Calendar" .
             " WHERE calendar_title like ?";
 
-        if(!is_null($user_id)) {
+        if(!is_null($user_id) && $user_id > 0) {
             $sqlString = $sqlString . " AND owner_id = ?";
             $sql = $database->prepare($sqlString);
             $sql->bind_param("si", $search, $user_id);

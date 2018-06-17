@@ -61,7 +61,7 @@ $app->post('/authentification/password', function ($requ, $resp, $args) {
     if(!$user->checkPassword($data['old_password_hash'])) {
         return $resp->withStatus(400);
     }
-    if(!$user->changePassword($data['new_password_hash'])) {
+    if(!$user->setPassword($data['new_password_hash'])) {
         return $resp->withStatus(400);
     }
     return $resp->withStatus(200);

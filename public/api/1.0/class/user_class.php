@@ -61,8 +61,7 @@ class User {
         return false;
     }
 
-    //TODO: change name to setPassword()
-    public function changePassword($password)
+    public function setPassword($password)
     {
         $this->password_hash = $password;
         $this->hashPassword();
