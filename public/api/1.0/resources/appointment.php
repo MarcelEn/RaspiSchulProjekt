@@ -43,7 +43,7 @@ $app->post('/rest/appointment', function ($requ, $resp, $args) {
     $cal = CalendarModel::get($app->calendar_id);
     $owner = $cal->owner_id;
 
-    if (!Token::validateUser($owner)) {
+    if (!Token::validateUser($owner) && $cal->visibility < V_PUBLIC) {
         return $resp->withStatus(FORBIDDEN);
     }
 
