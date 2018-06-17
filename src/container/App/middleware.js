@@ -50,8 +50,6 @@ export function* sendLogout(action) {
     yield put(actions.setLogoutError(false))
     try {
         yield call(API.sendLogout());
-        yield put(actions.setAppTokenIsSet(false));
-        yield put(actions.setAppTokenIsValidated(false));
         setCalendarFilter([]);
         window.location.reload(window.location.origin);
     } catch (error) {

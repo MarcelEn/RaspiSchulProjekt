@@ -18,6 +18,9 @@ termin -> nicht löschbar - done
 userSettings -> fetch init does not work - done
 lock mobileView (with message coming soon) - done
 appointment refacoring is false => start and end is 0 (backend) - done
+uncaught at i Error: t.payload.filter is not a function - done
+UserSettings username .... request 404 (backend) - done
+searching username (example on blur in registration) response with 500 (backend) - done
 
 
 main
@@ -44,7 +47,9 @@ remove localfiltering if init does not give calendar id
 validate datatypes of responses and clien -> most important ids! (appointment arent positioning correctly because of that)
 add remove profileImage
 
-uncaught at i Error: t.payload.filter is not a function
+
+fetch all appointments on init
+updating appointments response with 201 but does not affect the database (frontend schwul)
 
 //wedding:
 in general: convert all ids to strings
@@ -53,11 +58,8 @@ calendar loading init => does not fetch all appointments (doch schon aber nur di
 
 not reproduceable => search calendar (userSetting changed something => add calendar => search user) => fetching loop
 
-UserSettings username .... request 404 (backend)
 
-updating appointments response with 201 but does not affect the database (backend)
 
-searching username (example on blur in registration) response with 500 (backend)
 
 delete calendar response with 500 (backend)
 
