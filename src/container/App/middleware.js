@@ -14,7 +14,8 @@ import axios from 'axios';
 
 import {
     selectUserId,
-    selectActiveCalendar
+    selectActiveCalendar,
+    setCalendarFilter
 } from '../../globalFunctions';
 
 const createMultipleRequests = requests => () => new Promise(
@@ -51,6 +52,8 @@ export function* sendLogout(action) {
         yield call(API.sendLogout());
         yield put(actions.setAppTokenIsSet(false));
         yield put(actions.setAppTokenIsValidated(false));
+        setCalendarFilter([]);
+        window.location.reload(window.location.origin);
     } catch (error) {
         yield put(actions.setLogoutError(true))
     }

@@ -16,7 +16,7 @@ const apiPaths = {
     searchUserByUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?user_name=' + username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
-    userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
+    userData: path.resolve(apiPrefix, version, 'rest', 'user'),
     validateToken: path.resolve(apiPrefix, version, 'authentification', 'test_token'),
     sendAddCalendarSearch: (searchString, userId) => path.resolve(apiPrefix, version, 'rest', 'calendar?search_string=' + searchString + '&user_id=' + userId),
     fetchSavedCalendars: path.resolve(apiPrefix, version, 'rest', 'calendar', 'saved'),
@@ -28,7 +28,7 @@ const apiPaths = {
     addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
     changePassword: path.resolve(apiPrefix, version, 'authentification', 'password'),
     deleteOrUploadProfileImage: path.resolve(apiPrefix, version, 'data', 'profile_picture'),
-    getUserImageUrlByUserId: userId => path.resolve('profile_picture', userId),
+    getUserImageUrlByUserId: userId => path.resolve('profile_picture', userId + ""),
 }
 
 export const getUserImageUrlByUserId = apiPaths.getUserImageUrlByUserId
@@ -100,7 +100,7 @@ export default {
         old_password_hash: generateHash(oldPassword),
         new_password_hash: generateHash(newPassword)
     }),
-    updateUserData: userData => () => axios.post(apiPaths.userData, userData),
+    updateUserData: userData => () => axios.put(apiPaths.userData, userData),
     uploadProfileImage: (data, config) => () => axios.post(apiPaths.deleteOrUploadProfileImage, data, config),
     deleteProfileImage: () => axios.delete(apiPaths.deleteOrUploadProfileImage)
 }

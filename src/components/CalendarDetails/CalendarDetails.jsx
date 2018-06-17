@@ -60,7 +60,7 @@ const CalendarDetails = props => (
                             <ProfileImage
                                 firstname={props.userData.first_name}
                                 lastname={props.userData.last_name}
-                                username={props.userData.user_name}
+                                userId={props.userData.user_id}
                             />
                         </Col>
 

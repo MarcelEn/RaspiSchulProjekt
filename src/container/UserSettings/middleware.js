@@ -67,7 +67,7 @@ export function* initUserSettings(action) {
                 yield put(actions.addUserData(response[0][i].data))
             }
             userData = response[0][0].data;
-        } catch (error) {}
+        } catch (error) { }
     }
     yield put(actions.setUserSettingsInputField("firstName", userData.first_name))
     yield put(actions.setUserSettingsInputField("lastName", userData.last_name))
@@ -83,11 +83,13 @@ export function* submitUserSettingsUserData(action) {
     yield put(actions.setUserSettingsDataState("userDataSuccess", false))
 
     const userInput = yield select(selectUserSettingsUi);
+
     const userData = {
         user_name: userInput.userName,
         first_name: userInput.firstName,
         last_name: userInput.lastName,
         mail: userInput.mail,
+        user_id: parseInt(yield select(selectUserId), 10)
     }
 
     try {
