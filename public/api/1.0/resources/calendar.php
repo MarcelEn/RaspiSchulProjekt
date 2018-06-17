@@ -112,7 +112,7 @@ $app->get('/rest/calendar', function ($requ, $resp, $args) {
         }
     }
 
-    $json = arrayToJSON($array);
+    $json = arrayToJSON($resultArray);
 
     return $resp->getBody()->write($json);
 });
