@@ -10,13 +10,9 @@ import {
     actions
 } from './../../actions';
 
-import axios from 'axios';
-
 import {
     selectUserId,
-    selectActiveCalendar,
     setCalendarFilter,
-    selectDateOfMonday,
     getNotificationPrevilegues
 } from '../../globalFunctions';
 

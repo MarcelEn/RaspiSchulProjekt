@@ -84,11 +84,12 @@ class CalendarView extends Component {
     checkForNotifications() {
         const now = moment().add(15, "minutes").format("YYYY-MM-DD HH:mm:ss");
         this.getAppointmentsFilteredByCalendarIds()
-            .map(
+            .forEach(
                 appointment => {
                     if (moment(appointment.start).format("YYYY-MM-DD HH:mm:00") === now)
                         new Notification(appointment.appointment_title, {
-                            body: "startet in 15 Minuten"
+                            body: "startet in 15 Minuten",
+                            icon: "favicon.png"
                         })
                 }
             )

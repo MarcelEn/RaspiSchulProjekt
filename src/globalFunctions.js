@@ -4,8 +4,7 @@ import {
 } from './constants';
 import {
     put,
-    call,
-    select
+    call
 } from 'redux-saga/effects';
 import { actions } from './actions';
 const alphabet = [
