@@ -27,6 +27,8 @@ calendar loading init => does not fetch all appointments (doch schon aber nur di
     -> no response statuscode 200 - done
 in general: convert all ids to strings - done 
 not reproduceable => search calendar (userSetting changed something => add calendar => search user) => fetching loop - done
+fetch all appointments on init - done
+after creating an calendar the calendar is not selectable in filtering in create appointment - done
 
 
 main
@@ -54,8 +56,7 @@ validate datatypes of responses and clien -> most important ids! (appointment ar
 add remove profileImage
 
 
-fetch all appointments on init
-updating appointments response with 201 but does not affect the database (frontend schwul)
+updating appointments response with 201 but does not affect the database (frontend schwul) ?
 
 //wedding:
 
@@ -68,7 +69,5 @@ updating appointments response with 201 but does not affect the database (fronte
 +----------------+---------------------+---------------------+-------------+-------------------+-------------------------+
 
 however is there an appointment with same start and end
-
-after creating an calendar the calendar is not selectable in filtering in create appointment
 
 search calendar search_string only does not work (backend)
