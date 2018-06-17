@@ -12,7 +12,7 @@ const apiPaths = {
     sendRegistrationData: path.resolve(apiPrefix, version, 'authentification', 'register'),
     sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login'),
     sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
-    searchUsername: username => path.resolve(apiPrefix, version, 'authentification', 'username' , username),
+    searchUsername: username => path.resolve(apiPrefix, version, 'authentification', 'username', username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
     userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
@@ -71,10 +71,10 @@ export default {
     fetchUserDataById: userId => () => parser(new Promise(
         (resolve, reject) => {
             return axios.all(
-                    userId.map(
-                        id => axios.get(apiPaths.getUser(id))
-                    )
+                userId.map(
+                    id => axios.get(apiPaths.getUser(id))
                 )
+            )
                 .then((...responses) => {
                     resolve(responses)
                 })
@@ -123,7 +123,7 @@ const parse = response => {
             ...response,
             data: response.data + ""
         }
-    } else if (response.data.length) {
+    } else if (response.data.length || response.data.length === 0) {
         return {
             ...response,
             data: response.data.map(

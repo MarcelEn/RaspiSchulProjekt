@@ -102,5 +102,5 @@
     "extends": "react-app"
   },
   "homepage": "./",
-  "proxy": "http://localhost:80"
+  "proxy": "https://localhost"
 }
