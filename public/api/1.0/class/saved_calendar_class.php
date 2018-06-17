@@ -61,5 +61,16 @@ class SavedCalendar {
         $success = $sql->execute();
         return $success;
     }
+
+    public static function deleteAll($calendar_id)
+    {
+        $database = CalendarDatabase::getStd();
+        $sql = $database->prepare(
+            "DELETE FROM SavedCalendar WHERE calendar_id = ?"
+        );
+        $sql->bind_param('i', $calendar_id);
+        $success = $sql->execute();
+        return $success;
+    }
 }
 ?>

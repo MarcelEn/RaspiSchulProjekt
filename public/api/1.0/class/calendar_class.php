@@ -108,6 +108,7 @@ class CalendarModel {
     public function delete()
     {
         Appointment::deleteAllAppointments($this->calendar_id);
+        SavedCalendar::deleteAll($this->calendar_id);
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare(
             "DELETE FROM Calendar WHERE calendar_id = ?"
