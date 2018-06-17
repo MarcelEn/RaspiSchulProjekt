@@ -21,6 +21,8 @@ appointment refacoring is false => start and end is 0 (backend) - done
 uncaught at i Error: t.payload.filter is not a function - done
 UserSettings username .... request 404 (backend) - done
 searching username (example on blur in registration) response with 500 (backend) - done
+cant add appointment to others calendar (backend) - done
+delete calendar response with 500 (backend) - done
 
 
 main
@@ -61,8 +63,5 @@ not reproduceable => search calendar (userSetting changed something => add calen
 
 
 
-delete calendar response with 500 (backend)
 
 search calendar search_string only does not work (backend)
-
-cant add appointment to others calendar (backend)
