@@ -6,6 +6,7 @@ import API from './../../apiConnector';
 import {
     actions
 } from './../../actions';
+import { getNotificationPrevilegues } from '../../globalFunctions';
 
 export function* sendRegistrationData(action) {
     yield put(actions.setRegistrationLoading(true));
@@ -16,6 +17,7 @@ export function* sendRegistrationData(action) {
         yield call(API.sendRegistrationData(action.payload));
         const response = yield call(API.whoAmI);
         yield put(actions.setUserId(response.data));
+        yield getNotificationPrevilegues();
         yield put(actions.setRegistrationLoading(false));
         yield put(actions.setAppTokenIsValidated(true));
         yield put(actions.setAppTokenIsSet(true));
@@ -33,11 +35,11 @@ export function* lookupRegistrationUsername(action) {
     try {
         const response = yield call(API.searchUsername(action.payload));
 
-        if(response.status === 200){
+        if (response.status === 200) {
             yield put(actions.setRegistrationUsernameInUse(true));
-        }else{
+        } else {
             yield put(actions.setRegistrationUsernameInUse(false));
         }
 
-    } catch (error) {}
+    } catch (error) { }
 }

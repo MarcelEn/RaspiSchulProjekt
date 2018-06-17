@@ -16,7 +16,8 @@ import {
     selectUserId,
     selectActiveCalendar,
     setCalendarFilter,
-    selectDateOfMonday
+    selectDateOfMonday,
+    getNotificationPrevilegues
 } from '../../globalFunctions';
 
 export function* validateAppToken(action) {
@@ -27,6 +28,7 @@ export function* validateAppToken(action) {
     try {
         const response = yield call(API.validateAppToken());
         yield put(actions.setUserId(response.data));
+        yield getNotificationPrevilegues();
         yield put(actions.setAppTokenLoading(false))
         yield put(actions.setAppTokenIsValidated(true))
     } catch (error) {
@@ -62,6 +64,7 @@ export function* fetchUserDataById(action) {
 export function* fetchRemoteDataInit(action) {
     yield put(actions.setFirstInitIsDone());
 
+    yield getNotificationPrevilegues();
     //TODO: make this calls paralel
     yield (function* () {
         try {

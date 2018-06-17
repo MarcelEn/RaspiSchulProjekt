@@ -29,6 +29,7 @@ export const actionNames = {
     //ui
     SET_POPUP_ID: 'SET_POPUP_ID',
     CLOSE_POPUP: 'CLOSE_POPUP',
+    ALLOW_NOTIFICATIONS: 'ALLOW_NOTIFICATIONS',
 }
 
 export const actions = {
@@ -133,5 +134,8 @@ export const actions = {
     }),
     closePopup: () => ({
         type: actionNames.CLOSE_POPUP
+    }),
+    allowNotifications: () => ({
+        type: actionNames.ALLOW_NOTIFICATIONS
     })
 }

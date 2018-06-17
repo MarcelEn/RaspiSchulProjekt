@@ -30,7 +30,6 @@ class CalendarView extends Component {
         this.getAppointmentsFilteredByCalendarIds = this.getAppointmentsFilteredByCalendarIds.bind(this);
         this.filterForThisDay = this.filterForThisDay.bind(this);
         this.handleClose = this.handleClose.bind(this);
-
     }
     getAppointmentsFilteredByCalendarIds() {
         return this.props.appointmentData

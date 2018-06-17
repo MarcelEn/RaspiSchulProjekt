@@ -2,6 +2,12 @@ import moment from 'moment';
 import {
     millisecondsOfDay
 } from './constants';
+import {
+    put,
+    call,
+    select
+} from 'redux-saga/effects';
+import { actions } from './actions';
 const alphabet = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' '
 ]
@@ -174,4 +180,16 @@ export const getCalendarFilter = () => {
 }
 export const setCalendarFilter = array => {
     localStorage.setItem('calendarFilter', JSON.stringify(array))
+}
+
+export const getNotificationPrevilegues = function* () {
+    try {
+        const answer = yield call(() => Notification.requestPermission())
+        if (answer === "granted") {
+            yield put(actions.allowNotifications())
+        }
+
+    } catch (error) {
+
+    }
 }
