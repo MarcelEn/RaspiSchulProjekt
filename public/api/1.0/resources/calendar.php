@@ -104,10 +104,10 @@ $app->get('/rest/calendar', function ($requ, $resp, $args) {
 
     $resultArray = array();
     foreach ($array as $calendar) {
-        if (
-            Token::validate($calendar->owner_id)
-            || $calendar->visibility > V_PRIVATE
-        ) {
+        if (Token::validate($calendar->owner_id)) {
+            array_push($resultArray, $calendar);
+        }
+        else if ($calendar->visibility > V_PRIVATE) {
             array_push($resultArray, $calendar);
         }
     }
