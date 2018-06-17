@@ -61,9 +61,22 @@ class CalendarView extends Component {
 
         return appointments.filter(
             appointment =>
+                moment(start).isBetween(appointment.start, appointment.end) ||
+                moment(end).isBetween(appointment.start, appointment.end) ||
                 moment(appointment.start).isBetween(start, end) ||
                 moment(appointment.end).isBetween(start, end)
         )
+            .map(
+                appointment => {
+                    let a = { ...appointment }
+                    if (appointment.start < start)
+                        a.start = start;
+                    if (appointment.end > end)
+                        a.end = end;
+
+                    return a;
+                }
+            )
     }
     handleClose() {
         this.props.toggleCalendarviewDetailedAppointmentId(null);

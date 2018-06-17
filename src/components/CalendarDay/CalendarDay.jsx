@@ -146,6 +146,7 @@ const adjustAppointments = appointments => {
 
 const CalendarDate = props => (
     <div className={style.day}>
+        {console.log(props)}
         <div className={style.lineWrapper}>
             <VerticalHourLegend day={props.legend} />
         </div>

@@ -56,7 +56,6 @@ validate datatypes of responses and clien -> most important ids! (appointment ar
 add remove profileImage
 
 
-updating appointments response with 201 but does not affect the database (frontend schwul) ?
 
 //wedding:
 
@@ -71,3 +70,5 @@ updating appointments response with 201 but does not affect the database (fronte
 however is there an appointment with same start and end
 
 search calendar search_string only does not work (backend)
+
+updating appointments response with 201 but does not affect the database (frontend schwul) ? put und post problem nochmal zusammen anschauen
