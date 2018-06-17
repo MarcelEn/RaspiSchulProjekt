@@ -13,6 +13,7 @@ const apiPaths = {
     sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login'),
     sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
     searchUsername: username => path.resolve(apiPrefix, version, 'authentification', 'username', username),
+    searchUserByUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?user_name=' + username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
     userData: path.resolve(apiPrefix, version, 'rest', 'user_data'),
@@ -57,6 +58,9 @@ export default {
     ),
     searchUsername: username => (
         () => parser(axios.get(apiPaths.searchUsername(username)))
+    ),
+    searchUserByUsername: username => (
+        () => parser(axios.get(apiPaths.searchUserByUsername(username)))
     ),
 
     sendAddCalendarSearch: (searchString, userId) => (

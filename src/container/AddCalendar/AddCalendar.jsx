@@ -22,6 +22,7 @@ class AddCalendar extends Component {
         this.props.setAddCalendarInputField(proxyToName(proxy), proxyToValue(proxy));
     }
     handleSubmit() {
+        console.log(this.props.ui)
         this.props.sendAddCalendarSearch(this.props.ui);
     }
     handleDescriptionToggle(index) {
