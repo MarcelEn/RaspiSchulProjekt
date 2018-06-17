@@ -31,13 +31,6 @@ $app->put('/rest/user', function($request, $response, $args) {
     $user = User::byArray($request->getParsedBody());
     $oldUser = User::get($user->user_id);
 
-
-    if (!is_null($oldUser) && $user->user_name != $oldUser->user_name) {
-        $errorString = "You are not allowed to change the user_name of a user";
-        $response->getBody()->write($errorString);
-      return $resp->withStatus(FORBIDDEN);
-    };
-
     $uid = $user->user_id;
     if (!Token::validateUser($uid)) {
         $errorString = "You are not allowed to change the user $uid";
@@ -45,6 +38,11 @@ $app->put('/rest/user', function($request, $response, $args) {
         return $response->withStatus(FORBIDDEN);
     }
     $id = $user->put();
+    if(is_null($id)) {
+        $errorString = "username already exsits";
+        $response->getBody()->write($errorString);
+        return $response->withStatus(404);
+    }
     $response->getBody()->write($id);
     return $response->withStatus(CREATED);
 });
