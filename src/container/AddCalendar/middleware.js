@@ -36,7 +36,7 @@ export function* sendAddCalendarSearch(action) {
 
         if (action.payload.username !== '' && userId === '') {
 
-            const userSearchResponse = yield call(API.searchUsername(action.payload.username));
+            const userSearchResponse = yield call(API.searchUserByUsername(action.payload.username));
 
             for (let i = 0; i < userSearchResponse.data.length; i++) {
                 yield put(actions.addUserData(userSearchResponse.data[i]))
