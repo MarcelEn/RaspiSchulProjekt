@@ -6,7 +6,7 @@ import style from './style_module.css';
 import { actions } from '../../actions';
 import { Grid, PageHeader, Form, Col, FormControl, Collapse, Alert, Button } from 'react-bootstrap';
 import LoadingButton from '../../components/LoadingButton/LoadingButton';
-import { proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi } from '../../globalFunctions';
+import { proxyToName, proxyToValue, selectUserSettingsData, selectUserSettingsUi, selectUserId } from '../../globalFunctions';
 import HorizontalFormElement from '../../components/HorizontalFormElement/HorizontalFormElement';
 import ProfileImage from '../ProfileImage/ProfileImage';
 
@@ -206,7 +206,7 @@ class UserSettings extends Component {
                     <HorizontalFormElement label="Profilbild">
                         <div className={style.profileImage}>
                             <ProfileImage
-                                username={this.props.userName}
+                                userId={this.props.userId}
                                 firstname={this.props.firstName === '' ? ' ' : this.props.firstName}
                                 lastname={this.props.lastName === '' ? ' ' : this.props.lastName}
                             />
@@ -304,7 +304,8 @@ function mapStateToProps(state) {
         ...selectUserSettingsData(state),
         ...userSettingsUi,
         disableSubmitUserData,
-        disableSubmitPassword
+        disableSubmitPassword,
+        userId: selectUserId(state)
     }
 
 }

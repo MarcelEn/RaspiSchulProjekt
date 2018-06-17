@@ -27,11 +27,11 @@ const apiPaths = {
     deleteAppointmentById: appointmentId => path.resolve(apiPrefix, version, 'rest', 'appointment', appointmentId),
     addOrModifyAppointment: path.resolve(apiPrefix, version, 'rest', 'appointment'),
     changePassword: path.resolve(apiPrefix, version, 'authentification', 'password'),
-    deleteOrUploadProfileImage: path.resolve(apiPrefix, version, 'user_data', 'picture'),
-    getUserImageUrlByUsername: userName => path.resolve(apiPrefix, version, 'user_data', 'picture', userName),
+    deleteOrUploadProfileImage: path.resolve(apiPrefix, version, 'data', 'profile_picture'),
+    getUserImageUrlByUserId: userId => path.resolve('profile_picture', userId),
 }
 
-export const getUserImageUrlByUsername = apiPaths.getUserImageUrlByUsername
+export const getUserImageUrlByUserId = apiPaths.getUserImageUrlByUserId
 
 export default {
     validateAppToken: () => (
@@ -101,7 +101,7 @@ export default {
         new_password_hash: generateHash(newPassword)
     }),
     updateUserData: userData => () => axios.post(apiPaths.userData, userData),
-    uploadProfileImage: (data, config) => () => axios.put(apiPaths.deleteOrUploadProfileImage, data, config),
+    uploadProfileImage: (data, config) => () => axios.post(apiPaths.deleteOrUploadProfileImage, data, config),
     deleteProfileImage: () => axios.delete(apiPaths.deleteOrUploadProfileImage)
 }
 

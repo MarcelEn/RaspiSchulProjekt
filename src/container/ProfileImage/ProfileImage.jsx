@@ -4,7 +4,7 @@ import { Image } from 'react-bootstrap';
 
 import style from '../../components/LetterImage/style_module.css';
 import hide from './style_module.css';
-import { getUserImageUrlByUsername } from '../../apiConnector';
+import { getUserImageUrlByUserId } from '../../apiConnector';
 import LetterImage from '../../components/LetterImage/LetterImage';
 
 class ProfileImage extends Component {
@@ -23,7 +23,7 @@ class ProfileImage extends Component {
             return (
                 <Image
                     className={style.roundedImage}
-                    src={getUserImageUrlByUsername(this.props.username)}
+                    src={getUserImageUrlByUserId(this.props.userId)}
                     circle
                     onLoad={this.imageIsAvailable}
                 />
@@ -33,7 +33,7 @@ class ProfileImage extends Component {
                 <span>
                     <Image
                         className={hide.hide}
-                        src={getUserImageUrlByUsername(this.props.username)}
+                        src={getUserImageUrlByUserId(this.props.userId)}
                         circle
                         onLoad={this.imageIsAvailable}
                     />

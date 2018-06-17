@@ -36,7 +36,7 @@ export function* uploadUserSettingsProfileImage(action) {
     yield put(actions.setUserSettingsDataState("profileImageSuccess", false))
     const profileImage = document.getElementById("profileImage").files[0]
     const formData = new FormData();
-    formData.append('file', profileImage);
+    formData.append('profile_picture', profileImage);
 
     const config = {
         onUploadProgress: function (progressEvent) {
