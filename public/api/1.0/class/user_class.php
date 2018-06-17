@@ -111,12 +111,13 @@ class User {
         $database = CalendarDatabase::getStd();
         $sql = $database->prepare(
             "UPDATE User SET " .
-                "first_name=?, last_name=?, " .
+                "user_name=?, first_name=?, last_name=?, " .
                 "mail=? WHERE user_id=?"
         );
 
         $sql->bind_param(
-            "ssss",
+            "sssss",
+            $this->user_name,
             $this->first_name,
             $this->last_name,
             $this->mail,
