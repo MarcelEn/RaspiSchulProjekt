@@ -39,12 +39,15 @@ import {
 } from './container/ManageCalendar/middleware';
 
 import { 
-    handleCalendarviewDeletion
+    handleCalendarviewDeletion,
+    fetchAppointmentsOfAcitveCalendarsForThisWeek
 } from './container/CalendarView/middleware';
 
 import { 
     applyInitToEditAppointment,
-    submitEditAppointmentData
+    submitEditAppointmentData,
+    setEditAppointmentInputField,
+    toggleEditAppointmentConflictFilterWhitelist
 } from './container/EditAppointment/middleware';
 
 import {
@@ -74,10 +77,13 @@ function* mySaga() {
     //EditAppointment
     yield takeLatest(actionNames.TOGGLE_CALENDARVIEW_DETAILED_APPOINTMENT_ID, applyInitToEditAppointment)
     yield takeLatest(actionNames.SUBMIT_EDIT_APPOINTMENT_DATA, submitEditAppointmentData)
+    yield takeLatest(actionNames.SET_EDIT_APPOINTMENT_INPUT_FIELD, setEditAppointmentInputField)
+    yield takeLatest(actionNames.TOGGLE_EDIT_APPOINTMENT_CONFLICT_FILTER_WHITELIST, toggleEditAppointmentConflictFilterWhitelist)
+    
 
     //CalendarView
     yield takeLatest(actionNames.HANDLE_CALENDARVIEW_DELETION, handleCalendarviewDeletion)
-
+    yield takeLatest(actionNames.SET_CALENDARVIEW_DATE_OF_MONDAY, fetchAppointmentsOfAcitveCalendarsForThisWeek)
     //ManageCalendar
     yield takeLatest(actionNames.SAVE_MANAGE_CALENDAR_EDITING, saveManageCalendarEditing)
     yield takeLatest(actionNames.DELETE_MANAGE_CALENDAR_EDITING, deleteManageCalendarEditing)

@@ -16,6 +16,7 @@ import {
 import {
     selectEditAppointmentUi
 } from '../../globalFunctions';
+import { fetchAppointmentsOfAcitveCalendarsForThisWeek } from '../CalendarView/middleware';
 
 export function* applyInitToEditAppointment(action) {
     let editingAppointmentData;
@@ -61,4 +62,37 @@ export function* submitEditAppointmentData(action) {
         }
     }
     yield put(actions.setEditAppointmentLoading(false));
+}
+
+export function* setEditAppointmentInputField(action) {
+    if (action.payload.name === "start") {
+        const start = action.payload.value;
+        const end = (yield select(selectEditAppointmentUi)).appointment.end;
+
+        if (end > start) {
+            yield fetchAppointmentsOfAcitveCalendarsForThisWeek({ payload: { start, end } })
+        }
+
+    }
+    if (action.payload.name === "end") {
+        const start = (yield select(selectEditAppointmentUi)).appointment.start;
+        const end = action.payload.value;
+
+        if (end > start) {
+            yield fetchAppointmentsOfAcitveCalendarsForThisWeek({ payload: { start, end } })
+        }
+    }
+}
+
+export function* toggleEditAppointmentConflictFilterWhitelist(action) {
+    const ui = yield select(selectEditAppointmentUi);
+    if (ui.conflictFilterWhitelist.find(id => id === action.payload)) {
+        yield fetchAppointmentsOfAcitveCalendarsForThisWeek({
+            payload: {
+                start: ui.appointment.start,
+                end: ui.appointment.end,
+                activeCalendars: [action.payload]
+            }
+        })
+    }
 }

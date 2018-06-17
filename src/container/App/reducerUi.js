@@ -4,7 +4,8 @@ import {
 
 export default (state = {
     popupId: null,
-    showPopup: false
+    showPopup: false,
+    allowNotifications: false
 }, action) => {
     switch (action.type) {
         case actionNames.CLOSE_POPUP:
@@ -17,6 +18,11 @@ export default (state = {
                 ...state,
                 popupId: action.payload,
                 showPopup: true
+            }
+        case actionNames.ALLOW_NOTIFICATIONS:
+            return {
+                ...state,
+                allowNotifications: true
             }
         default:
             return state;

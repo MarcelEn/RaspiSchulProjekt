@@ -19,6 +19,8 @@ export const appointmentInit = {
 
 export const millisecondsOfDay = 1000 * 60 * 60 * 24;
 
+export const millisecondsOfWeek = millisecondsOfDay * 7;
+
 export const popupId = {
     ADD_CALENDAR: 'ADD_CALENDAR',
     MANAGE_CALENDAR: 'MANAGE_CALENDAR',

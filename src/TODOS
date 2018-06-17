@@ -21,6 +21,14 @@ appointment refacoring is false => start and end is 0 (backend) - done
 uncaught at i Error: t.payload.filter is not a function - done
 UserSettings username .... request 404 (backend) - done
 searching username (example on blur in registration) response with 500 (backend) - done
+cant add appointment to others calendar (backend) - done
+delete calendar response with 500 (backend) - done
+calendar loading init => does not fetch all appointments (doch schon aber nur die aktiven)
+    -> no response statuscode 200 - done
+in general: convert all ids to strings - done 
+not reproduceable => search calendar (userSetting changed something => add calendar => search user) => fetching loop - done
+fetch all appointments on init - done
+after creating an calendar the calendar is not selectable in filtering in create appointment - done
 
 
 main
@@ -48,21 +56,19 @@ validate datatypes of responses and clien -> most important ids! (appointment ar
 add remove profileImage
 
 
-fetch all appointments on init
-updating appointments response with 201 but does not affect the database (frontend schwul)
 
 //wedding:
-in general: convert all ids to strings
-calendar loading init => does not fetch all appointments (doch schon aber nur die aktiven)
-    -> no response statuscode 200
 
-not reproduceable => search calendar (userSetting changed something => add calendar => search user) => fetching loop
++----------------+---------------------+---------------------+-------------+-------------------+-------------------------+
+| appointment_id | start               | end                 | calendar_id | appointment_title | appointment_description |
++----------------+---------------------+---------------------+-------------+-------------------+-------------------------+
+|              3 | 2018-06-17 00:00:00 | 2018-06-17 03:00:00 |           3 | Hallo             |                         |
+|              4 | 2018-06-15 00:00:00 | 2018-06-17 00:00:00 |           3 | hguhuh            |                         |
+|              5 | 2018-06-25 00:00:00 | 2018-06-25 07:00:00 |           3 | fdsafasdf         |                         |
++----------------+---------------------+---------------------+-------------+-------------------+-------------------------+
 
-
-
-
-delete calendar response with 500 (backend)
+however is there an appointment with same start and end
 
 search calendar search_string only does not work (backend)
 
-cant add appointment to others calendar (backend)
+updating appointments response with 201 but does not affect the database (frontend schwul) ? put und post problem nochmal zusammen anschauen

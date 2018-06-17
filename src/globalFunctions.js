@@ -2,6 +2,11 @@ import moment from 'moment';
 import {
     millisecondsOfDay
 } from './constants';
+import {
+    put,
+    call
+} from 'redux-saga/effects';
+import { actions } from './actions';
 const alphabet = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' '
 ]
@@ -80,11 +85,15 @@ export const selectEditingCalendar = store => store.ui.manageCalendarUi.editingC
 
 export const selectActiveCalendar = store => store.ui.mainUi.activeCalendars
 
+export const selectConflictFilterWhitelist = store => store.ui.editAppointmentUi.conflictFilterWhitelist
+
 export const selectDetailedAppointmentId = store => store.ui.calendarViewUi.detailedAppointmentId
 
 export const selectConfirmDeletion = store => store.ui.calendarViewUi.confirmDeletion
 
 export const getTodayInMilliseconds = () => moment(moment().format("YYYY-MM-DD")).valueOf()
+
+export const selectDateOfMonday = store => store.ui.calendarViewUi.dateOfMonday
 
 
 
@@ -170,4 +179,16 @@ export const getCalendarFilter = () => {
 }
 export const setCalendarFilter = array => {
     localStorage.setItem('calendarFilter', JSON.stringify(array))
+}
+
+export const getNotificationPrevilegues = function* () {
+    try {
+        const answer = yield call(() => Notification.requestPermission())
+        if (answer === "granted") {
+            yield put(actions.allowNotifications())
+        }
+
+    } catch (error) {
+
+    }
 }

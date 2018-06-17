@@ -29,7 +29,7 @@ export function* submitCreateCalendar(action) {
         }))
         yield put(actions.addCalendarData([{
             ...calendarData,
-            calendar_id: response.data,
+            calendar_id: response.data + "",
             owner_id
         }]))
         yield put(actions.setCreateCalendarDataState("success", true))

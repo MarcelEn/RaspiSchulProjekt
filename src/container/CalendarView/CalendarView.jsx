@@ -30,7 +30,20 @@ class CalendarView extends Component {
         this.getAppointmentsFilteredByCalendarIds = this.getAppointmentsFilteredByCalendarIds.bind(this);
         this.filterForThisDay = this.filterForThisDay.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.checkForNotifications = this.checkForNotifications.bind(this);
 
+        if (props.allowNotifications) {
+            const m = moment();
+            const millisecondsToNextMinute = 59500 - (m.valueOf() - (moment(m.format("YYYY-MM-DD HH:mm:00")).valueOf()))
+            const that = this;
+
+            setTimeout(() => {
+                setInterval(() => {
+                    that.checkForNotifications();
+                    that.forceUpdate();
+                }, 1000)
+            }, millisecondsToNextMinute)
+        }
     }
     getAppointmentsFilteredByCalendarIds() {
         return this.props.appointmentData
@@ -48,12 +61,38 @@ class CalendarView extends Component {
 
         return appointments.filter(
             appointment =>
+                moment(start).isBetween(appointment.start, appointment.end) ||
+                moment(end).isBetween(appointment.start, appointment.end) ||
                 moment(appointment.start).isBetween(start, end) ||
                 moment(appointment.end).isBetween(start, end)
         )
+            .map(
+                appointment => {
+                    let a = { ...appointment }
+                    if (appointment.start < start)
+                        a.start = start;
+                    if (appointment.end > end)
+                        a.end = end;
+
+                    return a;
+                }
+            )
     }
     handleClose() {
         this.props.toggleCalendarviewDetailedAppointmentId(null);
+    }
+    checkForNotifications() {
+        const now = moment().add(15, "minutes").format("YYYY-MM-DD HH:mm:ss");
+        this.getAppointmentsFilteredByCalendarIds()
+            .forEach(
+                appointment => {
+                    if (moment(appointment.start).format("YYYY-MM-DD HH:mm:00") === now)
+                        new Notification(appointment.appointment_title, {
+                            body: "startet in 15 Minuten",
+                            icon: "favicon.png"
+                        })
+                }
+            )
     }
     render() {
         return (
@@ -112,6 +151,7 @@ class CalendarView extends Component {
 
 function mapStateToProps(state) {
     return {
+        allowNotifications: state.ui.appUi.allowNotifications,
         appointmentData: state.data.appData.appointmentData,
         activeCalendars: state.ui.mainUi.activeCalendars,
         ...state.ui.calendarViewUi,
