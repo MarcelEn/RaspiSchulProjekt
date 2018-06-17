@@ -9,7 +9,7 @@ $app->get('/rest/calendar/saved', function ($requ, $resp, $args) {
         return $resp->withStatus(UNAUTHORIZED);
     }
     $uid = Token::getUID();
-    $array = SavedCalendar::get($uid);
+    $array = SavedCalendar::byUser($uid);
     $json = arrayToJSON($array);
     $resp->getBody()->write($json);
     return $resp;
@@ -19,7 +19,7 @@ $app->post('/rest/calendar/saved/{id}', function ($requ, $resp, $args) {
     if (!Token::validate()) {
         return $resp->withStatus(UNAUTHORIZED);
     }
-    $calendar = CalendarModel::get($args['id']);
+    $calendar = CalendarModel::byId($args['id']);
     if (Token::validateUser($calendar->owner_id)) {
         return $resp->withStatus(FORBIDDEN);
     }

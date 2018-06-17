@@ -10,7 +10,7 @@ $app->get('/rest/user/{id}', function ($request, $response, $args) {
     }
 
     $uid = $args['id'];
-    $user = User::get($uid);
+    $user = User::byId($uid);
 
     if (is_null($user)) {
         $errorString = "The requested user with the id $uid does not exist";
@@ -29,7 +29,7 @@ $app->put('/rest/user', function($request, $response, $args) {
     }
 
     $user = User::byArray($request->getParsedBody());
-    $oldUser = User::get($user->user_id);
+    $oldUser = User::byId($user->user_id);
 
     $uid = $user->user_id;
     if (!Token::validateUser($uid)) {
@@ -37,7 +37,7 @@ $app->put('/rest/user', function($request, $response, $args) {
         $response->getBody()->write($errorString);
         return $response->withStatus(FORBIDDEN);
     }
-    $id = $user->put();
+    $id = $user->update();
     if(is_null($id)) {
         $errorString = "username already exsits";
         $response->getBody()->write($errorString);
@@ -60,7 +60,7 @@ $app->delete('/rest/user/{id}', function ($request, $response, $args) {
     }
 
     $uid = $args['id'];
-    $user = User::get($uid);
+    $user = User::byId($uid);
 
     if (is_null($user)){
         $errorString = "The user with the id $uid does not exist";
@@ -84,7 +84,7 @@ $app->get('/rest/user', function ($request, $response, $args) {
     }
 
     $userName = $request->getQueryParam('name', null);
-    $usersByName = USER::getByName($userName);
+    $usersByName = USER::search($userName);
     $userJson = arrayToJSON($usersByName);
 
     return $response->getBody()->write($userJson);

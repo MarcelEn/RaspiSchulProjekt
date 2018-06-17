@@ -10,7 +10,7 @@ $app->get('/rest/calendar/{id}', function ($requ, $resp, $args) {
         return $resp->withStatus(UNAUTHORITED);
     }
 
-    $cal = CalendarModel::get($args["id"]);
+    $cal = CalendarModel::byId($args["id"]);
 
     if (is_null($cal)) {
         return $resp->withStatus(NOT_FOUND);
@@ -33,7 +33,7 @@ $app->post('/rest/calendar', function ($requ, $resp, $args) {
         return $resp->withStatus(FORBIDDEN);
     }
 
-    $id = $cal->post();
+    $id = $cal->create();
 
     if (is_null($id)) {
         return $resp->withStatus(500);
@@ -50,7 +50,7 @@ $app->put('/rest/calendar', function ($requ, $resp, $args) {
     }
 
     $cal = CalendarModel::byArray($requ->getParsedBody());
-    $cal_old = CalendarModel::get($cal->calendar_id);
+    $cal_old = CalendarModel::byId($cal->calendar_id);
 
     if (!is_null($cal_old) && $cal->owner_id != $cal_old->owner_id) {
       return $resp->withStatus(FORBIDDEN);
@@ -65,7 +65,7 @@ $app->put('/rest/calendar', function ($requ, $resp, $args) {
       return $resp->withStatus(FORBIDDEN);
     }
 
-    $id = $cal->put();
+    $id = $cal->update();
     $resp->getBody()->write($id);
 
     return $resp->withStatus(CREATED);
@@ -76,7 +76,7 @@ $app->delete('/rest/calendar/{id}', function ($requ, $resp, $args) {
       return $resp->withStatus(UNAUTORIZED);
     }
 
-    $cal = CalendarModel::get($args['id']);
+    $cal = CalendarModel::byId($args['id']);
 
     if (is_null($cal)) {
       return $resp->withStatus(NOT_FOUND);
@@ -100,7 +100,7 @@ $app->get('/rest/calendar', function ($requ, $resp, $args) {
 
     $user = $requ->getQueryParam("user_id", null);
     $search = $requ->getQueryParam("search_string", "");
-    $array = CalendarModel::getByUserAndSearch($user, $search);
+    $array = CalendarModel::search($user, $search);
 
     $resultArray = array();
     foreach ($array as $calendar) {

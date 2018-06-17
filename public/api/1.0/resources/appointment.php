@@ -15,7 +15,7 @@ $app->get('/rest/appointment/{id}', function ($requ, $resp, $args) {
         return $resp->withStatus(NOT_FOUND);
     }
 
-    $cal = CalendarModel::get($app->calendar_id);
+    $cal = CalendarModel::byId($app->calendar_id);
     $owner = $cal->owner_id;
     $vis = $cal->visibility;
 
@@ -40,14 +40,14 @@ $app->post('/rest/appointment', function ($requ, $resp, $args) {
         return $resp->withStatus(400);
     }
 
-    $cal = CalendarModel::get($app->calendar_id);
+    $cal = CalendarModel::byId($app->calendar_id);
     $owner = $cal->owner_id;
 
     if (!Token::validateUser($owner) && $cal->visibility < V_PUBLIC) {
         return $resp->withStatus(FORBIDDEN);
     }
 
-    $id = $app->post();
+    $id = $app->create();
     $resp->getBody()->write($id);
 
     return $resp->withStatus(CREATED);
@@ -59,10 +59,10 @@ $app->put('/rest/appointment', function ($requ, $resp, $args) {
     }
 
     $app = CalendarModel::byArray($requ->getParsedBody());
-    $app_old = CalendarModel::get($cal->calendar_id);
+    $app_old = CalendarModel::byId($cal->calendar_id);
     $calId = $app->calendar_id;
 
-    $cal = CalendarModel::get($calId);
+    $cal = CalendarModel::byId($calId);
     $owner = $cal->owner_id;
     $vis = $cal->visibility;
 
@@ -72,7 +72,7 @@ $app->put('/rest/appointment', function ($requ, $resp, $args) {
         return $resp->withStatus(FORBIDDEN);
     }
 
-    $id = $app->put();
+    $id = $app->update();
     $resp->getBody()->write($id);
 
     return $resp->withStatus(CREATED);
@@ -83,13 +83,13 @@ $app->delete('/rest/appointment/{id}', function ($requ, $resp, $args) {
         return $resp->withStatus(UNAUTHORIZED);
     }
 
-    $app = Appointment::get($args['id']);
+    $app = Appointment::byId($args['id']);
 
     if (is_null($app)) {
         return $resp->withStatus(NOT_FOUND);
     }
 
-    $cal = CalendarModel::get($app->calendar_id);
+    $cal = CalendarModel::byId($app->calendar_id);
 
     if (is_null($cal)) {
         return $resp->withStatus(NOT_FOUND);
@@ -114,7 +114,7 @@ $app->get('/rest/appointment', function ($requ, $resp, $args) {
     $after = $requ->getQueryParam('after', NULL);
     $before = $requ->getQueryParam('before', NULL);
     $calId = $requ->getQueryParam('calendar_id', NULL);
-    $cal = CalendarModel::get($calId);
+    $cal = CalendarModel::byId($calId);
 
     if (is_null($cal)) {
         return $resp->getBody()->write(arrayToJSON(array()));
@@ -127,7 +127,7 @@ $app->get('/rest/appointment', function ($requ, $resp, $args) {
         return $resp->withStatus(FORBIDDEN);
     }
     $json = arrayToJSON(
-        Appointment::searchAppointments($after, $before, $calId)
+        Appointment::search($after, $before, $calId)
     );
     return $resp->getBody()->write($json);
 });

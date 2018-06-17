@@ -10,7 +10,7 @@ $app->put('/authentification/register', function ($requ, $resp, $args) {
     $array['user_id'] = -1;
     $user = USER::byArray($array);
     $user->hashPassword();
-    $user_id = $user->post();
+    $user_id = $user->create();
     if (is_null($user_id)) {
         return $resp->withStatus(400);
     }
@@ -20,7 +20,7 @@ $app->put('/authentification/register', function ($requ, $resp, $args) {
 });
 
 $app->get('/authentification/username/{name}', function ($requ, $resp, $args) {
-    $userInDatabase = User::getByExactName($args['name']);
+    $userInDatabase = User::byName($args['name']);
     if(!is_null($userInDatabase)) {
         return $resp->withStatus(200);
     }
@@ -29,7 +29,7 @@ $app->get('/authentification/username/{name}', function ($requ, $resp, $args) {
 
 $app->post('/authentification/login', function ($requ, $resp, $args) {
     $loginData = $requ->getParsedBody();
-    $user = User::getByExactName($loginData['user_name']);
+    $user = User::byName($loginData['user_name']);
     if(is_null($user)) {
         return $resp->withStatus(404);
     }
@@ -54,7 +54,7 @@ $app->delete('/authentification/logout', function ($requ, $resp, $args) {
 $app->post('/authentification/password', function ($requ, $resp, $args) {
     $data = $requ->getParsedBody();
     $user_id = Token::getUID();
-    $user = User::get($user_id);
+    $user = User::byId($user_id);
     if(is_null($user)) {
         return $resp->withStatus(400);
     }
