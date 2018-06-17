@@ -15,18 +15,9 @@ import axios from 'axios';
 import {
     selectUserId,
     selectActiveCalendar,
-    setCalendarFilter
+    setCalendarFilter,
+    selectDateOfMonday
 } from '../../globalFunctions';
-
-const createMultipleRequests = requests => () => new Promise(
-    (resolve, reject) => {
-        axios.all(requests)
-            .then((...responses) => resolve(responses))
-            .catch(e => {
-                reject(e)
-            })
-    }
-)
 
 export function* validateAppToken(action) {
 
@@ -64,43 +55,31 @@ export function* fetchUserDataById(action) {
         for (let i = 0; i < response[0].length; i++) {
             yield put(actions.addUserData(response[0][i].data))
         }
-    } catch (error) {}
+    } catch (error) { }
 }
+
 
 export function* fetchRemoteDataInit(action) {
     yield put(actions.setFirstInitIsDone());
 
     //TODO: make this calls paralel
-    yield(function* () {
+    yield (function* () {
         try {
             const savedCalendarsResponse = yield call(API.fetchSavedCalendars)
             yield put(actions.addCalendarData(savedCalendarsResponse.data))
             yield put(actions.updateSavedCalendars(
                 savedCalendarsResponse.data.map(calendar => calendar.calendar_id + "")
             ))
-        } catch (error) {}
+        } catch (error) { }
     })();
 
-    yield(function* () {
+    yield (function* () {
         try {
             const userId = yield select(selectUserId);
             const calendarsResponse = yield call(API.sendAddCalendarSearch('', userId));
             yield put(actions.addCalendarData(calendarsResponse.data));
-        } catch (error) {}
+        } catch (error) { }
     })();
 
-    yield(function* () {
-        try {
-            const activeCalendars = yield select(selectActiveCalendar);
-            const responses = yield call(
-                createMultipleRequests(
-                    activeCalendars
-                    .map(calendarId => API.searchAppointmentsByCalendarId(calendarId, 0, new Date().valueOf() * 2))
-                )
-            )
-            for (let i = 0; i < responses[0].length; i++) {
-                yield put(actions.addAppointmentData(responses[0][i].data))
-            }
-        } catch (error) {}
-    })();
+    yield put(actions.setCalendarViewDateOfMonday(new Date().valueOf()));
 }

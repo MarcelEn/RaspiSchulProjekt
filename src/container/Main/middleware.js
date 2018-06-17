@@ -1,5 +1,6 @@
 import {
-    put
+    put,
+    select
 } from 'redux-saga/effects';
 import {
     actions
@@ -7,10 +8,12 @@ import {
 
 import {
     getCalendarFilter,
-    setCalendarFilter
+    setCalendarFilter,
+    selectDateOfMonday
 } from '../../globalFunctions';
 
 import API from './../../apiConnector';
+import { millisecondsOfWeek } from '../../constants';
 
 export function* toggleMainCalendarFilter(action) {
     let currentCalendarFilter = getCalendarFilter();
@@ -25,7 +28,8 @@ export function* toggleMainCalendarFilter(action) {
     }
 
     if(fetch){
-        const response = yield API.searchAppointmentsByCalendarId(action.payload, 0, new Date().valueOf() * 2)
+        const mondayOfThisWeek = yield select(selectDateOfMonday)
+        const response = yield API.searchAppointmentsByCalendarId(action.payload, mondayOfThisWeek, mondayOfThisWeek + millisecondsOfWeek)
         yield put(actions.addAppointmentData(response.data))
     }
 
