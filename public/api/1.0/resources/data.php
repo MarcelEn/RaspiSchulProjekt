@@ -54,7 +54,7 @@ $app->delete('/data/profile_picture', function (
     if ($success) {
         return $response->withStatus(NO_CONTENT);
     }
-    return $respons->withStatus(500);
+    return $response->withStatus(500);
 
 });
 ?>
