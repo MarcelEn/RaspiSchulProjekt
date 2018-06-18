@@ -13,7 +13,7 @@ const apiPaths = {
     sendLoginData: path.resolve(apiPrefix, version, 'authentification', 'login'),
     sendLogout: path.resolve(apiPrefix, version, 'authentification', 'logout'),
     searchUsername: username => path.resolve(apiPrefix, version, 'authentification', 'username', username),
-    searchUserByUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?user_name=' + username),
+    searchUserByUsername: username => path.resolve(apiPrefix, version, 'rest', 'user?name=' + username),
     getUser: userId => path.resolve(apiPrefix, version, 'rest', 'user', userId),
     //TODO: This path is wrong
     userData: path.resolve(apiPrefix, version, 'rest', 'user'),
@@ -72,21 +72,28 @@ export default {
     deleteCalendar: calendarId => (
         () => axios.delete(apiPaths.deleteCalendar(calendarId))
     ),
-    fetchUserDataById: userId => () => parser(new Promise(
+    fetchUserDataById: userId => () => new Promise(
         (resolve, reject) => {
             return axios.all(
-                userId.map(
-                    id => axios.get(apiPaths.getUser(id))
+                    userId.map(
+                        id => axios.get(apiPaths.getUser(id))
+                    )
                 )
-            )
                 .then((...responses) => {
-                    resolve(responses)
+                    console.log(responses)
+                    resolve(responses[0].map(
+                        response => ({
+                            ...response,
+                            data: responseParser(response.data)
+                        })
+                    ))
                 })
                 .catch(e => {
+                    console.log(e)
                     reject(e);
                 })
         }
-    )),
+    ),
     fetchSavedCalendars: () => parser(axios.get(apiPaths.fetchSavedCalendars)),
     whoAmI: () => parser(axios.get(apiPaths.whoAmI)),
     deleteSavedCalendar: calendarId => () => axios.delete(apiPaths.addOrRemoveSavedCalendar(calendarId)),

@@ -50,10 +50,10 @@ export function* sendLogout(action) {
 export function* fetchUserDataById(action) {
     try {
         const response = yield call(API.fetchUserDataById(action.payload));
-        for (let i = 0; i < response[0].length; i++) {
-            yield put(actions.addUserData(response[0][i].data))
+        for (let i = 0; i < response.length; i++) {
+            yield put(actions.addUserData(response[i].data))
         }
-    } catch (error) { }
+    } catch (error) { console.log(error)}
 }
 
 

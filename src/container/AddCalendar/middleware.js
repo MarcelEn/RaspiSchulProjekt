@@ -24,9 +24,8 @@ export function* sendAddCalendarSearch(action) {
 
     yield put(actions.applyAddCalendarResponse([]))
 
-
     try {
-        let userId = userData.find(user => user.user_name === action.payload.username);
+        let userId = userData.find(user => user.user_name.toUpperCase() === action.payload.username.toUpperCase());
 
         if (!userId) {
             userId = ''
@@ -41,14 +40,20 @@ export function* sendAddCalendarSearch(action) {
             for (let i = 0; i < userSearchResponse.data.length; i++) {
                 yield put(actions.addUserData(userSearchResponse.data[i]))
             }
-
-            userId = userSearchResponse.data.find(user => user.user_name === action.payload.username).user_id;
+            let user = userSearchResponse.data.find(user => user.user_name.toUpperCase() === action.payload.username.toUpperCase());
+            if(!user){
+                yield put(actions.applyAddCalendarResponse([]))
+                yield put(actions.setAddCalendarLoading(false));
+                return;        
+            }
+            userId = user.user_id;
         }
         const response = yield call(API.sendAddCalendarSearch(action.payload.titleOrId, userId))
         yield put(actions.addCalendarData(response.data))
         yield put(actions.applyAddCalendarResponse(response.data.map(calendar => calendar.calendar_id)))
 
     } catch (error) {
+        console.log(error)
         yield put(actions.setAddCalendarError(true))
 
     }
