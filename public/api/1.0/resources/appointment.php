@@ -55,9 +55,9 @@ $app->post('/rest/appointment', function (
         return $resp->withStatus(FORBIDDEN);
     }
 
-    $id = $app->create();
-    $resp->getBody()->write($id);
-    return $resp->withStatus(CREATED);
+    $id = $appointment->create();
+    $response->getBody()->write($id);
+    return $response->withStatus(CREATED);
 });
 
 $app->put('/rest/appointment', function (
