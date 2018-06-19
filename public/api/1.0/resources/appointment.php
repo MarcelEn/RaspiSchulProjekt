@@ -69,8 +69,8 @@ $app->put('/rest/appointment', function (
         return $response->withStatus(UNAUTHORIZED);
     }
 
-    $appointment = CalendarModel::byArray($request->getParsedBody());
-    $oldAppointment = CalendarModel::byId($calendar->calendar_id);
+    $appointment = Appointment::byArray($request->getParsedBody());
+    $oldAppointment = Appointment::byId($appointment->appointment_id);
     $calendar = CalendarModel::byId($appointment->calendar_id);
 
     if (
