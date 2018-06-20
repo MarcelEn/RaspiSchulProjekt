@@ -50,7 +50,7 @@ const reomveCorruptedCharacters = str => {
 
 export function* downloadCalendar(action) {
     const calendar = (yield select(selectCalendarData)).find(calendar => calendar.calendar_id === action.payload)
-    const appointments = yield call(() => API.searchAppointmentsByCalendarId(calendar.calendar_id, 0, new Date().valueOf() * 2));
+    const appointments = yield call(() => API.searchAppointmentsByCalendarId(calendar.calendar_id, 0, 1835431907990));
 
     let csvData = "Eigentümer;Sichtbarkeit;Titel;Beschreibung\n";
 
