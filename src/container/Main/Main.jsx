@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Col, Button } from 'react-bootstrap';
+import { Col, Button, Glyphicon } from 'react-bootstrap';
 import Calendar from 'react-calendar';
 
 import style from './style_module.css';
@@ -51,52 +51,76 @@ class Main extends Component {
                         <h3>Kalender</h3>
                         {
                             this.filterOwnCalendar().map((calendar, index) =>
-                                <Button
-                                    key={'ownCalendarFilter-' + index}
-                                    className={style.large + ' ' + style.marginBottom}
-                                    bsStyle={this.isCalendarActive(calendar.calendar_id) ? 'success' : 'default'}
-                                    onClick={this.handleFilterToggle}
-                                    value={calendar.calendar_id}
-                                >
-                                    {calendar.calendar_title}
-                                </Button>
+                                <div key={'ownCalendarFilter-' + index}>
+                                    <Button
+                                        className={style.large + ' ' + style.marginBottom}
+                                        bsStyle={this.isCalendarActive(calendar.calendar_id) ? 'success' : 'default'}
+                                        onClick={this.handleFilterToggle}
+                                        value={calendar.calendar_id}
+                                    >
+                                        {calendar.calendar_title}
+                                    </Button>
+                                    {' '}
+                                    <Glyphicon
+                                        className={style.downloadIcon}
+                                        glyph="download"
+                                        onClick={() => this.props.downloadCalendar(calendar.calendar_id)}
+                                    />
+                                </div>
                             )
                         }
                         <hr />
                         {
                             this.filterOthersCalendar().map((calendar, index) =>
-                                <Button
-                                    key={'othersCalendarFilter-' + index}
-                                    className={style.large + ' ' + style.marginBottom}
-                                    bsStyle={this.isCalendarActive(calendar.calendar_id) ? 'success' : 'default'}
-                                    onClick={this.handleFilterToggle}
-                                    value={calendar.calendar_id}
-                                >
-                                    {calendar.calendar_title}
-                                </Button>
+                                <div key={'othersCalendarFilter-' + index}>
+                                    <Button
+                                        className={style.large + ' ' + style.marginBottom}
+                                        bsStyle={this.isCalendarActive(calendar.calendar_id) ? 'success' : 'default'}
+                                        onClick={this.handleFilterToggle}
+                                        value={calendar.calendar_id}
+                                    >
+                                        {calendar.calendar_title}
+                                    </Button>
+                                    {' '}
+                                    <Glyphicon
+                                        className={style.downloadIcon}
+                                        glyph="download"
+                                        onClick={() => this.props.downloadCalendar(calendar.calendar_id)}
+                                    />
+                                </div>
                             )
                         }
+                        <hr />
+                        <Button
+                            bsStyle="primary"
+                            className={style.large + ' ' + style.downloadIcon}
+                            onClick={this.props.uploadCalendar}
+                        >
+                            <Glyphicon
+                                glyph="upload"
+                            />
+                        </Button>
                         <hr />
                         <Button
                             className={style.large + ' ' + style.marginBottom}
                             bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.MANAGE_CALENDAR) }}
                         >
-                            bearbeiten
+                            Bearbeiten
                         </Button>
                         <Button
                             className={style.large + ' ' + style.marginBottom}
                             bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.CREATE_CALENDAR) }}
                         >
-                            erstellen
+                            Erstellen
                         </Button>
                         <Button
                             className={style.large}
                             bsStyle="primary"
                             onClick={() => { this.props.setPopupId(popupId.ADD_CALENDAR) }}
                         >
-                            suchen
+                            Suchen
                         </Button>
                         <hr />
                         <Button
@@ -154,7 +178,9 @@ function mapDispatchToProps(dispatch) {
         toggleMainCalendarFilter: calendarId => { dispatch(actions.toggleMainCalendarFilter(calendarId)) },
         setCalendarViewDateOfMonday: day => { dispatch(actions.setCalendarViewDateOfMonday(day)) },
         initNewEditAppointment: () => { dispatch(actions.setEditAppointmentAppointmentData(appointmentInit)) },
-        sendLogout: () => { dispatch(actions.sendLogout()) }
+        downloadCalendar: calendarId => { dispatch(actions.downloadCalendar(calendarId)) },
+        sendLogout: () => { dispatch(actions.sendLogout()) },
+        uploadCalendar: () => { dispatch(actions.uploadCalendar()) }
     }
 }
 

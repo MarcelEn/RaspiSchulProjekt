@@ -30,7 +30,7 @@ import {
 } from './container/App/middleware';
 
 import {
-    toggleMainCalendarFilter
+    toggleMainCalendarFilter, downloadCalendar, uploadCalendar
 } from './container/Main/middleware';
 
 import { 
@@ -90,6 +90,8 @@ function* mySaga() {
 
     //Main
     yield takeLatest(actionNames.TOGGLE_MAIN_CALENDAR_FILTER, toggleMainCalendarFilter)
+    yield takeLatest(actionNames.DOWNLOAD_CALENDAR, downloadCalendar)
+    yield takeLatest(actionNames.UPLOAD_CALENDAR, uploadCalendar)
 
     //AddCalendar
     yield takeLatest(actionNames.SEND_ADD_CALENDAR_SEARCH, sendAddCalendarSearch);
